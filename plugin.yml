@@ -1,0 +1,8 @@
+name: Default
+main: org.mswsplex.def.msws
+version: 1.0
+description: Default Plugin Outline
+commands:
+   command1:
+      usage: /<command>
+      description: foo
