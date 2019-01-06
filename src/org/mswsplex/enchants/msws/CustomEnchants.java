@@ -14,7 +14,9 @@ import org.mswsplex.enchants.checkers.ExplosiveCheck;
 import org.mswsplex.enchants.checkers.FreezeCheck;
 import org.mswsplex.enchants.checkers.NightshadeCheck;
 import org.mswsplex.enchants.checkers.PoisonPointCheck;
+import org.mswsplex.enchants.checkers.RageCheck;
 import org.mswsplex.enchants.checkers.ReviveCheck;
+import org.mswsplex.enchants.checkers.SeveredCheck;
 import org.mswsplex.enchants.checkers.StormbreakerCheck;
 import org.mswsplex.enchants.checkers.StunCheck;
 import org.mswsplex.enchants.checkers.SummonerCheck;
@@ -22,15 +24,19 @@ import org.mswsplex.enchants.checkers.ToxicShotCheck;
 import org.mswsplex.enchants.checkers.WitherPointCheck;
 import org.mswsplex.enchants.checkers.WitherShotCheck;
 import org.mswsplex.enchants.commands.AddEnchantmentCommand;
+import org.mswsplex.enchants.commands.EnchanterCommand;
 import org.mswsplex.enchants.commands.TokenCommand;
 import org.mswsplex.enchants.enchants.EnchantmentManager;
+import org.mswsplex.enchants.listeners.ShopListener;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class CustomEnchants extends JavaPlugin {
-	public FileConfiguration config, data, lang, gui;
+	public FileConfiguration config, data, lang, gui, enchantCosts;
 	public File configYml = new File(getDataFolder(), "config.yml"), dataYml = new File(getDataFolder(), "data.yml"),
-			langYml = new File(getDataFolder(), "lang.yml"), guiYml = new File(getDataFolder(), "guis.yml");
+			langYml = new File(getDataFolder(), "lang.yml"), guiYml = new File(getDataFolder(), "guis.yml"),
+			enchantCostsYml = new File(getDataFolder(), "enchantCosts.yml");
 
 	private EnchantmentManager eManager;
 
@@ -42,18 +48,24 @@ public class CustomEnchants extends JavaPlugin {
 			saveResource("lang.yml", true);
 		if (!guiYml.exists())
 			saveResource("guis.yml", true);
+		if (!enchantCostsYml.exists())
+			saveResource("enchantCosts.yml", true);
 		config = YamlConfiguration.loadConfiguration(configYml);
 		data = YamlConfiguration.loadConfiguration(dataYml);
 		lang = YamlConfiguration.loadConfiguration(langYml);
 		gui = YamlConfiguration.loadConfiguration(guiYml);
-
+		enchantCosts = YamlConfiguration.loadConfiguration(enchantCostsYml);
 		eManager = new EnchantmentManager(this);
 
 		MSG.plugin = this;
+		Utils.plugin = this;
 		PlayerManager.plugin = this;
-		
+
 		new AddEnchantmentCommand(this);
 		new TokenCommand(this);
+		new EnchanterCommand(this);
+
+		new ShopListener(this);
 
 		new ExplosionCheck(this);
 		new ExcavationCheck(this);
@@ -65,16 +77,20 @@ public class CustomEnchants extends JavaPlugin {
 		new StormbreakerCheck(this);
 		new NightshadeCheck(this);
 		new SummonerCheck(this);
+		new SeveredCheck(this);
 		new ExplosiveCheck(this);
 		new StunCheck(this);
 		new WitherShotCheck(this);
 		new ToxicShotCheck(this);
+		new RageCheck(this);
 
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this), 0, 5);
 
-
-
 		MSG.log("&aSuccessfully Enabled!");
+	}
+
+	public void onDisable() {
+		saveData();
 	}
 
 	public void saveData() {
@@ -93,6 +109,17 @@ public class CustomEnchants extends JavaPlugin {
 			config.save(configYml);
 		} catch (Exception e) {
 			MSG.log("&cError saving data file");
+			MSG.log("&a----------Start of Stack Trace----------");
+			e.printStackTrace();
+			MSG.log("&a----------End of Stack Trace----------");
+		}
+	}
+
+	public void saveCosts() {
+		try {
+			enchantCosts.save(enchantCostsYml);
+		} catch (Exception e) {
+			MSG.log("&cError saving file");
 			MSG.log("&a----------Start of Stack Trace----------");
 			e.printStackTrace();
 			MSG.log("&a----------End of Stack Trace----------");

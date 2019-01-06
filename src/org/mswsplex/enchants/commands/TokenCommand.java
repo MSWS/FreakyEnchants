@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class TokenCommand implements CommandExecutor, TabCompleter {
 
@@ -30,7 +31,7 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 		if (args.length == 0) {
 			MSG.sendHelp(sender, 0, "default");
 		}
-		Player target;
+		Player target = null;
 		double amo;
 		switch (args[0].toLowerCase()) {
 		case "help":
@@ -49,7 +50,7 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 			}
 			break;
 		case "give":
-			if (args.length <= 1) {
+			if (args.length < 3) {
 				MSG.tell(sender, "");
 				return true;
 			}
@@ -58,23 +59,39 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 				MSG.tell(sender, "Unknown Player");
 				return true;
 			}
-			double amo = Double.parseDouble(args[1]);
-			PlayerManager.setInfo(target, "token", PlayerManager.getDouble(target, "token") + amo);
+			amo = Double.parseDouble(args[2]);
+			PlayerManager.setInfo(target, "tokens", PlayerManager.getDouble(target, "tokens") + amo);
 			break;
 		case "set":
-			if (args.length <= 1) {
+			if (args.length < 3) {
 				MSG.tell(sender, "");
 				return true;
 			}
-			target = Bukkit.getPlayer(args[1]);
+			target = Bukkit.getPlayer(args[2]);
 			if (target == null) {
 				MSG.tell(sender, "Unknown Player");
 				return true;
 			}
-			double amo = Double.parseDouble(args[1]);
-			PlayerManager.setInfo(target, "token", PlayerManager.getDouble(target, "token") + amo);
+			amo = Double.parseDouble(args[1]);
+			PlayerManager.setInfo(target, "tokens", amo);
 			break;
 		case "shop":
+			if (sender instanceof Player) {
+				PlayerManager.setInfo((Player) sender, "openInventory", "MainMenu");
+				((Player) sender).openInventory(Utils.getGui((Player) sender, "MainMenu", 0));
+			}
+			break;
+		case "amount":
+			if (sender instanceof Player)
+				target = (Player) sender;
+			if (args.length > 1)
+				target = Bukkit.getPlayer(args[1]);
+			if (target == null) {
+				MSG.tell(sender, "");
+				return true;
+			}
+			MSG.tell(sender, MSG.getString("Token.Amount", "%player% has %amo%").replace("%player%", target.getName())
+					.replace("%amo%", PlayerManager.getDouble(target, "tokens") + ""));
 			break;
 		}
 		return true;

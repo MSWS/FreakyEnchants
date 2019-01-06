@@ -24,6 +24,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
 
 public class Utils {
@@ -230,8 +231,12 @@ public class Utils {
 		ConfigurationSection gui = section.getConfigurationSection(path);
 		ItemStack item = new ItemStack(Material.valueOf(gui.getString("Icon")));
 		List<String> lore = new ArrayList<String>();
+		String enchName = path.split("\\.")[path.split("\\.").length - 1];
 		if (gui.contains("Amount"))
 			item.setAmount(gui.getInt("Amount"));
+		if (PlayerManager.getInfo(player, enchName) != null)
+			item.setAmount((int) Math.round(PlayerManager.getDouble(player, enchName)));
+
 		if (gui.contains("Data"))
 			item.setDurability((short) gui.getInt("Data"));
 		if (gui.contains("Owner")) {
@@ -250,26 +255,7 @@ public class Utils {
 			meta.spigot().setUnbreakable(true);
 			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 		}
-		if (gui.contains("Cost")) {
-			ConfigurationSection costs = gui.getConfigurationSection("Cost");
-			lore.add("");
-			if (costs.getKeys(false).size() == 1) {
-				String id = costs.getKeys(false).toArray()[0].toString();
-				int cost = (costs.getInt(costs.getKeys(false).toArray()[0].toString()));
-				lore.add(MSG.color("&c* " + cost + " " + MSG.camelCase(id))
-						+ ((cost == 1 || id.toLowerCase().endsWith("s")) ? "" : "s"));
-			} else {
-				lore.add(MSG.color("&aCost:"));
-				for (String mat : costs.getKeys(false)) {
-					if (mat.equals("XP") || mat.equals("COINS")) {
-						lore.add(MSG.color("&c* " + costs.getInt(mat) + " " + MSG.camelCase(mat)));
-					} else {
-						lore.add(MSG.color("&c* " + costs.getInt(mat) + " " + MSG.camelCase(mat))
-								+ ((costs.getInt(mat) == 1 || mat.toLowerCase().endsWith("s")) ? "" : "s"));
-					}
-				}
-			}
-		}
+
 		if (gui.contains("Enchantments")) {
 			ConfigurationSection enchs = gui.getConfigurationSection("Enchantments");
 			for (String enchant : enchs.getKeys(false)) {
@@ -282,6 +268,19 @@ public class Utils {
 				item.addUnsafeEnchantment(Enchantment.getByName(enchant.toUpperCase()), level);
 				meta = item.getItemMeta();
 			}
+		}
+
+		if (plugin.enchantCosts.contains(enchName)) {
+			if (gui.contains("Name"))
+				meta.setDisplayName(meta.getDisplayName().replace("%level%", MSG.toRoman(item.getAmount())));
+			if (plugin.getEnchantmentManager().enchants.get(enchName).getMaxLevel() != 1) {
+				lore.add(MSG.color(""));
+				lore.add(MSG.color("&7(Right-Click to go to up to &e"
+						+ plugin.getEnchantmentManager().enchants.get(enchName).getMaxLevel() + " levels&7)"));
+			}
+			lore.add(MSG.color(""));
+			lore.add(MSG
+					.color("&a&lPrice: " + plugin.enchantCosts.getInt(enchName + "." + item.getAmount()) + " Tokens"));
 		}
 		meta.setLore(lore);
 		item.setItemMeta(meta);

@@ -4,15 +4,15 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
-public class PoisonPoint extends Enchantment {
+public class Rage extends Enchantment {
 
-	public PoisonPoint(int id) {
+	public Rage(int id) {
 		super(id);
 	}
 
 	@Override
 	public boolean canEnchantItem(ItemStack item) {
-		return item.getType().toString().contains("SWORD") || item.getType().toString().contains("AXE");
+		return item.getType().toString().contains("SWORD");
 	}
 
 	@Override
@@ -22,17 +22,17 @@ public class PoisonPoint extends Enchantment {
 
 	@Override
 	public EnchantmentTarget getItemTarget() {
-		return EnchantmentTarget.TOOL;
+		return EnchantmentTarget.WEAPON;
 	}
 
 	@Override
 	public int getMaxLevel() {
-		return 5;
+		return 1;
 	}
 
 	@Override
 	public String getName() {
-		return "Poison Point";
+		return "Rage";
 	}
 
 	@Override

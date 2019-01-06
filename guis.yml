@@ -1,0 +1,71 @@
+MainMenu:
+  Title: Category Selection
+  Size: 27
+  sword:
+    Icon: DIAMOND_SWORD
+    Name: '&e&lSword Enchantments'
+    Slot: 9
+    NextInventory: SwordEnchants
+  pick:
+    Icon: DIAMOND_PICKAXE
+    Name: '&e&lPickaxe Enchantments'
+    Slot: 11
+    NextInventory: PickaxeEnchants
+  axe:
+    Icon: DIAMOND_AXE
+    Name: '&e&lAxe Enchantments'
+    Slot: 13
+    NextInventory: AxeEnchants
+  bow:
+    Icon: BOW
+    Name: '&e&lBow Enchantments'
+    Slot: 15
+    NextInventory: BowEnchants
+  armor:
+    Icon: DIAMOND_CHESTPLATE
+    Name: '&e7lArmor Enchantments'
+    Slot: 17
+    NextInventory: ArmorEnchants
+  BACKGROUND_ITEM:
+    Icon: STAINED_GLASS_PANE
+    Name: ''
+    Data: 3
+SwordEnchants:
+  Title: Sword Enchantments
+  Size: 27
+  witherpoint:
+    Icon: SKULL_ITEM
+    Data: 1
+    Name: '&7&lWither Point %level%'
+    Slot: 9
+    Lore:
+    - '&7Has a small chance of dealing a Wither Effect.'
+  toxicpoint:
+    Icon: POTION
+    Data: 8196
+    Name: '&5&lToxic Point'
+    Slot: 11
+    Lore:
+    - '&7Has a small chance of dealing a &5Poison Effect&7.'
+  revive:
+    Icon: GOLDEN_APPLE
+    Name: '&a&lRevive'
+    Slot: 13
+    Lore:
+    - '&7Has a small chance of &ahealing you&7 when healt is low&7.'
+  rage:
+    Icon: DIAMOND_SWORD
+    Name: '&c&lRage'
+    Slot: 15
+    Lore:
+    - '&7For every hit you land, total damage is multiplied by &b1.1&7.'
+  freeze:
+    Icon: ICE
+    Name: '&b&lFreeze'
+    Slot: 17
+    Lore:
+    - '&7Has a small chance of dealing a &bSlowness Effect&7.'
+  BACKGROUND_ITEM:
+    Icon: STAINED_GLASS_PANE
+    Name: ''
+    Data: 14

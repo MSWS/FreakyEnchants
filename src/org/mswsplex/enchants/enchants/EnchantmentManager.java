@@ -25,7 +25,7 @@ public class EnchantmentManager {
 		enchants.put("excavation", new Excavation(71));
 		enchants.put("autosmelt", new AutoSmelt(72));
 		enchants.put("witherpoint", new WitherPoint(73));
-		enchants.put("poisonpoint", new PoisonPoint(74));
+		enchants.put("toxicpoint", new ToxicPoint(74));
 		enchants.put("revive", new Revive(75));
 		enchants.put("freeze", new Freeze(76));
 		enchants.put("stormbreaker", new Stormbreaker(77));
@@ -39,7 +39,7 @@ public class EnchantmentManager {
 		enchants.put("stun", new Stun(85));
 		enchants.put("withershot", new WitherShot(86));
 		enchants.put("toxicshot", new ToxicShot(87));
-
+		enchants.put("rage", new Rage(88));
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");
@@ -48,11 +48,20 @@ public class EnchantmentManager {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			try {
-				for (Entry<String, Enchantment> r : enchants.entrySet())
+			boolean save = false;
+			for (Entry<String, Enchantment> r : enchants.entrySet()) {
+				try {
 					Enchantment.registerEnchantment(r.getValue());
-			} catch (IllegalArgumentException e) {
+				} catch (IllegalArgumentException e) {
+					MSG.log(r.getValue().getName() + " has already been registered.");
+				}
+				if (!plugin.enchantCosts.contains(r.getKey())) {
+					save = true;
+					plugin.enchantCosts.set(r.getKey(), 0);
+				}
 			}
+			if (save)
+				plugin.saveCosts();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

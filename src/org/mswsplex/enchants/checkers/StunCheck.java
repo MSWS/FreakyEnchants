@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.utils.MSG;
 
 public class StunCheck implements Listener {
 	private CustomEnchants plugin;
@@ -38,6 +39,10 @@ public class StunCheck implements Listener {
 		} else {
 			ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) duration / 1000 * 20, 6));
 		}
+		if (((Projectile) event.getDamager()).getShooter() instanceof Player) {
+			MSG.sendStatusMessage((Player) ((Projectile) event.getDamager()).getShooter(),
+					plugin.config.getString("Stun.SuccessMessage"));
+		}
 	}
 
 	@EventHandler
@@ -48,6 +53,9 @@ public class StunCheck implements Listener {
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();
 		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("stun")))
+			return;
+		if (!plugin.getEnchantmentManager().checkProbability("stun",
+				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("stun"))))
 			return;
 		proj.setMetadata("stunArrow",
 				new FixedMetadataValue(plugin, plugin.getEnchantmentManager().getBonusAmount("stun",
@@ -61,7 +69,7 @@ public class StunCheck implements Listener {
 			return;
 		if (PlayerManager.getDouble(player, "restrictMovement") < System.currentTimeMillis())
 			return;
-		if (event.getTo().distanceSquared(event.getFrom()) > 0)
+		if (event.getTo().getX() != event.getFrom().getX() || event.getTo().getZ() != event.getFrom().getZ())
 			event.setTo(event.getFrom());
 	}
 }

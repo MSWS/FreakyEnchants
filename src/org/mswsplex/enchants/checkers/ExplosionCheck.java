@@ -18,7 +18,7 @@ public class ExplosionCheck implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
 		ItemStack hand = player.getItemInHand();

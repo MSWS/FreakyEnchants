@@ -14,7 +14,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
 
-
 public class PlayerManager {
 	public static CustomEnchants plugin;
 
@@ -115,8 +114,7 @@ public class PlayerManager {
 	/**
 	 * Get whether an object is saveable in YAML
 	 * 
-	 * @param obj
-	 *            Object type to test
+	 * @param obj Object type to test
 	 * @return True if saveable, false otherwise
 	 */
 	public static boolean isSaveable(Object obj) {

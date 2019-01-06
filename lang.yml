@@ -6,3 +6,4 @@ Help:
   - 'perm:customenchant.token.give &e/token give [Player] [Amount] &f- Gives the player tokens'
   - 'perm:customenchant.token.set &e/token set [Player] [Amount] &f- Sets a player''s tokesn'
   - 'perm:customenchant.token.shop &e/token shop &f- Opens the shop GUI'
+  - 'perm:customenchant.view &e/token &famount [Player]'

@@ -19,7 +19,7 @@ public class ExplosiveCheck implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, this.plugin);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void onProjectileLand(ProjectileHitEvent event) {
 		if (!event.getEntity().hasMetadata("explosiveArrow"))
 			return;
@@ -27,7 +27,7 @@ public class ExplosiveCheck implements Listener {
 		event.getEntity().remove();
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void onProjectileLaunch(ProjectileLaunchEvent event) {
 		Projectile proj = event.getEntity();
 		if (proj == null || proj.getShooter() == null || !(proj.getShooter() instanceof LivingEntity))

@@ -33,13 +33,23 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 		int level = 1;
 		if (args.length > 1)
 			level = Integer.parseInt(args[1]);
-		if (!plugin.getEnchantmentManager().enchants.containsKey(args[0].toLowerCase())) {
+		if (args[0].equalsIgnoreCase("all")) {
+			for (String enchant : plugin.getEnchantmentManager().enchants.keySet()) {
+				plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level,
+						plugin.getEnchantmentManager().enchants.get(enchant));
+				MSG.tell(player, "Successfully added " + plugin.getEnchantmentManager().enchants.get(enchant).getName()
+						+ " to item");
+			}
+		} else if (!plugin.getEnchantmentManager().enchants.containsKey(args[0].toLowerCase())) {
 			MSG.tell(sender, "Unknown enchantment");
 			return true;
+		} else {
+			plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level,
+					plugin.getEnchantmentManager().enchants.get(args[0].toLowerCase()));
+			MSG.tell(player, "Successfully added "
+					+ plugin.getEnchantmentManager().enchants.get(args[0].toLowerCase()).getName() + " to item");
 		}
-		plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level,
-				plugin.getEnchantmentManager().enchants.get(args[0].toLowerCase()));
-		MSG.tell(player, "Successfully added " + plugin.getEnchantmentManager().enchants.get(args[0].toLowerCase()).getName() + " to item");
+
 		return true;
 	}
 

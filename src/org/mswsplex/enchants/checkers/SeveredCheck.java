@@ -10,6 +10,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.utils.MSG;
 
 public class SeveredCheck implements Listener {
 
@@ -20,7 +21,7 @@ public class SeveredCheck implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void entityDeath(EntityDeathEvent event) {
 		LivingEntity ent = event.getEntity();
 		if (!(ent instanceof Player) || ent.getKiller() == null)
@@ -39,6 +40,7 @@ public class SeveredCheck implements Listener {
 		meta.setOwner(player.getName());
 		skull.setItemMeta(meta);
 		event.getDrops().add(skull);
+		MSG.sendStatusMessage(killer, plugin.config.getString("Severed.SuccessMessage"));
 	}
 
 }

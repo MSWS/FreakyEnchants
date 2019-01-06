@@ -125,17 +125,30 @@ Summoner:
     2: 2
   SuccessMessage: '&e&l* * * &8&l[&7&lSUMMONED&8&l] &e&l* * *'
 Stun:
-  BonusAmount: #In milliseconds
+  Probability:
+    1: 10
+    2: 15
+    3: 20
+  BonusAmount:
     1: 3000
+  SuccessMessage: '&e&l* * * &8&l[&e&lSTUNNEDD&8&l] &e&l* * *'
 WitherShot:
   SecondsPerLevel: 5000
   EffectType: WITHER
+  Probability:
+    1: 10
+    2: 20
   Amplifier:
     1: 0
     3: 1
+  SuccessMessage: '&e&l* * * &8&l[&f&lWITHERED&8&l] &e&l* * *'
 ToxicShot:
   SecondsPerLevel: 5000
   EffectType: POISON
+  Probability:
+    1: 5
+    2: 20
   Amplifier:
     1: 0
     3: 1
+  SuccessMessage: '&e&l* * * &8&l[&5&lPOISONED&8&l] &e&l* * *'

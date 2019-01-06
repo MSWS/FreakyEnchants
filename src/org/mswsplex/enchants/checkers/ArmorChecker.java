@@ -36,12 +36,12 @@ public class ArmorChecker extends BukkitRunnable {
 					}
 					if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("spring")))
 						ent.addPotionEffect(new PotionEffect(
-								PotionEffectType.getByName(plugin.config.getString("Spring.EffectType")), 5,
+								PotionEffectType.getByName(plugin.config.getString("Spring.EffectType")), 20,
 								plugin.getEnchantmentManager().checkAmplifier("spring", armor
 										.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("spring")))));
 					if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("heatshield")))
 						ent.addPotionEffect(new PotionEffect(
-								PotionEffectType.getByName(plugin.config.getString("HeatShield.EffectType")), 5,
+								PotionEffectType.getByName(plugin.config.getString("HeatShield.EffectType")), 20,
 								plugin.getEnchantmentManager().checkAmplifier("heatshield", armor.getEnchantmentLevel(
 										plugin.getEnchantmentManager().enchants.get("heatshield")))));
 				}
