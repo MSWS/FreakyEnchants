@@ -42,7 +42,7 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 				Enchantment ench = plugin.getEnchantmentManager().enchants.get(enchant);
 				plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level,
 						plugin.getEnchantmentManager().enchants.get(enchant));
-				MSG.tell(player, MSG.getString("EnchantAdded", "added %enchant% %level%")
+				MSG.tell(player, MSG.getString("Enchant.Added", "added %enchant% %level%")
 						.replace("%enchant%", ench.getName()).replace("%level%", MSG.toRoman(level)));
 			}
 		} else if (!plugin.getEnchantmentManager().enchants.containsKey(args[0].toLowerCase())) {
@@ -55,7 +55,7 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 			}
 			Enchantment ench = plugin.getEnchantmentManager().enchants.get(args[0].toLowerCase());
 			plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level, ench);
-			MSG.tell(player, MSG.getString("EnchantAdded", "added %enchant% %level%")
+			MSG.tell(player, MSG.getString("Enchant.Added", "added %enchant% %level%")
 					.replace("%enchant%", ench.getName()).replace("%level%", MSG.toRoman(level)));
 		}
 

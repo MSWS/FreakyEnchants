@@ -3,11 +3,15 @@ Token:
   Give: '&7Successfully gave &e%target% &a%amo% &7token%s%, they now have &b%total%&7.'
   Set: '&7Successfully &e%target%&7 to have &b%total% &7token%s%.'
   Get: '&e%target% &7has &b%total%&7 token%s%&7.'
+  Insufficient: '&cYou have insufficient funds. (&4%total% &cof &a%cost%&c).'
 NPC:
   Spawned: '&7Successfully created new NPC.'
   Deleted: '&7Successfully &cdeleted&7 the closest NPC.'
   Error: '&cNo nearby NPCs&7.'
-EnchantAdded: '&7Successfully added &e%enchant% %level%&7 to item.'
+Enchant:
+  Added: '&7Successfully added &e%enchant% %level%&7 to item.'
+  Invalid: '&cUnable to add &e%enchant% to that item.'
+  Click: '&b%enchant% %level%&7 selected, click on the item that you want to enchant.'
 Help:
   default:
   - '&e<> &fOptional &e[] &fRequired'

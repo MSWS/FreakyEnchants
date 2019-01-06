@@ -113,12 +113,12 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 			if (args.length > 1 && sender.hasPermission("customenchant.get.others"))
 				target = Bukkit.getPlayer(args[1]);
 			if (target == null) {
-				MSG.tell(sender, "");
+				MSG.tell(sender, "Unknown Player");
 				return true;
 			}
 			MSG.tell(sender,
 					MSG.getString("Token.Get", "gave %target% %amo% token%s%, they now have %total%")
-							.replace("%target%", sender.getName())
+							.replace("%target%", target.getName())
 							.replace("%total%", (int) Math.round(PlayerManager.getDouble(target, "tokens")) + "")
 							.replace("%s%", PlayerManager.getDouble(target, "tokens") == 1 ? "" : "s"));
 			break;

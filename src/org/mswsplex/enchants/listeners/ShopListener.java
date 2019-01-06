@@ -1,8 +1,5 @@
 package org.mswsplex.enchants.listeners;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -14,7 +11,6 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
@@ -48,6 +44,29 @@ public class ShopListener implements Listener {
 				break;
 			}
 		}
+
+		shop: if (PlayerManager.getInfo(player, "enchantToApply") != null) {
+			Enchantment apply = plugin.getEnchantmentManager().enchants
+					.get(PlayerManager.getString(player, "enchantToApply"));
+			if (!event.getClickedInventory().getName().equals("container.inventory"))
+				break shop;
+			if (!apply.canEnchantItem(item)) {
+				MSG.tell(player, MSG.getString("Enchant.Invalid", "unable to add %enchant% to item")
+						.replace("%enchant%", apply.getName()));
+				break shop;
+			}
+			plugin.getEnchantmentManager().addEnchant(item, PlayerManager.getDouble(player, "amplifier").intValue(),
+					apply);
+			player.playSound(player.getLocation(), Sounds.LEVEL_UP.bukkitSound(), 2, 1);
+			MSG.tell(player,
+					MSG.getString("Enchant.Added", "Added %enchat% %level%").replace("%enchant%", apply.getName())
+							.replace("%level%", PlayerManager.getDouble(player, "amplifier").intValue() + ""));
+			PlayerManager.setInfo(player, "tokens",
+					PlayerManager.getDouble(player, "tokens") - PlayerManager.getDouble(player, "cost"));
+			PlayerManager.removeInfo(player, "enchantToApply");
+			PlayerManager.removeInfo(player, "amplifier");
+			PlayerManager.removeInfo(player, "cost");
+		}
 		if (id.isEmpty())
 			return;
 		if (section.contains(id + ".NextInventory")) {
@@ -73,40 +92,29 @@ public class ShopListener implements Listener {
 				PlayerManager.setInfo(player, "openInventory", inv);
 				return;
 			}
-
 			if (event.getClick() == ClickType.LEFT) {
 				if (PlayerManager.getDouble(player, "tokens") < cost) {
-					MSG.tell(player, "Insufficient funds (you have " + PlayerManager.getDouble(player, "tokens")
-							+ " out of " + cost + ")");
+					MSG.tell(player, MSG
+							.getString("Token.Insufficient",
+									"&cYou have insufficient funds. (&4%total% &cof &a%cost%%c).")
+							.replace("%total%", (int) Math.round(PlayerManager.getDouble(player, "tokens")) + "")
+							.replace("%cost%", (int) cost + ""));
 					player.playSound(player.getLocation(), Sounds.VILLAGER_NO.bukkitSound(), 2, 2);
-					return;
-				}
-				if (player.getInventory().firstEmpty() == -1) {
-					MSG.tell(player, "inventory is full!");
-					player.playSound(player.getLocation(), Sounds.ITEM_BREAK.bukkitSound(), 2, 1);
 					return;
 				}
 
 				player.playSound(player.getLocation(), Sounds.LEVEL_UP.bukkitSound(), 2, 2);
-				ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
-				ItemMeta meta = book.getItemMeta();
-//				EnchantmentStorageMeta meta = (EnchantmentStorageMeta) book.getItemMeta();
-//
-//				meta.addStoredEnchant(ench, item.getAmount(), true);
-//
-//				book.setItemMeta(meta);
-
-				meta.setDisplayName(MSG.color("&eEnchanted Book"));
-				List<String> lore = new ArrayList<>();
-				lore.add(MSG.color("&7" + ench.getName() + " " + MSG.toRoman(item.getAmount())));
-				meta.setLore(lore);
-				book.setItemMeta(meta);
-				player.getInventory().addItem(book);
-				PlayerManager.setInfo(player, "tokens", PlayerManager.getDouble(player, "tokens") - cost);
+				MSG.tell(player, MSG
+						.getString("Enchant.Click",
+								"click item in inventory you want to enchant with %enchant% %level%")
+						.replace("%enchant%", ench.getName()).replace("%level%", MSG.toRoman(item.getAmount())));
+				PlayerManager.setInfo(player, "enchantToApply", id);
+				PlayerManager.setInfo(player, "amplifier", item.getAmount());
+				PlayerManager.setInfo(player, "cost", cost);
 
 			}
-
 		}
+
 	}
 
 	@EventHandler
@@ -118,6 +126,9 @@ public class ShopListener implements Listener {
 		PlayerManager.removeInfo(player, "openInventory");
 		if (inv.equals("MainMenu"))
 			return;
+		PlayerManager.removeInfo(player, "enchantToApply");
+		PlayerManager.removeInfo(player, "amplifier");
+		PlayerManager.removeInfo(player, "cost");
 		if (PlayerManager.getInfo(player, "ignore") != null) {
 			PlayerManager.removeInfo(player, "ignore");
 			return;
