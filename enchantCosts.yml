@@ -1,24 +1,89 @@
 explosive:
+  1: 120
+severed:
+  1: 5
+  2: 10
+  3: 15
+  4: 20
+  5: 25
+toxicpoint:
   1: 5
   2: 20
+  3: 40
+  4: 50
+  5: 100
+hearty:
+  1: 50
+  2: 100
+  3: 200
+  4: 500
+stormbreaker:
+  1: 60
+  2: 80
+  3: 100
+  4: 125
+  5: 150
+stun:
+  1: 30
+  2: 40
   3: 50
-  4: 100
-  5: 500
-severed: 0
-toxicpoint: 0
-hearty: 0
-stormbreaker: 0
-stun: 0
-nightshade: 0
-spring: 0
-explosion: 0
-freeze: 0
-withershot: 0
-excavation: 0
-toxicshot: 0
-rage: 0
-witherpoint: 0
-summoner: 0
-revive: 0
-heatshield: 0
-autosmelt: 0
+nightshade:
+  1: 25
+  2: 45
+  3: 60
+spring:
+  1: 30
+  2: 60
+  3: 90
+explosion:
+  1: 75
+  2: 100
+  3: 130
+  4: 150
+  5: 185
+freeze:
+  1: 10
+  2: 20
+  3: 40
+  4: 50
+  5: 100
+withershot:
+  1: 5
+  2: 20
+  3: 40
+  4: 50
+  5: 100
+excavation:
+  3: -1
+  4: -1
+  5: -1
+toxicshot:
+  1: 5
+  2: 20
+  3: 40
+  4: 50
+  5: 100
+rage:
+  1: 80
+witherpoint:
+  1: 5
+  2: 20
+  3: 40
+  4: 50
+  5: 100
+summoner:
+  1: 150
+  2: 175
+  3: 200
+  4: 220
+  5: 250
+revive:
+  1: 30
+  2: 50
+  3: 80
+  4: 90
+  5: 100
+heatshield:
+  1: 200
+autosmelt:
+  1: 100

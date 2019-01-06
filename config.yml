@@ -1,6 +1,9 @@
 Prefix: '&9Plugin>&7'
 StatusMessages: ACTIONBAR
 HelpLength: 10
+NPC:
+  Type: VILLAGER
+  Name: '&a&lEnchanter'
 AutoSmeltDrops:
   IRON_ORE: IRON_INGOT
   GOLD_ORE: GOLD_INGOT
@@ -22,7 +25,7 @@ WitherPoint:
     1: 0
     3: 1
   SuccessMessage: '&e&l* * * &8&l[&f&lWITHERED&8&l] &e&l* * *'
-PoisonPoint:
+ToxicPoint:
   Affects:
     Generic: true
     CREEPER: true
@@ -51,7 +54,7 @@ Freeze:
     5: 15
   SecondsPerLevel: 5000
   EffectType: SLOW
-  Amplifier:
+  Amplifier: 
     1: 0
   SuccessMessage: '&e&l* * * &8&l[&d&lSLOWNESS&8&l] &e&l* * *'
 Revive:

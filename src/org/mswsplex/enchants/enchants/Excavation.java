@@ -37,7 +37,7 @@ public class Excavation extends Enchantment {
 
 	@Override
 	public int getStartLevel() {
-		return 0;
+		return 3;
 	}
 
 }

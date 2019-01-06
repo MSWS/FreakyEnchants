@@ -3,8 +3,15 @@ package org.mswsplex.enchants.msws;
 import java.io.File;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mswsplex.enchants.checkers.ArmorChecker;
 import org.mswsplex.enchants.checkers.AutoSmeltCheck;
@@ -13,7 +20,7 @@ import org.mswsplex.enchants.checkers.ExplosionCheck;
 import org.mswsplex.enchants.checkers.ExplosiveCheck;
 import org.mswsplex.enchants.checkers.FreezeCheck;
 import org.mswsplex.enchants.checkers.NightshadeCheck;
-import org.mswsplex.enchants.checkers.PoisonPointCheck;
+import org.mswsplex.enchants.checkers.ToxicPointCheck;
 import org.mswsplex.enchants.checkers.RageCheck;
 import org.mswsplex.enchants.checkers.ReviveCheck;
 import org.mswsplex.enchants.checkers.SeveredCheck;
@@ -27,9 +34,11 @@ import org.mswsplex.enchants.commands.AddEnchantmentCommand;
 import org.mswsplex.enchants.commands.EnchanterCommand;
 import org.mswsplex.enchants.commands.TokenCommand;
 import org.mswsplex.enchants.enchants.EnchantmentManager;
+import org.mswsplex.enchants.listeners.NPCListener;
 import org.mswsplex.enchants.listeners.ShopListener;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.NBTEditor;
 import org.mswsplex.enchants.utils.Utils;
 
 public class CustomEnchants extends JavaPlugin {
@@ -66,12 +75,13 @@ public class CustomEnchants extends JavaPlugin {
 		new EnchanterCommand(this);
 
 		new ShopListener(this);
+		new NPCListener(this);
 
 		new ExplosionCheck(this);
 		new ExcavationCheck(this);
 		new AutoSmeltCheck(this);
 		new WitherPointCheck(this);
-		new PoisonPointCheck(this);
+		new ToxicPointCheck(this);
 		new ReviveCheck(this);
 		new FreezeCheck(this);
 		new StormbreakerCheck(this);
@@ -86,10 +96,35 @@ public class CustomEnchants extends JavaPlugin {
 
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this), 0, 5);
 
+		ConfigurationSection npcs = data.getConfigurationSection("NPC");
+		if (npcs != null) {
+			for (String entry : npcs.getKeys(false)) {
+				Location loc = (Location) npcs.get(entry);
+				Entity ent = loc.getWorld().spawnEntity(loc, EntityType.valueOf(config.getString("NPC.Type")));
+				NBTEditor.setEntityTag(ent, 1, "NoAI");
+				NBTEditor.setEntityTag(ent, 1, "Silent");
+				ArmorStand stand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
+				stand.setVisible(false);
+				stand.setCustomName(MSG.color(config.getString("NPC.Name")));
+				stand.setCustomNameVisible(true);
+				stand.setGravity(false);
+				ent.setMetadata("isNPC", new FixedMetadataValue(this, entry));
+				ent.setMetadata("holoID", new FixedMetadataValue(this, stand.getUniqueId() + ""));
+			}
+		}
+
 		MSG.log("&aSuccessfully Enabled!");
 	}
 
 	public void onDisable() {
+		for (World w : Bukkit.getWorlds()) {
+			for (Entity ent : w.getEntities()) {
+				if (ent.hasMetadata("isNPC")) {
+					Utils.getEntity(ent.getMetadata("holoID").get(0).asString(), ent.getWorld()).remove();
+					ent.remove();
+				}
+			}
+		}
 		saveData();
 	}
 

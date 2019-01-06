@@ -23,7 +23,7 @@ MainMenu:
     NextInventory: BowEnchants
   armor:
     Icon: DIAMOND_CHESTPLATE
-    Name: '&e7lArmor Enchantments'
+    Name: '&e&lArmor Enchantments'
     Slot: 17
     NextInventory: ArmorEnchants
   BACKGROUND_ITEM:
@@ -43,25 +43,25 @@ SwordEnchants:
   toxicpoint:
     Icon: POTION
     Data: 8196
-    Name: '&5&lToxic Point'
+    Name: '&5&lToxic Point %level%'
     Slot: 11
     Lore:
     - '&7Has a small chance of dealing a &5Poison Effect&7.'
   revive:
     Icon: GOLDEN_APPLE
-    Name: '&a&lRevive'
+    Name: '&a&lRevive %level%'
     Slot: 13
     Lore:
     - '&7Has a small chance of &ahealing you&7 when healt is low&7.'
   rage:
     Icon: DIAMOND_SWORD
-    Name: '&c&lRage'
+    Name: '&c&lRage %level%'
     Slot: 15
     Lore:
     - '&7For every hit you land, total damage is multiplied by &b1.1&7.'
   freeze:
     Icon: ICE
-    Name: '&b&lFreeze'
+    Name: '&b&lFreeze %level%'
     Slot: 17
     Lore:
     - '&7Has a small chance of dealing a &bSlowness Effect&7.'
@@ -69,3 +69,127 @@ SwordEnchants:
     Icon: STAINED_GLASS_PANE
     Name: ''
     Data: 14
+PickaxeEnchants:
+  Title: Pickaxe Enchantments
+  Size: 27
+  explosion:
+    Icon: TNT
+    Name: '&c&lExplosion %level%'
+    Slot: 9
+    Lore:
+    - '&7Creates an explosion that breaks many nearby blocks'
+  autosmelt:
+    Icon: IRON_INGOT
+    Name: '&f&lAuto Smelt'
+    Slot: 17
+    Lore:
+    - '&7Automatically smelts certain ores and blocks'
+  BACKGROUND_ITEM:
+    Icon: STAINED_GLASS_PANE
+    Name: ''
+    Data: 7
+AxeEnchants:
+  Title: Axe Enchantments
+  Size: 27
+  stormbreaker:
+    Icon: BLAZE_ROD
+    Name: '&e&lStormbreaker %level%'
+    Slot: 9
+    Lore:
+    - '&7Has a small chance of &esmiting&7 your opponent.'
+  nightshade:
+    Icon: COAL
+    Name: '&7&lNightshade %level%'
+    Slot: 11
+    Lore:
+    - '&7Has a small chance of dealing a Blindness Effect.'
+  severed:
+    Icon: SKULL_ITEM
+    Data: 3
+    Slot: 13
+    Owner: MSWS
+    Name: '&c&lSevered %level%'
+    Lore:
+    - '&7Has a small chance to drop your opponent'' when you kill them.'
+  witherpoint:
+    Icon: SKULL_ITEM
+    Data: 1
+    Name: '&7&lWither Point %level%'
+    Slot: 15
+    Lore:
+    - '&7Has a small chance of dealing a Wither Effect.'
+  toxicpoint:
+    Icon: POTION
+    Data: 8196
+    Name: '&5&lToxic Point %level%'
+    Slot: 17
+    Lore:
+    - '&7Has a small chance of dealing a &5Poison Effect&7.'
+  BACKGROUND_ITEM:
+    Icon: STAINED_GLASS_PANE
+    Name: ''
+    Data: 9
+BowEnchants:
+  Title: Bow Enchantments
+  Size: 27
+  explosive:
+    Icon: TNT
+    Name: '&c&lExplosive %level%'
+    Slot: 10
+    Lore:
+    - '&7Arrows will explode on impact'
+  stun:
+    Icon: SLIME_BALL
+    Name: '&e&lStun %level%'
+    Slot: 12
+    Lore:
+    - '&7Has a small chance to stun an enemy for &b3 seconds&7.'
+  withershot:
+    Icon: SKULL_ITEM
+    Data: 1
+    Name: '&7&lWither Point %level%'
+    Slot: 14
+    Lore:
+    - '&7Has a small chance of dealing a Wither Effect.'
+  toxicshot:
+    Icon: POTION
+    Data: 8196
+    Name: '&5&lToxic Point %level%'
+    Slot: 16
+    Lore:
+    - '&7Has a small chance of dealing a &5Poison Effect&7.'
+  BACKGROUND_ITEM:
+    Icon: STAINED_GLASS_PANE
+    Name: ''
+    Data: 1
+ArmorEnchants:
+  Title: Armor Enchantments
+  Size: 27
+  hearty:
+    Icon: GOLDEN_APPLE
+    Name: '&c&lHearty %level%'
+    Slot: 10
+    Lore:
+    - '&7Increases your max health'
+  spring:
+    Icon: RABBIT_FOOT
+    Name: '&a&lSpring %level%'
+    Slot: 12
+    Lore:
+    - '&7Gives a jump boost when worn'
+  heatshield:
+    Icon: BLAZE_POWDER
+    Name: '&6&lHeat Shield %level%'
+    Slot: 14
+    Lore:
+    - '&7Grants immunity to fire'
+  summoner:
+    Icon: IRON_BLOCK
+    Name: '&d&lSummoner %level%'
+    Slot: 16
+    Lore:
+    - '&7Has a small chance to summon protectors when melee damaged'
+  BACKGROUND_ITEM:
+    Icon: STAINED_GLASS_PANE
+    Name: ''
+    Data: 5

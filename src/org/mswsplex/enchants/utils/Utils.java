@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -18,6 +19,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -234,6 +236,9 @@ public class Utils {
 		String enchName = path.split("\\.")[path.split("\\.").length - 1];
 		if (gui.contains("Amount"))
 			item.setAmount(gui.getInt("Amount"));
+		if (plugin.getEnchantmentManager().enchants.containsKey(enchName)) {
+			item.setAmount(plugin.getEnchantmentManager().enchants.get(enchName).getStartLevel() + 1);
+		}
 		if (PlayerManager.getInfo(player, enchName) != null)
 			item.setAmount((int) Math.round(PlayerManager.getDouble(player, enchName)));
 
@@ -605,5 +610,25 @@ public class Utils {
 				if (r.equals("session.lock"))
 					return true;
 		return false;
+	}
+
+	public static Entity getEntity(String uuid, World world) {
+		if (world == null) {
+			for (World w : Bukkit.getWorlds()) {
+				Entity e = getEntity(uuid, w);
+				if (e != null)
+					return e;
+			}
+		} else {
+			for (Entity e : world.getEntities()) {
+				if (e.getUniqueId().toString().equals(uuid))
+					return e;
+			}
+		}
+		return null;
+	}
+
+	public static Entity getEntity(UUID uuid, World world) {
+		return getEntity(uuid + "", world);
 	}
 }
