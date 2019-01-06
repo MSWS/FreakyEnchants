@@ -1,4 +1,4 @@
-package org.mswsplex.def.managers;
+package org.mswsplex.enchants.managers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,12 +11,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.mswsplex.def.msws.Main;
-import org.mswsplex.def.utils.MSG;
+import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.utils.MSG;
 
 
 public class PlayerManager {
-	public static Main plugin;
+	public static CustomEnchants plugin;
 
 	public static void setInfo(OfflinePlayer player, String id, Object data) {
 		if (!isSaveable(data)) {

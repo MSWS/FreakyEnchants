@@ -1,4 +1,4 @@
-package org.mswsplex.def.utils;
+package org.mswsplex.enchants.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,10 +24,10 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.mswsplex.def.msws.Main;
+import org.mswsplex.enchants.msws.CustomEnchants;
 
 public class Utils {
-	public static Main plugin;
+	public static CustomEnchants plugin;
 
 	/**
 	 * Returns a ranking of all the armor from value

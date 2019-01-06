@@ -1,7 +1,8 @@
-package org.mswsplex.def.utils;
+package org.mswsplex.enchants.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -9,11 +10,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.mswsplex.def.msws.Main;
+import org.mswsplex.enchants.msws.CustomEnchants;
 
 public class MSG {
-	public static Main plugin;
-	
+	public static CustomEnchants plugin;
+
 	/**
 	 * Returns the string with &'s being §
 	 * 
@@ -171,8 +172,7 @@ public class MSG {
 			return;
 		}
 		int length = plugin.config.getInt("HelpLength");
-		List<String> help = plugin.lang.getStringList("Help." + command.toLowerCase()),
-				list = new ArrayList<String>();
+		List<String> help = plugin.lang.getStringList("Help." + command.toLowerCase()), list = new ArrayList<String>();
 		for (String res : help) {
 			if (res.startsWith("perm:")) {
 				String perm = "";
@@ -182,7 +182,7 @@ public class MSG {
 						break;
 					perm = perm + a;
 				}
-				if (!sender.hasPermission("plugin." + perm)) // TODO
+				if (!sender.hasPermission(perm))
 					continue;
 				res = res.replace(perm + " ", "");
 			}
@@ -260,5 +260,40 @@ public class MSG {
 	 */
 	public static String parseDecimal(double decimal, int length) {
 		return parseDecimal(decimal + "", length);
+	}
+
+	public static void sendStatusMessage(Player player, String msg) {
+		if (msg == null || msg.isEmpty())
+			return;
+		if (plugin.config.getString("StatusMessages").equals("ACTIONBAR")) {
+			HotbarMessenger.sendHotBarMessage(player, MSG.color(msg));
+		} else if (plugin.config.getString("StatusMessages").equals("CHAT")) {
+			MSG.tell(player, msg);
+		}
+	}
+
+	public static String toRoman(int number) {
+		if (number == 0)
+			return "0";
+		TreeMap<Integer, String> map = new TreeMap<Integer, String>();
+		map.put(1000, "M");
+		map.put(900, "CM");
+		map.put(500, "D");
+		map.put(400, "CD");
+		map.put(100, "C");
+		map.put(90, "XC");
+		map.put(50, "L");
+		map.put(40, "XL");
+		map.put(10, "X");
+		map.put(9, "IX");
+		map.put(5, "V");
+		map.put(4, "IV");
+		map.put(1, "I");
+
+		int l = map.floorKey(number);
+		if (number == l) {
+			return map.get(number);
+		}
+		return map.get(l) + toRoman(number - l);
 	}
 }

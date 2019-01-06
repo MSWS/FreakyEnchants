@@ -1,1 +1,141 @@
 Prefix: '&9Plugin>&7'
+StatusMessages: ACTIONBAR
+HelpLength: 10
+AutoSmeltDrops:
+  IRON_ORE: IRON_INGOT
+  GOLD_ORE: GOLD_INGOT
+  COBBLESTONE: STONE
+WitherPoint:
+  Affects:
+    Generic: true
+    CREEPER: true
+    PLAYER: true
+  Probability:
+    1: 2
+    2: 4
+    3: 5
+    4: 10
+    5: 12
+  SecondsPerLevel: 5000
+  EffectType: WITHER
+  Amplifier:
+    1: 0
+    3: 1
+  SuccessMessage: '&e&l* * * &8&l[&f&lWITHERED&8&l] &e&l* * *'
+PoisonPoint:
+  Affects:
+    Generic: true
+    CREEPER: true
+    PLAYER: true
+  Probability:
+    1: 5
+    2: 10
+    3: 12
+    4: 15
+    5: 20
+  SecondsPerLevel: 5000
+  EffectType: POISON
+  Amplifier:
+    1: 0
+  SuccessMessage: '&e&l* * * &8&l[&5&lPOISONED&8&l] &e&l* * *'
+Freeze:
+  Affects:
+    Generic: true
+    CREEPER: true
+    PLAYER: true
+  Probability:
+    1: 5
+    2: 7
+    3: 10
+    4: 13
+    5: 15
+  SecondsPerLevel: 5000
+  EffectType: SLOW
+  Amplifier:
+    1: 0
+  SuccessMessage: '&e&l* * * &8&l[&d&lSLOWNESS&8&l] &e&l* * *'
+Revive:
+  MinimumHealth: 5
+  PointsPerLevel: 3
+  BonusAmount:
+    1: 3
+    2: 5
+    3: 8
+  Probability:
+    1: 5
+    2: 10
+    3: 15
+    4: 17
+    5: 20
+  SuccessMessage: '&e&l* * * &8&l[&a&lREGENERATED&8&l] &e&l* * *'
+StormBreaker:
+  Probability:
+    1: 1
+    2: 2
+    3: 5
+    4: 10
+    5: 20
+  SuccessMessage: '&e&l* * * &8&l[&e&lSMITED&8&l] &e&l* * *'
+Nightshade:
+  Affects:
+    Generic: true
+    CREEPER: true
+    PLAYER: true
+  Probability:
+    1: 5
+    2: 7
+    3: 10
+    4: 13
+    5: 15
+  SecondsPerLevel: 5000
+  EffectType: BLINDNESS
+  Amplifier: 0
+  SuccessMessage: '&e&l* * * &8&l[&7&lBLINDED&8&l] &e&l* * *'
+Severed:
+  Probability:
+    1: 1
+    2: 2
+    3: 4
+    4: 5
+    5: 10
+  SuccessMessage: '&e&l* * * &8&l[&3&lSKULL DROP&8&l] &e&l* * *'
+Hearty:
+  BonusAmount:
+    1: 2
+    2: 4
+    3: 5.5
+    4: 6
+Spring:
+  EffectType: JUMP
+  Amplifier:
+    1: 0
+    2: 1
+    3: 2
+HeatShield:
+  EffectType: FIRE_RESISTANCE
+  Amplifier:
+    1: 0
+Summoner:
+  Probability:
+    1: 5
+    2: 10
+  EntityType: IRON_GOLEM
+  BonusAmount:
+    1: 1
+    2: 2
+  SuccessMessage: '&e&l* * * &8&l[&7&lSUMMONED&8&l] &e&l* * *'
+Stun:
+  BonusAmount: #In milliseconds
+    1: 3000
+WitherShot:
+  SecondsPerLevel: 5000
+  EffectType: WITHER
+  Amplifier:
+    1: 0
+    3: 1
+ToxicShot:
+  SecondsPerLevel: 5000
+  EffectType: POISON
+  Amplifier:
+    1: 0
+    3: 1

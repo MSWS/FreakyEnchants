@@ -1,8 +1,11 @@
-name: Default
-main: org.mswsplex.def.msws
+name: CustomEnchants
+main: org.mswsplex.enchants.msws.CustomEnchants
 version: 1.0
-description: Default Plugin Outline
+description: Custom Enchants coded for Blitz Network
 commands:
-   command1:
-      usage: /<command>
-      description: foo
+  enchanter:
+    usage: /<command>
+  addenchant:
+    usage: /<command> [Enchantment]
+  token:
+    usage: /<command>

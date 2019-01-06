@@ -1,4 +1,4 @@
-package org.mswsplex.def.utils;
+package org.mswsplex.enchants.utils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

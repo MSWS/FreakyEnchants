@@ -1,4 +1,4 @@
-package org.mswsplex.def.utils;
+package org.mswsplex.enchants.utils;
 // The following license should allow reuse, redistribution, with or without edits and with or without attribution. 
 
 import java.util.HashMap;

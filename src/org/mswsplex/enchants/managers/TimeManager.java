@@ -1,4 +1,4 @@
-package org.mswsplex.def.managers;
+package org.mswsplex.enchants.managers;
 
 public class TimeManager {
 	public static String getTime(Double mils) {

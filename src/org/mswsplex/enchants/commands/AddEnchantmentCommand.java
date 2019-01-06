@@ -1,51 +1,58 @@
-package org.mswsplex.def.commands;
+package org.mswsplex.enchants.commands;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.mswsplex.def.msws.Main;
-import org.mswsplex.def.utils.MSG;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.utils.MSG;
 
-public class DefaultCommand implements CommandExecutor{
-	private Main plugin;
-	
-	public DefaultCommand(Main plugin) {
+public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
+	private CustomEnchants plugin;
+
+	public AddEnchantmentCommand(CustomEnchants plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("command1").setExecutor(this);
+		PluginCommand cmd = plugin.getCommand("addenchant");
+		cmd.setExecutor(this);
+		cmd.setTabCompleter(this);
+		cmd.setPermission("customenchants.command");
 	}
-	
+
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if(args.length==0) {
+		if (args.length == 0) {
 			return true;
 		}
-		switch(args[0].toLowerCase()) {
-		case "reload":
-			plugin.configYml = new File(plugin.getDataFolder(), "config.yml");
-			plugin.config = YamlConfiguration.loadConfiguration(plugin.configYml);
-			plugin.langYml = new File(plugin.getDataFolder(), "lang.yml");
-			plugin.lang = YamlConfiguration.loadConfiguration(plugin.langYml);
-			plugin.guiYml = new File(plugin.getDataFolder(), "guis.yml");
-			plugin.gui = YamlConfiguration.loadConfiguration(plugin.guiYml);
-			MSG.tell(sender, MSG.getString("Reloaded", "Successfully reloaded."));
-			break;
-		case "reset":
-			plugin.saveResource("config.yml", true);
-			plugin.saveResource("lang.yml", true);
-			plugin.saveResource("guis.yml", true);
-			plugin.configYml = new File(plugin.getDataFolder(), "config.yml");
-			plugin.langYml = new File(plugin.getDataFolder(), "lang.yml");
-			plugin.config = YamlConfiguration.loadConfiguration(plugin.configYml);
-			plugin.lang = YamlConfiguration.loadConfiguration(plugin.langYml);
-			plugin.guiYml = new File(plugin.getDataFolder(), "guis.yml");
-			plugin.gui = YamlConfiguration.loadConfiguration(plugin.guiYml);
-			MSG.tell(sender, MSG.prefix() + " Succesfully reset.");
-			break;
-		default:
-			return false;
+		Player player = (Player) sender;
+		int level = 1;
+		if (args.length > 1)
+			level = Integer.parseInt(args[1]);
+		if (!plugin.getEnchantmentManager().enchants.containsKey(args[0].toLowerCase())) {
+			MSG.tell(sender, "Unknown enchantment");
+			return true;
 		}
+		plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level,
+				plugin.getEnchantmentManager().enchants.get(args[0].toLowerCase()));
+		MSG.tell(player, "Successfully added " + plugin.getEnchantmentManager().enchants.get(args[0].toLowerCase()).getName() + " to item");
 		return true;
 	}
+
+	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+		List<String> result = new ArrayList<>();
+		if (args.length <= 1) {
+			for (Entry<String, Enchantment> res : plugin.getEnchantmentManager().enchants.entrySet()) {
+				if (res.getKey().toLowerCase().startsWith(args[0].toLowerCase())) {
+					result.add(res.getValue().getName().replace(" ", ""));
+				}
+			}
+		}
+		return result;
+	}
+
 }

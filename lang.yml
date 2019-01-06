@@ -1,1 +1,8 @@
 NoPermission: '%prefix% You do not have permission to do this.'
+Help:
+  default:
+  - '&e<> &fOptional &e[] &fRequired'
+  - '&e/token help [Page/Command] &f- Sends help'
+  - 'perm:customenchant.token.give &e/token give [Player] [Amount] &f- Gives the player tokens'
+  - 'perm:customenchant.token.set &e/token set [Player] [Amount] &f- Sets a player''s tokesn'
+  - 'perm:customenchant.token.shop &e/token shop &f- Opens the shop GUI'
