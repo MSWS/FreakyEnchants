@@ -10,7 +10,7 @@ NPC:
   Error: '&cNo nearby NPCs&7.'
 Enchant:
   Added: '&7Successfully added &e%enchant% %level%&7 to item.'
-  Invalid: '&cUnable to add &e%enchant% to that item.'
+  Invalid: '&cUnable to add &e%enchant%&c to that item.'
   Click: '&b%enchant% %level%&7 selected, click on the item that you want to enchant.'
 Help:
   default:

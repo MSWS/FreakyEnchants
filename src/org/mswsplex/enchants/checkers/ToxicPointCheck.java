@@ -26,7 +26,6 @@ public class ToxicPointCheck implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		Entity ent = event.getDamager();
-
 		if (!(ent instanceof LivingEntity) || !(event.getEntity() instanceof LivingEntity))
 			return;
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
@@ -34,23 +33,23 @@ public class ToxicPointCheck implements Listener {
 			return;
 		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("toxicpoint")))
 			return;
-		String name = plugin.config.contains("PoisonPoint.Affects." + event.getEntity().getType())
+		String name = plugin.config.contains("ToxicPoint.Affects." + event.getEntity().getType())
 				? event.getEntity().getType() + ""
 				: "Generic";
-		if (!plugin.config.getBoolean("PoisonPoint.Affects." + name))
+		if (!plugin.config.getBoolean("ToxicPoint.Affects." + name))
 			return;
 		if (!plugin.getEnchantmentManager().checkProbability("toxicpoint",
 				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("toxicpoint"))))
 			return;
 		LivingEntity target = (LivingEntity) event.getEntity();
 		PotionEffect effect = new PotionEffect(
-				PotionEffectType.getByName(plugin.config.getString("PoisonPoint.EffectType")),
+				PotionEffectType.getByName(plugin.config.getString("ToxicPoint.EffectType")),
 				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("toxicpoint"))
-						* plugin.config.getInt("PoisonPoint.SecondsPerLevel") / 1000 * 20,
+						* plugin.config.getInt("ToxicPoint.SecondsPerLevel") / 1000 * 20,
 				plugin.getEnchantmentManager().checkAmplifier("toxicpoint",
 						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("toxicpoint"))));
 		target.addPotionEffect(effect);
 		if (ent instanceof Player)
-			MSG.sendStatusMessage((Player) ent, plugin.config.getString("PoisonPoint.SuccessMessage"));
+			MSG.sendStatusMessage((Player) ent, plugin.config.getString("ToxicPoint.SuccessMessage"));
 	}
 }
