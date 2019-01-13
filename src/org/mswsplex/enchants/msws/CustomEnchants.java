@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.mswsplex.enchants.checkers.ArmorChecker;
 import org.mswsplex.enchants.checkers.AutoGrabCheck;
 import org.mswsplex.enchants.checkers.AutoSmeltCheck;
+import org.mswsplex.enchants.checkers.BarrageCheck;
 import org.mswsplex.enchants.checkers.ExcavationCheck;
 import org.mswsplex.enchants.checkers.ExplosionCheck;
 import org.mswsplex.enchants.checkers.ExplosiveCheck;
@@ -82,6 +83,9 @@ public class CustomEnchants extends JavaPlugin {
 			MSG.log("Vault not found, using Tokens as currency.");
 		}
 
+		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard"))
+			MSG.log("WorldGuard successfully linked.");
+
 		new AddEnchantmentCommand(this);
 		new TokenCommand(this);
 		new EnchanterCommand(this);
@@ -106,30 +110,18 @@ public class CustomEnchants extends JavaPlugin {
 		new ToxicShotCheck(this);
 		new RageCheck(this);
 		new AutoGrabCheck(this);
+		new BarrageCheck(this);
 
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this), 0, 5);
-
-		ConfigurationSection npcs = data.getConfigurationSection("NPC");
-		if (npcs != null) {
-			for (String entry : npcs.getKeys(false)) {
-				Location loc = (Location) npcs.get(entry);
-				Entity ent = loc.getWorld().spawnEntity(loc, EntityType.valueOf(config.getString("NPC.Type")));
-				NBTEditor.setEntityTag(ent, 1, "NoAI");
-				NBTEditor.setEntityTag(ent, 1, "Silent");
-				ArmorStand stand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
-				stand.setVisible(false);
-				stand.setCustomName(MSG.color(config.getString("NPC.Name")));
-				stand.setCustomNameVisible(true);
-				stand.setGravity(false);
-				ent.setMetadata("isNPC", new FixedMetadataValue(this, entry));
-				ent.setMetadata("holoID", new FixedMetadataValue(this, stand.getUniqueId() + ""));
-			}
-		}
-
-		MSG.log("&aSuccessfully Enabled!");
+		refreshNPCs();
 	}
 
-	public void onDisable() {
+	public void refreshNPCs() {
+		deleteNPCs();
+		loadNPCs();
+	}
+
+	public void deleteNPCs() {
 		for (World w : Bukkit.getWorlds()) {
 			for (Entity ent : w.getEntities()) {
 				if (ent.hasMetadata("isNPC")) {
@@ -138,6 +130,32 @@ public class CustomEnchants extends JavaPlugin {
 				}
 			}
 		}
+	}
+
+	public void loadNPCs() {
+		ConfigurationSection npcs = data.getConfigurationSection("NPC");
+		if (npcs != null) {
+			for (String entry : npcs.getKeys(false)) {
+				Location loc = (Location) npcs.get(entry);
+				Entity ent = loc.getWorld().spawnEntity(loc, EntityType.valueOf(config.getString("NPC.Type")));
+				NBTEditor.setEntityTag(ent, 1, "NoAI");
+				NBTEditor.setEntityTag(ent, 1, "Silent");
+				ArmorStand stand = (ArmorStand) loc.getWorld()
+						.spawnEntity(loc.clone().add(0, Utils.getEntityHeight(ent.getType()) - 2, 0), EntityType.ARMOR_STAND);
+				stand.setVisible(false);
+				stand.setCustomName(MSG.color(config.getString("NPC.Name")));
+				stand.setCustomNameVisible(true);
+				stand.setGravity(false);
+
+				ent.setMetadata("isNPC", new FixedMetadataValue(this, entry));
+				ent.setMetadata("holoID", new FixedMetadataValue(this, stand.getUniqueId() + ""));
+			}
+		}
+	}
+
+
+
+	public void onDisable() {
 		saveData();
 	}
 

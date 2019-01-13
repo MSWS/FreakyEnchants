@@ -41,6 +41,7 @@ public class EnchantmentManager {
 		enchants.put("toxicshot", new ToxicShot(87));
 		enchants.put("rage", new Rage(88));
 		enchants.put("autograb", new AutoGrab(89));
+		enchants.put("barrage", new Barrage(90));
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");
@@ -54,7 +55,6 @@ public class EnchantmentManager {
 				try {
 					Enchantment.registerEnchantment(r.getValue());
 				} catch (IllegalArgumentException e) {
-					MSG.log(r.getValue().getName() + " has already been registered.");
 				}
 				if (!plugin.enchantCosts.contains(r.getKey())) {
 					save = true;

@@ -18,6 +18,8 @@ HelpLength: 10 #Unused
 NPC:
   Type: VILLAGER #The EntityType that the entity will be
   Name: '&a&lEnchanter' #The name that will be visible above the NPC's head
+  AllowRightClick: true
+  AllowLeftClick: true
 
 #What should the economy be called (you will have to customize this in guis.yml)
 EconomyName: Token%s%
@@ -73,7 +75,19 @@ Sounds:
     Name: ANVIL_USE
     Volume: 1
     Pitch: 2
-    
+
+#############################
+#                           #
+#       GUI Settings        #
+#                           #
+#############################    
+EnchantmentSuffix:
+  Level:
+  - ''
+  - '&7(Right-Click to go up to &e%level% levels&7)'
+  Price:
+  - ''
+  - '&a&lPrice: &a%price% Token%s%'
 
 #############################
 #                           #
@@ -250,3 +264,14 @@ ToxicShot:
     1: 0
     3: 1
   SuccessMessage: '&e&l* * * &8&l[&5&lPOISONED&8&l] &e&l* * *'
+Barrage:
+  RequireFullCharge: true
+  UseInventoryArrows: true
+  AllowInfinity: true
+  OffsetInaccuracy: .5 #The distance between each arrow
+  Spread: 1.0 #The spread of the arrows
+  Speed: 3.0 #The speed of the arrows
+  BonusAmount: #How many extra arrows will be shot per level
+    1: 2
+    2: 3
+    3: 5

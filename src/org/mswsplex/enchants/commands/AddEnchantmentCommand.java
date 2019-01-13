@@ -24,6 +24,7 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 		cmd.setExecutor(this);
 		cmd.setTabCompleter(this);
 		cmd.setPermission("customenchants.addenchant");
+		cmd.setPermissionMessage(MSG.color(MSG.getString("NoPermission", "No permission")));
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

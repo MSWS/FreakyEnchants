@@ -57,7 +57,6 @@ public class ShopListener implements Listener {
 			}
 			plugin.getEnchantmentManager().addEnchant(item, PlayerManager.getDouble(player, "amplifier").intValue(),
 					apply);
-			// player.playSound(player.getLocation(), Sounds.LEVEL_UP.bukkitSound(), 2, 1);
 			player.playSound(player.getLocation(),
 					Sounds.valueOf(plugin.config.getString("Sounds.EnchantmentAdded.Name")).bukkitSound(),
 					(float) plugin.config.getDouble("Sounds.EnchantmentAdded.Volume"),
@@ -65,9 +64,6 @@ public class ShopListener implements Listener {
 			MSG.tell(player,
 					MSG.getString("Enchant.Added", "Added %enchat% %level%").replace("%enchant%", apply.getName())
 							.replace("%level%", PlayerManager.getDouble(player, "amplifier").intValue() + ""));
-			// PlayerManager.setInfo(player, "tokens",
-			// PlayerManager.getDouble(player, "tokens") - PlayerManager.getDouble(player,
-			// "cost"));
 			PlayerManager.setBalance(player,
 					PlayerManager.getBalance(player) - PlayerManager.getDouble(player, "cost"));
 			PlayerManager.removeInfo(player, "enchantToApply");
@@ -78,7 +74,6 @@ public class ShopListener implements Listener {
 			return;
 		if (section.contains(id + ".NextInventory")) {
 			player.openInventory(Utils.getGui(player, section.getString(id + ".NextInventory"), 0));
-			// player.playSound(player.getLocation(), Sounds.CLICK.bukkitSound(), 2, 1);
 			PlayerManager.setInfo(player, "openInventory", section.getString(id + ".NextInventory"));
 			player.playSound(player.getLocation(),
 					Sounds.valueOf(plugin.config.getString("Sounds.NextInventory.Name")).bukkitSound(),
@@ -109,19 +104,13 @@ public class ShopListener implements Listener {
 					MSG.tell(player, MSG
 							.getString("Token.Insufficient",
 									"&cYou have insufficient funds. (&4%total% &cof &a%cost%%c).")
-							.replace("%total%", (int) Math.round(PlayerManager.getDouble(player, "tokens")) + "")
-							.replace("%cost%", (int) cost + ""));
-					// player.playSound(player.getLocation(), Sounds.VILLAGER_NO.bukkitSound(), 2,
-					// 2);
+							.replace("%total%", PlayerManager.getBalance(player) + "").replace("%cost%", cost + ""));
 					player.playSound(player.getLocation(),
 							Sounds.valueOf(plugin.config.getString("Sounds.InsufficientFunds.Name")).bukkitSound(),
 							(float) plugin.config.getDouble("Sounds.InsufficientFunds.Volume"),
 							(float) plugin.config.getDouble("Sounds.InsufficientFunds.Pitch"));
 					return;
 				}
-
-				// player.playSound(player.getLocation(), Sounds.LEVEL_UP.bukkitSound(), 2, 2);
-
 				player.playSound(player.getLocation(),
 						Sounds.valueOf(plugin.config.getString("Sounds.SelectedEnchantment.Name")).bukkitSound(),
 						(float) plugin.config.getDouble("Sounds.SelectedEnchantment.Volume"),

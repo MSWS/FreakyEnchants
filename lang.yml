@@ -1,7 +1,7 @@
-NoPermission: '%prefix% You do not have permission to do this.'
+NoPermission: '&cYou do not have permission to do this.'
 Token:
   Give: '&7Successfully gave &e%target% &a%amo% &7token%s%, they now have &b%total%&7.'
-  Set: '&7Successfully &e%target%&7 to have &b%total% &7token%s%.'
+  Set: '&7Successfully set &e%target%&7 to have &b%total% &7token%s%.'
   Get: '&e%target% &7has &b%total%&7 token%s%&7.'
   Insufficient: '&cYou have insufficient funds. (&4%total% &cof &a%cost%&c).'
 NPC:
@@ -34,4 +34,3 @@ Help:
   - perm:customenchant.token.set &e/token set [Player] [Amount] &f- Sets a player's tokesn
   - perm:customenchant.token.shop &e/token shop &f- Opens the shop GUI
   - perm:customenchant.token.get &e/token get [Player] &fGets how many tokens a player has
-  - perm:customenchant.view &e/token &famount [Player]

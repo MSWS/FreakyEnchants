@@ -20,6 +20,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -253,14 +254,19 @@ public class Utils {
 		}
 		ItemMeta meta = item.getItemMeta();
 		if (gui.contains("Name"))
-			meta.setDisplayName(MSG.color("&r" + gui.getString("Name")));
+			meta.setDisplayName(MSG
+					.color("&r" + gui.getString("Name").replace("%balance%", PlayerManager.getBalance(player) + "")));
 		if (gui.contains("Lore")) {
 			for (String temp : gui.getStringList("Lore"))
-				lore.add(MSG.color("&r" + temp));
+				lore.add(MSG.color("&r" + temp.replace("%balance%", PlayerManager.getBalance(player) + "")));
 		}
 		if (gui.getBoolean("Unbreakable")) {
 			meta.spigot().setUnbreakable(true);
 			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+		}
+
+		if (gui.getBoolean("HideAttributes")) {
+			meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		}
 
 		if (gui.contains("Enchantments")) {
@@ -281,14 +287,17 @@ public class Utils {
 			if (gui.contains("Name"))
 				meta.setDisplayName(meta.getDisplayName().replace("%level%", MSG.toRoman(item.getAmount())));
 			if (plugin.getEnchantmentManager().enchants.get(enchName).getMaxLevel() != 1) {
-				lore.add(MSG.color(""));
-				lore.add(MSG.color("&7(Right-Click to go to up to &e"
-						+ plugin.getEnchantmentManager().enchants.get(enchName).getMaxLevel() + " levels&7)"));
+				plugin.config.getStringList("EnchantmentSuffix.Level").forEach((line) -> {
+					lore.add(MSG.color(line.replace("%level%",
+							plugin.getEnchantmentManager().enchants.get(enchName).getMaxLevel() + "")));
+				});
 			}
-			lore.add(MSG.color(""));
-			lore.add(MSG.color("&a&lPrice: " + plugin.enchantCosts.getDouble(enchName + "." + item.getAmount()) + " "
-					+ plugin.config.getString("EconomyName").replace("%s%",
-							plugin.enchantCosts.getDouble(enchName + "." + item.getAmount()) == 1 ? "" : "s")));
+			plugin.config.getStringList("EnchantmentSuffix.Price").forEach((line) -> {
+				lore.add(MSG.color(line
+						.replace("%price%", plugin.enchantCosts.getDouble(enchName + "." + item.getAmount()) + "")
+						.replace("%s%",
+								plugin.enchantCosts.getDouble(enchName + "." + item.getAmount()) == 1 ? "" : "s")));
+			});
 		}
 		meta.setLore(lore);
 		item.setItemMeta(meta);
@@ -639,6 +648,38 @@ public class Utils {
 		if (plugin.config.getStringList("DisabledWorlds.All").contains(world.getName()))
 			return false;
 		return !plugin.config.getStringList("DisabledWorlds." + ench).contains(world.getName());
+	}
+
+	public static float getEntityHeight(EntityType type) {
+		switch (type) {
+		case GHAST:
+			return 5;
+		case ENDER_DRAGON:
+		case WITHER:
+			return 3.5f;
+		case ENDERMAN:
+			return 3;
+		case GIANT:
+			return 13;
+		case CHICKEN:
+		case GUARDIAN:
+		case BAT:
+		case CAVE_SPIDER:
+		case SPIDER:
+		case WOLF:
+		case PIG:
+		case OCELOT:
+			return 1;
+		case SILVERFISH:
+			return .5f;
+		case SHEEP:
+			return 1.5f;
+		case IRON_GOLEM:
+		case WITCH:
+			return 2.5f;
+		default:
+			return 2;
+		}
 	}
 
 }

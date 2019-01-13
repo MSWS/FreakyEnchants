@@ -26,7 +26,7 @@ public class NPCListener implements Listener {
 	public void onInteract(PlayerInteractAtEntityEvent event) {
 		Player player = event.getPlayer();
 		Entity clicked = event.getRightClicked();
-		if (clicked.hasMetadata("isNPC")) {
+		if (clicked.hasMetadata("isNPC") && plugin.config.getBoolean("NPC.AllowRightClick")) {
 			event.setCancelled(true);
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
 				player.openInventory(Utils.getGui(player, "MainMenu", 0));
@@ -41,7 +41,8 @@ public class NPCListener implements Listener {
 
 	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent event) {
-		if (!event.getEntity().hasMetadata("isNPC") || !(event.getDamager() instanceof Player))
+		if (!event.getEntity().hasMetadata("isNPC") || !(event.getDamager() instanceof Player)
+				|| !plugin.config.getBoolean("NPC.AllowLeftClick"))
 			return;
 		Player player = (Player) event.getDamager();
 		player.openInventory(Utils.getGui(player, "MainMenu", 0));

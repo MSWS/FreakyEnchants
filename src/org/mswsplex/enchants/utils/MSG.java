@@ -132,7 +132,8 @@ public class MSG {
 	 * @param msg Message to log
 	 */
 	public static void log(String msg) {
-		Bukkit.getLogger().info(MSG.color(msg));
+		// Bukkit.getLogger().info(MSG.color(msg));
+		Bukkit.getConsoleSender().sendMessage(color("[" + plugin.getDataFolder().getName() + "] " + msg));
 	}
 
 	/**
@@ -194,8 +195,8 @@ public class MSG {
 			String res = list.get(i);
 			tell(sender, res);
 		}
-		if (command.equals("default")) // TODO
-			tell(sender, "&d&lPlugin &ev" + plugin.getDescription().getVersion() + " &7created by &bMSWS");
+		if (command.equals("default"))
+			tell(sender, "&d&lCustomEnchants &ev" + plugin.getDescription().getVersion() + " &7created by &bMSWS");
 	}
 
 	/**

@@ -2,6 +2,7 @@ customenchants.addenchant.[enchantment|all] - Access to /addenchant [enchantment
 customenchants.addenchant.bypasslimit
 
 customenchants.enchanter - Access to the /enchanter shop GUI
+customenchants.enchanter.[create|delete|settype] - Access to /enchanter [...]
 
 customenchants.token.give
 customenchants.token.set

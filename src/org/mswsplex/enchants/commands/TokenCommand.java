@@ -23,10 +23,10 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 
 	public TokenCommand(CustomEnchants plugin) {
 		this.plugin = plugin;
-		PluginCommand command = this.plugin.getCommand("token");
-		command.setExecutor(this);
-		command.setPermission("customenchants.token");
-		command.setPermissionMessage(MSG.color(MSG.getString("NoPermission", "No permission")));
+		PluginCommand cmd = this.plugin.getCommand("token");
+		cmd.setExecutor(this);
+		cmd.setPermission("customenchants.token");
+		cmd.setPermissionMessage(MSG.color(MSG.getString("NoPermission", "No permission")));
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

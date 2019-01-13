@@ -28,6 +28,7 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 		PluginCommand cmd = plugin.getCommand("enchanter");
 		cmd.setExecutor(this);
 		cmd.setPermission("customenchants.enchanter");
+		cmd.setPermissionMessage(MSG.color(MSG.getString("NoPermission", "No permission")));
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -49,15 +50,17 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 				MSG.noPerm(sender);
 				return true;
 			}
-			ent = player.getWorld().spawnEntity(player.getLocation(),
+			ent = player.getLocation().getWorld().spawnEntity(player.getLocation(),
 					EntityType.valueOf(plugin.config.getString("NPC.Type")));
-			ArmorStand stand = (ArmorStand) player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
+			NBTEditor.setEntityTag(ent, 1, "NoAI");
+			NBTEditor.setEntityTag(ent, 1, "Silent");
+			ArmorStand stand = (ArmorStand) player.getLocation().getWorld().spawnEntity(
+					player.getLocation().clone().add(0, Utils.getEntityHeight(ent.getType()) - 2, 0),
+					EntityType.ARMOR_STAND);
 			stand.setVisible(false);
 			stand.setCustomName(MSG.color(plugin.config.getString("NPC.Name")));
 			stand.setCustomNameVisible(true);
 			stand.setGravity(false);
-			NBTEditor.setEntityTag(ent, 1, "NoAI");
-			NBTEditor.setEntityTag(ent, 1, "Silent");
 			int pos = 0;
 			while (plugin.data.contains("NPC." + pos))
 				pos++;
@@ -93,18 +96,37 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 			;
 			closest.remove();
 			break;
+		case "settype":
+			if (!sender.hasPermission("customenchants.enchanter.settype")) {
+				MSG.noPerm(sender);
+				return true;
+			}
+			EntityType type = EntityType.valueOf(args[1].toUpperCase());
+			plugin.config.set("NPC.Type", type + "");
+			plugin.saveConfig();
+			plugin.refreshNPCs();
+			break;
 		}
+		plugin.saveData();
 		return true;
 	}
 
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 		List<String> result = new ArrayList<>();
 		if (args.length <= 1)
-			for (String res : new String[] { "create", "delete" }) {
+			for (String res : new String[] { "create", "delete", "settype" }) {
 				if (sender.hasPermission("customenchants.enchanter." + res))
 					if (res.toLowerCase().startsWith(args[0].toLowerCase()))
 						result.add(res);
 			}
+		if (args.length == 2 && args[0].equalsIgnoreCase("settype")) {
+			for (EntityType type : EntityType.values()) {
+				if (!type.isAlive() || !type.isSpawnable())
+					continue;
+				if (type.toString().toLowerCase().startsWith(args[1].toLowerCase()))
+					result.add(MSG.camelCase(type.toString()).replace(" ", "_"));
+			}
+		}
 		return result;
 	}
 }

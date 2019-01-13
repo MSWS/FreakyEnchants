@@ -1,31 +1,71 @@
 MainMenu:
   Title: Category Selection
-  Size: 27
+  Size: 45
   sword:
     Icon: DIAMOND_SWORD
     Name: '&e&lSword Enchantments'
     Slot: 9
     NextInventory: SwordEnchants
+    HideAttributes: true
+    Lore:
+    - '&b&lEnchantments'
+    - '&7 - Wither Point'
+    - '&7 - Toxic Point'
+    - '&7 - Revive'
+    - '&7 - Rage'
+    - '&7 - Freeze'
   pick:
     Icon: DIAMOND_PICKAXE
     Name: '&e&lPickaxe Enchantments'
-    Slot: 11
+    Slot: 20
     NextInventory: PickaxeEnchants
+    HideAttributes: true
+    Lore:
+    - '&b&lEnchantments'
+    - '&7 - Explosion'
+    - '&7 - Excavation'
+    - '&7 - AutoGrab'
+    - '&7 - AutoSmelt'
   axe:
     Icon: DIAMOND_AXE
     Name: '&e&lAxe Enchantments'
     Slot: 13
     NextInventory: AxeEnchants
+    HideAttributes: true
+    Lore:
+    - '&b&lEnchantments'
+    - '&7 - Stormbreaker'
+    - '&7 - Nightshade'
+    - '&7 - Severed'
+    - '&7 - Wither Point'
+    - '&7 - Toxic Point'
   bow:
     Icon: BOW
     Name: '&e&lBow Enchantments'
-    Slot: 15
+    Slot: 24
     NextInventory: BowEnchants
+    Lore:
+    - '&b&lEnchantments'
+    - '&7 - Explosive'
+    - '&7 - Stun'
+    - '&7 - Barrage'
+    - '&7 - Wither Shot'
+    - '&7 - Toxic Shot'
   armor:
     Icon: DIAMOND_CHESTPLATE
     Name: '&e&lArmor Enchantments'
     Slot: 17
     NextInventory: ArmorEnchants
+    Lore:
+    - '&b&lEnchantments'
+    - '&7 - Hearty'
+    - '&7 - Spring'
+    - '&7 - Heat Shield'
+    - '&7 - Summoner'
+  balance:
+    Icon: BOOK
+    Name: '&a&l%balance% Tokens'
+    Slot: 31
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''
@@ -75,25 +115,26 @@ PickaxeEnchants:
   explosion:
     Icon: TNT
     Name: '&c&lExplosion %level%'
-    Slot: 9
+    Slot: 10
     Lore:
     - '&7Creates an explosion that breaks many nearby blocks.'
   excavation:
     Icon: DIAMOND_SPADE
     Name: '&e&lExcavation %level%'
-    Slot: 11
+    HideAttributes: true
+    Slot: 12
     Lore:
-    - '&7Breaks blocks in a &e%level%x%level%&7 radius.'
-  autopickup:
+    - '&7Breaks blocks in a certain radius.'
+  autograb:
     Icon: HOPPER
-    Name: '&3&lAutoGrab'
-    Slot: 13
+    Name: '&3&lAutoGrab %level%'
+    Slot: 14
     Lore:
     - '&7Automagically teleports items into your inventory.'
   autosmelt:
     Icon: IRON_INGOT
     Name: '&f&lAutoSmelt %level%'
-    Slot: 17
+    Slot: 16
     Lore:
     - '&7Automatically smelts certain ores and blocks.'
   BACKGROUND_ITEM:
@@ -122,7 +163,8 @@ AxeEnchants:
     Owner: MSWS
     Name: '&c&lSevered %level%'
     Lore:
-    - '&7Has a small chance to drop your opponent'' when you kill them.'
+    - '&7Has a small chance to drop your opponent''s'
+    - '&7skull when you kill them.'
   witherpoint:
     Icon: SKULL_ITEM
     Data: 1
@@ -147,27 +189,33 @@ BowEnchants:
   explosive:
     Icon: TNT
     Name: '&c&lExplosive %level%'
-    Slot: 10
+    Slot: 9
     Lore:
     - '&7Arrows will explode on impact'
   stun:
     Icon: SLIME_BALL
     Name: '&e&lStun %level%'
-    Slot: 12
+    Slot: 11
     Lore:
-    - '&7Has a small chance to stun an enemy for &b3 seconds&7.'
+    - '&7Has a small chance to stun an enemy for a short time.'
+  barrage:
+    Icon: 'ARROW'
+    Name: '&d&lBarrage %level%'
+    Slot: 13
+    Lore:
+    - '&7Shoot many arrows at once.'
   withershot:
     Icon: SKULL_ITEM
     Data: 1
-    Name: '&7&lWither Point %level%'
-    Slot: 14
+    Name: '&7&lWither Shot %level%'
+    Slot: 15
     Lore:
     - '&7Has a small chance of dealing a Wither Effect.'
   toxicshot:
     Icon: POTION
     Data: 8196
-    Name: '&5&lToxic Point %level%'
-    Slot: 16
+    Name: '&5&lToxic Shot %level%'
+    Slot: 17
     Lore:
     - '&7Has a small chance of dealing a &5Poison Effect&7.'
   BACKGROUND_ITEM:
