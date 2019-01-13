@@ -13,6 +13,7 @@ Enchant:
   Invalid: '&cUnable to add &e%enchant%&c to that item.'
   Click: '&b%enchant% %level%&7 selected, click on the item that you want to enchant.'
   Air: '&7Hold the item you want to enchant in your hand.'
+  Unknown: '&cUnknown enchantment.'
 InventoryFull:
   Title:
     Enabled: true

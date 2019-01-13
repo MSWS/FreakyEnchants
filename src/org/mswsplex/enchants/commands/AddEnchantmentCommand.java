@@ -40,30 +40,41 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 		if (args.length > 1)
 			level = Integer.parseInt(args[1]);
 		if (args[0].equalsIgnoreCase("all")) {
-			if (!sender.hasPermission("customenchant.addenchant.all")) {
+			if (!sender.hasPermission("customenchants.addenchant.all")) {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 				return true;
 			}
 			for (Entry<String, Enchantment> e : plugin.getEnchantmentManager().enchants.entrySet()) {
 				Enchantment ench = e.getValue();
-				plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level, ench);
-				MSG.tell(player, MSG.getString("Enchant.Added", "added %enchant% %level%")
-						.replace("%enchant%", ench.getName()).replace("%level%", MSG.toRoman(level)));
+				if (!player.hasPermission("customenchants.addenchant.bypasslimit")) {
+					plugin.getEnchantmentManager().addEnchant(player.getItemInHand(),
+							Math.min(level, ench.getMaxLevel()), ench);
+				} else {
+					plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level, ench);
+				}
+				MSG.tell(player,
+						MSG.getString("Enchant.Added", "added %enchant% %level%").replace("%enchant%", ench.getName())
+								.replace("%level%", MSG.toRoman(player.getItemInHand().getEnchantmentLevel(ench))));
 			}
 		} else if (!plugin.getEnchantmentManager().enchants.containsKey(args[0].toLowerCase())) {
-			MSG.tell(sender, "Unknown enchantment");
+			MSG.tell(sender, MSG.getString("Enchant.Unknown", "unknown enchantment"));
 			return true;
 		} else {
-			if (!sender.hasPermission("customenchant.addenchant." + args[0])) {
+			if (!sender.hasPermission("customenchants.addenchant." + args[0])) {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 				return true;
 			}
 			Enchantment ench = plugin.getEnchantmentManager().enchants.get(args[0].toLowerCase());
-			plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level, ench);
-			MSG.tell(player, MSG.getString("Enchant.Added", "added %enchant% %level%")
-					.replace("%enchant%", ench.getName()).replace("%level%", MSG.toRoman(level)));
+			if (!player.hasPermission("customenchants.addenchant.bypasslimit")) {
+				plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), Math.min(level, ench.getMaxLevel()),
+						ench);
+			} else {
+				plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level, ench);
+			}
+			MSG.tell(player,
+					MSG.getString("Enchant.Added", "added %enchant% %level%").replace("%enchant%", ench.getName())
+							.replace("%level%", MSG.toRoman(player.getItemInHand().getEnchantmentLevel(ench))));
 		}
-
 		return true;
 	}
 
