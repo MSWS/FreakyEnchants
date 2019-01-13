@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class WitherPointCheck implements Listener {
 
@@ -27,6 +28,8 @@ public class WitherPointCheck implements Listener {
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		Entity ent = event.getDamager();
 		if (!(event.getDamager() instanceof LivingEntity) || !(event.getEntity() instanceof LivingEntity))
+			return;
+		if (!Utils.allowEnchant(ent.getWorld(), "witherpoint"))
 			return;
 		LivingEntity living = (LivingEntity) event.getDamager();
 		ItemStack hand = living.getEquipment().getItemInHand();

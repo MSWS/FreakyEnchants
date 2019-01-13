@@ -77,13 +77,25 @@ PickaxeEnchants:
     Name: '&c&lExplosion %level%'
     Slot: 9
     Lore:
-    - '&7Creates an explosion that breaks many nearby blocks'
+    - '&7Creates an explosion that breaks many nearby blocks.'
+  excavation:
+    Icon: DIAMOND_SPADE
+    Name: '&e&lExcavation %level%'
+    Slot: 11
+    Lore:
+    - '&7Breaks blocks in a &e%level%x%level%&7 radius.'
+  autopickup:
+    Icon: HOPPER
+    Name: '&3&lAutoGrab'
+    Slot: 13
+    Lore:
+    - '&7Automagically teleports items into your inventory.'
   autosmelt:
     Icon: IRON_INGOT
-    Name: '&f&lAuto Smelt'
+    Name: '&f&lAutoSmelt %level%'
     Slot: 17
     Lore:
-    - '&7Automatically smelts certain ores and blocks'
+    - '&7Automatically smelts certain ores and blocks.'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''

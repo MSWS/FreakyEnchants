@@ -12,11 +12,26 @@ Enchant:
   Added: '&7Successfully added &e%enchant% %level%&7 to item.'
   Invalid: '&cUnable to add &e%enchant%&c to that item.'
   Click: '&b%enchant% %level%&7 selected, click on the item that you want to enchant.'
+  Air: '&7Hold the item you want to enchant in your hand.'
+InventoryFull:
+  Title:
+    Enabled: true
+    Top: '&c&lINVENTORY FULL'
+    Bottom: '&7Your inventory is full!'
+  ChatMessage: '&c&l[WARNING] &7Your inventory is full!'
+  ActionBarMessage:
+    Enabled: true
+    Message: '&4[INVENTORY] &cYour inventory is full!'
+  Sound:
+    Enabled: true
+    Name: NOTE_PLING
+    Volume: 2
+    Pitch: 2
 Help:
   default:
   - '&e<> &fOptional &e[] &fRequired'
-  - 'perm:customenchant.token.give &e/token give [Player] [Amount] &f- Gives the player tokens'
-  - 'perm:customenchant.token.set &e/token set [Player] [Amount] &f- Sets a player''s tokesn'
-  - 'perm:customenchant.token.shop &e/token shop &f- Opens the shop GUI'
-  - 'perm:customenchant.token.get &e/token get [Player] &fGets how many tokens a player has'
-  - 'perm:customenchant.view &e/token &famount [Player]'
+  - perm:customenchant.token.give &e/token give [Player] [Amount] &f- Gives the player tokens
+  - perm:customenchant.token.set &e/token set [Player] [Amount] &f- Sets a player's tokesn
+  - perm:customenchant.token.shop &e/token shop &f- Opens the shop GUI
+  - perm:customenchant.token.get &e/token get [Player] &fGets how many tokens a player has
+  - perm:customenchant.view &e/token &famount [Player]

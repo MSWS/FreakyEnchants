@@ -14,6 +14,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class ToxicShotCheck implements Listener {
 
@@ -31,6 +32,8 @@ public class ToxicShotCheck implements Listener {
 		if (!(event.getEntity() instanceof LivingEntity))
 			return;
 		LivingEntity ent = (LivingEntity) event.getEntity();
+		if (!Utils.allowEnchant(ent.getWorld(), "toxicshot"))
+			return;
 		double duration = event.getDamager().getMetadata("toxicArrow").get(0).asDouble();
 		ent.addPotionEffect(
 				new PotionEffect(PotionEffectType.getByName(plugin.config.getString("ToxicShot.EffectType")),

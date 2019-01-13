@@ -16,6 +16,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class StunCheck implements Listener {
 	private CustomEnchants plugin;
@@ -32,7 +33,8 @@ public class StunCheck implements Listener {
 		if (!(event.getEntity() instanceof LivingEntity))
 			return;
 		LivingEntity ent = (LivingEntity) event.getEntity();
-
+		if (!Utils.allowEnchant(ent.getWorld(), "stun"))
+			return;
 		double duration = event.getDamager().getMetadata("stunArrow").get(0).asDouble();
 		if (event.getEntity() instanceof Player) {
 			PlayerManager.setInfo((Player) ent, "restrictMovement", System.currentTimeMillis() + duration);

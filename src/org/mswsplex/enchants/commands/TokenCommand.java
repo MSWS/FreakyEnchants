@@ -53,7 +53,7 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 			}
 			break;
 		case "give":
-			if (!sender.hasPermission("customenchant.token.give")) {
+			if (!sender.hasPermission("customenchants.token.give")) {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 				return true;
 			}
@@ -75,7 +75,7 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 							.replace("%s%", PlayerManager.getDouble(target, "tokens") == 1 ? "" : "s"));
 			break;
 		case "set":
-			if (!sender.hasPermission("customenchant.token.set")) {
+			if (!sender.hasPermission("customenchants.token.set")) {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 				return true;
 			}
@@ -89,7 +89,7 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			amo = Double.parseDouble(args[2]);
-			PlayerManager.setInfo(target, "tokens", amo);
+			PlayerManager.setBalance(target, amo);
 			MSG.tell(sender,
 					MSG.getString("Token.Set", "set %target% %amo% to have %total%")
 							.replace("%target%", sender.getName()).replace("%amo%", amo + "")
@@ -110,17 +110,16 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 			}
 			if (sender instanceof Player)
 				target = (Player) sender;
-			if (args.length > 1 && sender.hasPermission("customenchant.get.others"))
+			if (args.length > 1 && sender.hasPermission("customenchants.token.get.others"))
 				target = Bukkit.getPlayer(args[1]);
 			if (target == null) {
 				MSG.tell(sender, "Unknown Player");
 				return true;
 			}
 			MSG.tell(sender,
-					MSG.getString("Token.Get", "gave %target% %amo% token%s%, they now have %total%")
-							.replace("%target%", target.getName())
-							.replace("%total%", (int) Math.round(PlayerManager.getDouble(target, "tokens")) + "")
-							.replace("%s%", PlayerManager.getDouble(target, "tokens") == 1 ? "" : "s"));
+					MSG.getString("Token.Get", "%target% has %total%").replace("%target%", target.getName())
+							.replace("%total%", (int) Math.round(PlayerManager.getBalance(target)) + "")
+							.replace("%s%", PlayerManager.getBalance(target) == 1 ? "" : "s"));
 			break;
 		}
 		return true;

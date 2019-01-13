@@ -1,18 +1,14 @@
 package org.mswsplex.enchants.managers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.entity.Player;
 import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.utils.HotbarMessenger;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Sounds;
 
 public class PlayerManager {
 	public static CustomEnchants plugin;
@@ -53,62 +49,42 @@ public class PlayerManager {
 		return plugin.data.getBoolean(player.getUniqueId() + "." + id);
 	}
 
+	public static double getBalance(OfflinePlayer player) {
+		if (plugin.getEconomy() == null || plugin.config.getString("EconomyType").equals("TOKEN")) {
+			return getDouble(player, "tokens");
+		}
+		return plugin.getEconomy().getBalance(player);
+	}
+
+	public static void setBalance(OfflinePlayer player, double bal) {
+		if (plugin.getEconomy() == null || plugin.config.getString("EconomyType").equals("TOKEN")) {
+			setInfo(player, "tokens", bal);
+		}
+		plugin.getEconomy().depositPlayer(player, bal - getBalance(player));
+	}
+
 	public static List<String> getStringList(OfflinePlayer player, String id) {
 		return plugin.data.getStringList(player.getUniqueId() + "." + id);
 	}
 
-	public static ItemStack parseItem(ConfigurationSection section, String path, OfflinePlayer player) {
-		ConfigurationSection gui = section.getConfigurationSection(path);
-		ItemStack item = new ItemStack(Material.valueOf(gui.getString("Icon")));
-		List<String> lore = new ArrayList<String>();
-		if (gui.contains("Amount"))
-			item.setAmount(gui.getInt("Amount"));
-		if (gui.contains("Data"))
-			item.setDurability((short) gui.getInt("Data"));
-		ItemMeta meta = item.getItemMeta();
-		if (gui.contains("Name"))
-			meta.setDisplayName(MSG.color("&r" + gui.getString("Name")));
-		if (gui.contains("Lore")) {
-			for (String temp : gui.getStringList("Lore"))
-				lore.add(MSG.color("&r" + temp));
+	@SuppressWarnings("deprecation")
+	public static void emptyInventory(Player p) {
+		if (plugin.lang.getBoolean("InventoryFull.Title.Enabled")) {
+			p.sendTitle(MSG.color(plugin.lang.getString("InventoryFull.Title.Top")),
+					MSG.color(plugin.lang.getString("InventoryFull.Title.Bottom")));
+
 		}
-		if (gui.getBoolean("Unbreakable")) {
-			meta.spigot().setUnbreakable(true);
-			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+		if (plugin.lang.getBoolean("InventoryFull.ActionBarMessage.Enabled")) {
+			HotbarMessenger.sendHotBarMessage(p,
+					MSG.color(plugin.lang.getString("InventoryFull.ActionBarMessage.Message")));
 		}
-		if (gui.contains("Cost")) {
-			HashMap<Material, Integer> mats = new HashMap<>();
-			ConfigurationSection costs = gui.getConfigurationSection("Cost");
-			for (String material : costs.getKeys(false))
-				mats.put(Material.valueOf(material), costs.getInt(material));
-			lore.add("");
-			if (mats.size() == 1) {
-				lore.add(MSG.color("&aCost: &c" + mats.values().toArray()[0] + " "
-						+ MSG.camelCase(mats.keySet().toArray()[0] + "")));
-			} else {
-				lore.add(MSG.color("&aCost:"));
-				for (Material mat : mats.keySet()) {
-					lore.add(MSG.color("&c* " + mats.get(mat) + " "
-							+ MSG.camelCase(mat.name() + (mats.get(mat) == 1 ? "" : "s"))));
-				}
-			}
+		if (plugin.lang.getBoolean("InventoryFull.Sound.Enabled")) {
+			p.playSound(p.getLocation(),
+					Sounds.valueOf(plugin.lang.getString("InventoryFull.Sound.Name")).bukkitSound(),
+					(float) plugin.lang.getDouble("InventoryFull.Sound.Volume"),
+					(float) plugin.lang.getDouble("InventoryFull.Sound.Pitch"));
 		}
-		if (gui.contains("Enchantments")) {
-			ConfigurationSection enchs = gui.getConfigurationSection("Enchantments");
-			for (String enchant : enchs.getKeys(false)) {
-				int level = 1;
-				if (enchs.contains(enchant + ".Level"))
-					level = enchs.getInt(enchant + ".Level");
-				if (enchs.contains(enchant + ".Visible") && !enchs.getBoolean(enchant + ".Visible"))
-					meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-				item.setItemMeta(meta);
-				item.addUnsafeEnchantment(Enchantment.getByName(enchant.toUpperCase()), level);
-				meta = item.getItemMeta();
-			}
-		}
-		meta.setLore(lore);
-		item.setItemMeta(meta);
-		return item;
+		MSG.tell(p, plugin.lang.getString("InventoryFull.ChatMessage"));
 	}
 
 	/**

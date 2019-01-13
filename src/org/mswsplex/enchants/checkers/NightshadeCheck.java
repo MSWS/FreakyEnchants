@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class NightshadeCheck implements Listener {
 
@@ -26,7 +27,8 @@ public class NightshadeCheck implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		Entity ent = event.getDamager();
-
+		if (!Utils.allowEnchant(ent.getWorld(), "nightshade"))
+			return;
 		if (!(ent instanceof LivingEntity) || !(event.getEntity() instanceof LivingEntity))
 			return;
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();

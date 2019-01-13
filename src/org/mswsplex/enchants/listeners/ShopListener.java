@@ -57,12 +57,19 @@ public class ShopListener implements Listener {
 			}
 			plugin.getEnchantmentManager().addEnchant(item, PlayerManager.getDouble(player, "amplifier").intValue(),
 					apply);
-			player.playSound(player.getLocation(), Sounds.LEVEL_UP.bukkitSound(), 2, 1);
+			// player.playSound(player.getLocation(), Sounds.LEVEL_UP.bukkitSound(), 2, 1);
+			player.playSound(player.getLocation(),
+					Sounds.valueOf(plugin.config.getString("Sounds.EnchantmentAdded.Name")).bukkitSound(),
+					(float) plugin.config.getDouble("Sounds.EnchantmentAdded.Volume"),
+					(float) plugin.config.getDouble("Sounds.EnchantmentAdded.Pitch"));
 			MSG.tell(player,
 					MSG.getString("Enchant.Added", "Added %enchat% %level%").replace("%enchant%", apply.getName())
 							.replace("%level%", PlayerManager.getDouble(player, "amplifier").intValue() + ""));
-			PlayerManager.setInfo(player, "tokens",
-					PlayerManager.getDouble(player, "tokens") - PlayerManager.getDouble(player, "cost"));
+			// PlayerManager.setInfo(player, "tokens",
+			// PlayerManager.getDouble(player, "tokens") - PlayerManager.getDouble(player,
+			// "cost"));
+			PlayerManager.setBalance(player,
+					PlayerManager.getBalance(player) - PlayerManager.getDouble(player, "cost"));
 			PlayerManager.removeInfo(player, "enchantToApply");
 			PlayerManager.removeInfo(player, "amplifier");
 			PlayerManager.removeInfo(player, "cost");
@@ -71,8 +78,12 @@ public class ShopListener implements Listener {
 			return;
 		if (section.contains(id + ".NextInventory")) {
 			player.openInventory(Utils.getGui(player, section.getString(id + ".NextInventory"), 0));
-			player.playSound(player.getLocation(), Sounds.CLICK.bukkitSound(), 2, 1);
+			// player.playSound(player.getLocation(), Sounds.CLICK.bukkitSound(), 2, 1);
 			PlayerManager.setInfo(player, "openInventory", section.getString(id + ".NextInventory"));
+			player.playSound(player.getLocation(),
+					Sounds.valueOf(plugin.config.getString("Sounds.NextInventory.Name")).bukkitSound(),
+					(float) plugin.config.getDouble("Sounds.NextInventory.Volume"),
+					(float) plugin.config.getDouble("Sounds.NextInventory.Pitch"));
 		}
 		if (plugin.enchantCosts.contains(id)) {
 			Enchantment ench = plugin.getEnchantmentManager().enchants.get(id);
@@ -83,7 +94,8 @@ public class ShopListener implements Listener {
 								: Math.max(((PlayerManager.getDouble(player, id) + 1) % (ench.getMaxLevel() + 1))
 										+ ench.getStartLevel(), 1 + ench.getStartLevel()));
 				PlayerManager.setInfo(player, "ignore", true);
-				player.playSound(player.getLocation(), Sounds.NOTE_PLING.bukkitSound(), 2,
+				player.playSound(player.getLocation(),
+						Sounds.valueOf(plugin.config.getString("Sounds.IterateLevels.Name")).bukkitSound(), 2,
 						(((float) (PlayerManager.getInfo(player, id) == null ? 2
 								: Math.max(((PlayerManager.getDouble(player, id)) % (ench.getMaxLevel() + 1))
 										+ ench.getStartLevel(), 1 + ench.getStartLevel()))
@@ -93,17 +105,28 @@ public class ShopListener implements Listener {
 				return;
 			}
 			if (event.getClick() == ClickType.LEFT) {
-				if (PlayerManager.getDouble(player, "tokens") < cost) {
+				if (PlayerManager.getBalance(player) < cost) {
 					MSG.tell(player, MSG
 							.getString("Token.Insufficient",
 									"&cYou have insufficient funds. (&4%total% &cof &a%cost%%c).")
 							.replace("%total%", (int) Math.round(PlayerManager.getDouble(player, "tokens")) + "")
 							.replace("%cost%", (int) cost + ""));
-					player.playSound(player.getLocation(), Sounds.VILLAGER_NO.bukkitSound(), 2, 2);
+					// player.playSound(player.getLocation(), Sounds.VILLAGER_NO.bukkitSound(), 2,
+					// 2);
+					player.playSound(player.getLocation(),
+							Sounds.valueOf(plugin.config.getString("Sounds.InsufficientFunds.Name")).bukkitSound(),
+							(float) plugin.config.getDouble("Sounds.InsufficientFunds.Volume"),
+							(float) plugin.config.getDouble("Sounds.InsufficientFunds.Pitch"));
 					return;
 				}
 
-				player.playSound(player.getLocation(), Sounds.LEVEL_UP.bukkitSound(), 2, 2);
+				// player.playSound(player.getLocation(), Sounds.LEVEL_UP.bukkitSound(), 2, 2);
+
+				player.playSound(player.getLocation(),
+						Sounds.valueOf(plugin.config.getString("Sounds.SelectedEnchantment.Name")).bukkitSound(),
+						(float) plugin.config.getDouble("Sounds.SelectedEnchantment.Volume"),
+						(float) plugin.config.getDouble("Sounds.SelectedEnchantment.Pitch"));
+
 				MSG.tell(player, MSG
 						.getString("Enchant.Click",
 								"click item in inventory you want to enchant with %enchant% %level%")
@@ -111,10 +134,8 @@ public class ShopListener implements Listener {
 				PlayerManager.setInfo(player, "enchantToApply", id);
 				PlayerManager.setInfo(player, "amplifier", item.getAmount());
 				PlayerManager.setInfo(player, "cost", cost);
-
 			}
 		}
-
 	}
 
 	@EventHandler
@@ -134,7 +155,10 @@ public class ShopListener implements Listener {
 			return;
 		}
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-			player.playSound(player.getLocation(), Sounds.BAT_LOOP.bukkitSound(), 2, 2);
+			player.playSound(player.getLocation(),
+					Sounds.valueOf(plugin.config.getString("Sounds.GoToMain.Name")).bukkitSound(),
+					(float) plugin.config.getDouble("Sounds.GoToMain.Volume"),
+					(float) plugin.config.getDouble("Sounds.GoToMain.Pitch"));
 			player.openInventory(Utils.getGui(player, "MainMenu", 0));
 			PlayerManager.setInfo(player, "openInventory", "MainMenu");
 		}, 1);

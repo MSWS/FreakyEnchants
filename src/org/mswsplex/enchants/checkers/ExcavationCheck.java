@@ -1,49 +1,59 @@
 package org.mswsplex.enchants.checkers;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
+import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.Cuboid;
+import org.mswsplex.enchants.utils.Sounds;
+import org.mswsplex.enchants.utils.Utils;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 public class ExcavationCheck implements Listener {
 	private CustomEnchants plugin;
 
-	public ExcavationCheck(final CustomEnchants plugin) {
+	public ExcavationCheck(CustomEnchants plugin) {
 		this.plugin = plugin;
-		Bukkit.getPluginManager().registerEvents((Listener) this, (Plugin) plugin);
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-	public void onBlockBreak(final BlockBreakEvent event) {
-		final Player player = event.getPlayer();
-		final ItemStack hand = player.getItemInHand();
+	public void onBlockBreak(BlockBreakEvent event) {
+		Player player = event.getPlayer();
+		if (!Utils.allowEnchant(player.getWorld(), "excavation"))
+			return;
+		if (player.getGameMode() == GameMode.CREATIVE && !plugin.config.getBoolean("Excavation.AllowCreative"))
+			return;
+		ItemStack hand = player.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR) {
 			return;
 		}
-		if (!hand.containsEnchantment((Enchantment) this.plugin.getEnchantmentManager().enchants.get("excavation"))) {
+		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("excavation"))) {
 			return;
 		}
-		final int lv = hand
-				.getEnchantmentLevel((Enchantment) this.plugin.getEnchantmentManager().enchants.get("excavation"));
+		int lv = (int) plugin.getEnchantmentManager().getBonusAmount("excavation",
+				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("excavation")));
+
 		WorldGuardPlugin wg = null;
 		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
 			wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 		}
-		boolean autosmelt = hand
-				.containsEnchantment((Enchantment) this.plugin.getEnchantmentManager().enchants.get("autosmelt"));
+
+		boolean autosmelt = hand.containsEnchantment(this.plugin.getEnchantmentManager().enchants.get("autosmelt"));
+
+		boolean autograb = hand.containsEnchantment(this.plugin.getEnchantmentManager().enchants.get("autograb"));
 		Location loc = event.getBlock().getLocation();
 		Cuboid cube = new Cuboid(player.getWorld(), loc.getBlockX() - lv / 2, loc.getBlockY() - lv / 2,
 				loc.getBlockZ() - lv / 2, loc.getBlockX() + lv / 2, loc.getBlockY() + lv / 2, loc.getBlockZ() + lv / 2);
@@ -55,16 +65,39 @@ public class ExcavationCheck implements Listener {
 				Bukkit.getScheduler().cancelTask(id[0]);
 				return;
 			}
-			for (int i = 0; i < 200 && i + pos[0] < cube.getBlocks().size(); i++) {
+			for (int i = 0; i < plugin.config.getInt("Excavation.MaxBlocks") && pos[0] < cube.getBlocks().size(); i++) {
 				Block b = cube.getBlocks().get(pos[0]);
-				if (b.getType() == Material.BEDROCK || b.isLiquid()) {
+				if (b.isLiquid() || b.getType() == Material.AIR) {
 					pos[0]++;
 					continue;
 				}
-				if (fwg == null || fwg.canBuild(player, b)) {
-					if (autosmelt) {
-						for (final ItemStack item : b.getDrops()) {
-							b.getWorld().dropItem(b.getLocation(), this.replaceAuto(item));
+				if (fwg != null && !fwg.canBuild(player, b)) {
+					pos[0]++;
+					continue;
+				}
+				if (plugin.config.getStringList("Excavation.DontBreak").contains(b.getType().toString())) {
+					pos[0]++;
+					continue;
+				}
+				if (plugin.config.getBoolean("Excavation.PlayEffect"))
+					b.getWorld().playEffect(b.getLocation(), Effect.TILE_BREAK, 1);
+				b.getWorld().playSound(b.getLocation(),
+						Sounds.valueOf((Utils.getBreakSound(b.getType()) + "")).bukkitSound(), .5f, 1);
+				if (autosmelt) {
+					if (autograb) {
+						for (ItemStack item : b.getDrops()) {
+							player.getInventory().addItem(replaceAuto(item));
+						}
+					} else {
+						for (ItemStack item : b.getDrops()) {
+							b.getWorld().dropItem(b.getLocation(), replaceAuto(item));
+						}
+					}
+					b.setType(Material.AIR);
+				} else {
+					if (autograb) {
+						for (ItemStack item : b.getDrops()) {
+							player.getInventory().addItem(item);
 						}
 						b.setType(Material.AIR);
 					} else {
@@ -73,27 +106,10 @@ public class ExcavationCheck implements Listener {
 				}
 				pos[0]++;
 			}
-
-		}, 0, 1);
-
-//		for (int x = -lv / 2; x <= lv / 2; ++x) {
-//			for (int y = -lv / 2; y <= lv / 2; ++y) {
-//				for (int z = -lv / 2; z <= lv / 2; ++z) {
-//					Location l = event.getBlock().getLocation().add((double) x, (double) y, (double) z);
-//					if (wg == null || wg.canBuild(player, l)) {
-//						MSG.tell((CommandSender) player, "smelt: " + autosmelt);
-//						if (autosmelt) {
-//							for (final ItemStack item : l.getBlock().getDrops()) {
-//								l.getWorld().dropItem(l, this.replaceAuto(item));
-//							}
-//							l.getBlock().setType(Material.AIR);
-//						} else {
-//							l.getBlock().breakNaturally();
-//						}
-//					}
-//				}
-//			}
-//		}
+		}, 0, plugin.config.getInt("Excavation.IteratePer"));
+		if (autograb && player.getInventory().firstEmpty() == -1)
+			PlayerManager.emptyInventory(player);
+		event.setCancelled(true);
 	}
 
 	private ItemStack replaceAuto(final ItemStack item) {

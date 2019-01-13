@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.utils.Sounds;
 import org.mswsplex.enchants.utils.Utils;
 
 public class NPCListener implements Listener {
@@ -29,7 +30,10 @@ public class NPCListener implements Listener {
 			event.setCancelled(true);
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
 				player.openInventory(Utils.getGui(player, "MainMenu", 0));
-				player.playSound(player.getLocation(), Sound.ANVIL_USE, 1, 2);
+				player.playSound(player.getLocation(),
+						Sounds.valueOf(plugin.config.getString("Sounds.OpenEnchantmentInventory.Name")).bukkitSound(),
+						(float) plugin.config.getDouble("Sounds.OpenEnchantmentInventory.Volume"),
+						(float) plugin.config.getDouble("Sounds.OpenEnchantmentInventory.Pitch"));
 				PlayerManager.setInfo(player, "openInventory", "MainMenu");
 			}, 1);
 		}

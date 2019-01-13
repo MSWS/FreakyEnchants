@@ -1,0 +1,10 @@
+customenchants.addenchant.[enchantment|all] - Access to /addenchant [enchantment] [level]
+customenchants.addenchant.bypasslimit
+
+customenchants.enchanter - Access to the /enchanter shop GUI
+
+customenchants.token.give
+customenchants.token.set
+customenchants.token.get
+customenchants.token.get.others
+customenchants.token.shop

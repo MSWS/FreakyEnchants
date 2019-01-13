@@ -10,6 +10,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.utils.Utils;
 
 public class ExplosiveCheck implements Listener {
 	private CustomEnchants plugin;
@@ -29,6 +30,8 @@ public class ExplosiveCheck implements Listener {
 
 	@EventHandler(ignoreCancelled = true)
 	public void onProjectileLaunch(ProjectileLaunchEvent event) {
+		if (!Utils.allowEnchant(event.getEntity().getWorld(), "explosive"))
+			return;
 		Projectile proj = event.getEntity();
 		if (proj == null || proj.getShooter() == null || !(proj.getShooter() instanceof LivingEntity))
 			return;

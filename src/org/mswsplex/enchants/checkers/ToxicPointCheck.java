@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class ToxicPointCheck implements Listener {
 
@@ -27,6 +28,8 @@ public class ToxicPointCheck implements Listener {
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		Entity ent = event.getDamager();
 		if (!(ent instanceof LivingEntity) || !(event.getEntity() instanceof LivingEntity))
+			return;
+		if (!Utils.allowEnchant(ent.getWorld(), "toxicpoint"))
 			return;
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)

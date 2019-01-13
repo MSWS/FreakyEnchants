@@ -1,18 +1,98 @@
-Prefix: '&9Plugin>&7'
-StatusMessages: ACTIONBAR
-HelpLength: 10
+#If you modify anything in this config, all comments and notations will be removed.
+#You can view an online version of this at https://github.com/MSWS/CustomEnchants/blob/master/config.yml
+
+#############################
+#                           #
+#      Global Settings      #
+#                           #
+#############################
+
+#How status messages will be sent.
+#ACTIONBAR: Messages will be sent via the action bar
+#CHAT: Messages will be sent via chat - May get spammy
+StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
+
+HelpLength: 10 #Unused
+
+#NPC Settings
 NPC:
-  Type: VILLAGER
-  Name: '&a&lEnchanter'
+  Type: VILLAGER #The EntityType that the entity will be
+  Name: '&a&lEnchanter' #The name that will be visible above the NPC's head
+
+#What should the economy be called (you will have to customize this in guis.yml)
+EconomyName: Token%s%
+#What sort of economy/currency should be used? TOKEN is CustomEnchant's custom currency
+#Swap to vault if you want to use with Essentials or other Vault compatible plugins
+EconomyType: TOKEN #Options: TOKEN, VAULT
+
+#What blocks will autosmelt affect?
+#For example, IRON_ORE will be changed into IRON_INGOT
 AutoSmeltDrops:
   IRON_ORE: IRON_INGOT
   GOLD_ORE: GOLD_INGOT
   COBBLESTONE: STONE
+
+#What world(s) will certain enchantments be disabled in?
+DisabledWorlds:
+  All: #All enchantments will be disabled in these worlds
+  - world_nether
+  excavation: #The excavation enchantment will be disabled in these worlds
+  - world_the_end
+ #autograb: #(This would disable autograb in the "nograbbing" world)
+ #- nograbbing
+
+#############################
+#                           #
+#      Sound Settings       #
+#                           #
+#############################
+Sounds:
+  GoToMain:
+    Name: BAT_LOOP
+    Volume: 2
+    Pitch: 2
+  SelectedEnchantment:
+    Name: LEVEL_UP
+    Volume: 2
+    Pitch: 2
+  InsufficientFunds:
+    Name: VILLAGER_NO
+    Volume: 2
+    Pitch: 2
+  IterateLevels:
+    Name: NOTE_PLING
+  NextInventory:
+    Name: CLICK
+    Volume: 1
+    Pitch: 2
+  EnchantmentAdded:
+    Name: LEVEL_UP
+    Volume: 2
+    Pitch: 1
+  OpenEnchantmentInventory:
+    Name: ANVIL_USE
+    Volume: 1
+    Pitch: 2
+    
+
+#############################
+#                           #
+#   Enchantment Settings    #
+#                           #
+#############################
+
+#Probability:
+#  1: 5 #The level I enchantment will have a %5 chance of activating
+#  2: 10 #The level II enchantment will have a %10 chance of activating
+#  5: 20 #The level V enchantment will have a %20 chance of activating
+# Levels III - IV will have a %10 percent as it is the closest lowest specificed chance 
+
 WitherPoint:
   Affects:
-    Generic: true
-    CREEPER: true
-    PLAYER: true
+    Generic: true #If unspecified, should WitherPoint affect it?
+    CREEPER: true #Should WitherPoint affect Creepers?
+    PLAYER: true #Should WitherPoint affect Players?
+   #ZOMBIE: false #(This would make WitherPoint not affect Zombies)
   Probability:
     1: 2
     2: 4
@@ -24,7 +104,22 @@ WitherPoint:
   Amplifier:
     1: 0
     3: 1
-  SuccessMessage: '&e&l* * * &8&l[&f&lWITHERED&8&l] &e&l* * *'
+  SuccessMessage: '&e&l* * * &8&l[&f&lWITHERED&8&l] &e&l* * *' #Set to '' to disable, you can safely remove this line
+Excavation:
+  BonusAmount: #The radius that each level will break
+    1: 3
+    2: 5
+    3: 7
+  PlayEffect: true #If true the server will play a block break effect
+  AllowCreative: false
+  IteratePer: 1 #Ticks, 20 ticks in a second
+  MaxBlocks: 500 #Maximum blocks to change per iteration
+  DontBreak: #Blocks that excavation won't break
+  - BEDROCK
+  - OBSIDIAN
+Rage:
+  Multiplier: 1.1
+  ResetAfterKill: true #If true then the multiplier will be reset once the player kills an entity
 ToxicPoint:
   Affects:
     Generic: true
@@ -54,13 +149,12 @@ Freeze:
     5: 15
   SecondsPerLevel: 5000
   EffectType: SLOW
-  Amplifier: 
+  Amplifier:
     1: 0
   SuccessMessage: '&e&l* * * &8&l[&d&lSLOWNESS&8&l] &e&l* * *'
 Revive:
-  MinimumHealth: 5
-  PointsPerLevel: 3
-  BonusAmount:
+  MinimumHealth: 5 #The minimum level of health (0-20) that is required for the enchantment to work
+  BonusAmount: #How much health points each level should restore
     1: 3
     2: 5
     3: 8
@@ -103,7 +197,7 @@ Severed:
     5: 10
   SuccessMessage: '&e&l* * * &8&l[&3&lSKULL DROP&8&l] &e&l* * *'
 Hearty:
-  BonusAmount:
+  BonusAmount: #Note that this effect stacks with multiple pieces of armor
     1: 2
     2: 4
     3: 5.5
@@ -122,7 +216,8 @@ Summoner:
   Probability:
     1: 5
     2: 10
-  EntityType: IRON_GOLEM
+  EntityType: IRON_GOLEM #It is recommended to set this to a Creature, one that can target Players
+  #(Examples: Iron golem, wolves, snowmen, etc.)
   BonusAmount:
     1: 1
     2: 2
@@ -132,7 +227,7 @@ Stun:
     1: 10
     2: 15
     3: 20
-  BonusAmount:
+  BonusAmount: #How long each level will stun the target in milliseconds
     1: 3000
   SuccessMessage: '&e&l* * * &8&l[&e&lSTUNNEDD&8&l] &e&l* * *'
 WitherShot:

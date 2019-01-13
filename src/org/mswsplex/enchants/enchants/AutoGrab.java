@@ -4,9 +4,9 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
-public class Excavation extends Enchantment {
+public class AutoGrab extends Enchantment {
 
-	public Excavation(int id) {
+	public AutoGrab(int id) {
 		super(id);
 	}
 
@@ -27,12 +27,12 @@ public class Excavation extends Enchantment {
 
 	@Override
 	public int getMaxLevel() {
-		return 3;
+		return 1;
 	}
 
 	@Override
 	public String getName() {
-		return "Excavation";
+		return "AutoGrab";
 	}
 
 	@Override

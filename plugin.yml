@@ -6,6 +6,6 @@ commands:
   enchanter:
     usage: /<command>
   addenchant:
-    usage: /<command> [Enchantment]
+    usage: /<command> [Enchantment|All]
   token:
     usage: /<command>

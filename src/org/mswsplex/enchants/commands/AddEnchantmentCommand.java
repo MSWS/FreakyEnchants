@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,9 +28,13 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length == 0) {
-			return true;
+			return false;
 		}
 		Player player = (Player) sender;
+		if (player.getItemInHand() == null || player.getItemInHand().getType() == Material.AIR) {
+			MSG.tell(player, MSG.getString("Enchant.Air", "hold the item in your hand"));
+			return true;
+		}
 		int level = 1;
 		if (args.length > 1)
 			level = Integer.parseInt(args[1]);
@@ -38,10 +43,9 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 				return true;
 			}
-			for (String enchant : plugin.getEnchantmentManager().enchants.keySet()) {
-				Enchantment ench = plugin.getEnchantmentManager().enchants.get(enchant);
-				plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level,
-						plugin.getEnchantmentManager().enchants.get(enchant));
+			for (Entry<String, Enchantment> e : plugin.getEnchantmentManager().enchants.entrySet()) {
+				Enchantment ench = e.getValue();
+				plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), level, ench);
 				MSG.tell(player, MSG.getString("Enchant.Added", "added %enchant% %level%")
 						.replace("%enchant%", ench.getName()).replace("%level%", MSG.toRoman(level)));
 			}

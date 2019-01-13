@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class SeveredCheck implements Listener {
 
@@ -24,6 +25,8 @@ public class SeveredCheck implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public void entityDeath(EntityDeathEvent event) {
 		LivingEntity ent = event.getEntity();
+		if (!Utils.allowEnchant(ent.getWorld(), "severed"))
+			return;
 		if (!(ent instanceof Player) || ent.getKiller() == null)
 			return;
 		Player player = (Player) ent, killer = ent.getKiller();

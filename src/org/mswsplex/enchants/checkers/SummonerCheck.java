@@ -17,6 +17,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class SummonerCheck implements Listener {
 
@@ -33,6 +34,8 @@ public class SummonerCheck implements Listener {
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		Entity ent = event.getEntity();
 		if (!(ent instanceof LivingEntity) || !(event.getDamager() instanceof LivingEntity))
+			return;
+		if (!Utils.allowEnchant(ent.getWorld(), "summoner"))
 			return;
 		for (ItemStack hand : ((LivingEntity) ent).getEquipment().getArmorContents()) {
 			if (hand == null || hand.getType() == Material.AIR)

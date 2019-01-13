@@ -13,6 +13,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.utils.Utils;
 
 public class RageCheck implements Listener {
 
@@ -29,6 +30,8 @@ public class RageCheck implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		Entity ent = event.getDamager();
+		if (!Utils.allowEnchant(ent.getWorld(), "rage"))
+			return;
 		if (!(ent instanceof LivingEntity) || !(event.getEntity() instanceof LivingEntity))
 			return;
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
@@ -37,7 +40,7 @@ public class RageCheck implements Listener {
 		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("rage")))
 			return;
 		if (rage.containsKey(ent)) {
-			event.setDamage(event.getDamage() * Math.pow(1.1, rage.get(ent)));
+			event.setDamage(event.getDamage() * Math.pow(plugin.config.getDouble("Rage.Multiplier"), rage.get(ent)));
 			rage.put((LivingEntity) ent, rage.get(ent) + 1);
 		} else {
 			rage.put((LivingEntity) ent, 1);
@@ -52,7 +55,7 @@ public class RageCheck implements Listener {
 
 	@EventHandler(ignoreCancelled = true)
 	public void onEntityDeath(EntityDeathEvent event) {
-		if (event.getEntity().getKiller() == null)
+		if (event.getEntity().getKiller() == null || !plugin.config.getBoolean("Rage.ResetAfterKill"))
 			return;
 		rage.remove(event.getEntity().getKiller());
 	}

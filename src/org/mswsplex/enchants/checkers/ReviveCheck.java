@@ -12,6 +12,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class ReviveCheck implements Listener {
 
@@ -25,6 +26,8 @@ public class ReviveCheck implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		Entity ent = event.getDamager();
+		if (!Utils.allowEnchant(ent.getWorld(), "revive"))
+			return;
 		if (!(ent instanceof LivingEntity) || !(event.getEntity() instanceof LivingEntity))
 			return;
 		if (ent instanceof Player && ((Player) ent).getGameMode() == GameMode.CREATIVE)
@@ -38,10 +41,6 @@ public class ReviveCheck implements Listener {
 		if (!plugin.getEnchantmentManager().checkProbability("revive",
 				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("revive"))))
 			return;
-//		living.setHealth(Math.min(
-//				living.getHealth() + plugin.config.getDouble("Revive.PointsPerLevel")
-//						* hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("revive")),
-//				living.getMaxHealth()));
 		living.setHealth(Math.min(
 				living.getHealth() + plugin.getEnchantmentManager().getBonusAmount("revive",
 						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("revive"))),

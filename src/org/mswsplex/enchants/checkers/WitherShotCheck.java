@@ -14,6 +14,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class WitherShotCheck implements Listener {
 
@@ -31,6 +32,8 @@ public class WitherShotCheck implements Listener {
 		if (!(event.getEntity() instanceof LivingEntity))
 			return;
 		LivingEntity ent = (LivingEntity) event.getEntity();
+		if (!Utils.allowEnchant(ent.getWorld(), "withershot"))
+			return;
 		double duration = event.getDamager().getMetadata("witherArrow").get(0).asDouble();
 		ent.addPotionEffect(
 				new PotionEffect(PotionEffectType.getByName(plugin.config.getString("WitherShot.EffectType")),

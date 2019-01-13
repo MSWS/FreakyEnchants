@@ -119,6 +119,8 @@ public class Utils {
 			return Sound.DIG_SNOW;
 		if (mat.name().contains("WOOD") || mat.name().contains("LOG"))
 			return Sound.DIG_WOOD;
+		if (mat.name().contains("ORE"))
+			return Sound.DIG_STONE;
 		switch (mat.name()) {
 		case "GRAVEL":
 			return Sound.DIG_GRAVEL;
@@ -284,8 +286,9 @@ public class Utils {
 						+ plugin.getEnchantmentManager().enchants.get(enchName).getMaxLevel() + " levels&7)"));
 			}
 			lore.add(MSG.color(""));
-			lore.add(MSG
-					.color("&a&lPrice: " + plugin.enchantCosts.getInt(enchName + "." + item.getAmount()) + " Tokens"));
+			lore.add(MSG.color("&a&lPrice: " + plugin.enchantCosts.getDouble(enchName + "." + item.getAmount()) + " "
+					+ plugin.config.getString("EconomyName").replace("%s%",
+							plugin.enchantCosts.getDouble(enchName + "." + item.getAmount()) == 1 ? "" : "s")));
 		}
 		meta.setLore(lore);
 		item.setItemMeta(meta);
@@ -631,4 +634,11 @@ public class Utils {
 	public static Entity getEntity(UUID uuid, World world) {
 		return getEntity(uuid + "", world);
 	}
+
+	public static boolean allowEnchant(World world, String ench) {
+		if (plugin.config.getStringList("DisabledWorlds.All").contains(world.getName()))
+			return false;
+		return !plugin.config.getStringList("DisabledWorlds." + ench).contains(world.getName());
+	}
+
 }

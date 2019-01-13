@@ -25,21 +25,26 @@ public class ArmorChecker extends BukkitRunnable {
 			for (LivingEntity ent : w.getEntitiesByClass(LivingEntity.class)) {
 				EntityEquipment equipment = ent.getEquipment();
 				double maxHealth = 20.0;
-				if (!hasArmor(equipment.getArmorContents())) {
+				if (!hasArmor(equipment.getArmorContents()) || !Utils.allowEnchant(w, null)) {
 					ent.setMaxHealth(maxHealth);
 					continue;
 				}
 				for (ItemStack armor : equipment.getArmorContents()) {
-					if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("hearty"))) {
+					if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("hearty"))
+							&& Utils.allowEnchant(w, "hearty")) {
 						maxHealth += plugin.getEnchantmentManager().getBonusAmount("hearty",
 								armor.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("hearty")));
 					}
-					if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("spring")))
+
+					if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("spring"))
+							&& Utils.allowEnchant(w, "spring"))
 						ent.addPotionEffect(new PotionEffect(
 								PotionEffectType.getByName(plugin.config.getString("Spring.EffectType")), 20,
 								plugin.getEnchantmentManager().checkAmplifier("spring", armor
 										.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("spring")))));
-					if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("heatshield")))
+
+					if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("heatshield"))
+							&& Utils.allowEnchant(w, "heatshield"))
 						ent.addPotionEffect(new PotionEffect(
 								PotionEffectType.getByName(plugin.config.getString("HeatShield.EffectType")), 20,
 								plugin.getEnchantmentManager().checkAmplifier("heatshield", armor.getEnchantmentLevel(

@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
+import org.mswsplex.enchants.utils.Utils;
 
 public class StormbreakerCheck implements Listener {
 
@@ -24,6 +25,8 @@ public class StormbreakerCheck implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		Entity ent = event.getDamager();
+		if (!Utils.allowEnchant(ent.getWorld(), "stormbreaker"))
+			return;
 		if (!(ent instanceof LivingEntity) || !(event.getEntity() instanceof LivingEntity))
 			return;
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();

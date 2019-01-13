@@ -3,7 +3,6 @@ package org.mswsplex.enchants.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,6 +17,7 @@ import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.NBTEditor;
+import org.mswsplex.enchants.utils.Sounds;
 import org.mswsplex.enchants.utils.Utils;
 
 public class EnchanterCommand implements CommandExecutor, TabCompleter {
@@ -27,7 +27,7 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 		this.plugin = plugin;
 		PluginCommand cmd = plugin.getCommand("enchanter");
 		cmd.setExecutor(this);
-		cmd.setPermission("customenchant.command");
+		cmd.setPermission("customenchants.enchanter");
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -36,12 +36,19 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 		if (args.length == 0) {
 			PlayerManager.setInfo(player, "openInventory", "MainMenu");
 			player.openInventory(Utils.getGui(player, "MainMenu", 0));
-			player.playSound(player.getLocation(), Sound.ANVIL_USE, 1, 2);
+			player.playSound(player.getLocation(),
+					Sounds.valueOf(plugin.config.getString("Sounds.OpenEnchantmentInventory.Name")).bukkitSound(),
+					(float) plugin.config.getDouble("Sounds.OpenEnchantmentInventory.Volume"),
+					(float) plugin.config.getDouble("Sounds.OpenEnchantmentInventory.Pitch"));
 			return true;
 		}
 		Entity ent;
 		switch (args[0].toLowerCase()) {
 		case "create":
+			if (!sender.hasPermission("customenchants.enchanter.create")) {
+				MSG.noPerm(sender);
+				return true;
+			}
 			ent = player.getWorld().spawnEntity(player.getLocation(),
 					EntityType.valueOf(plugin.config.getString("NPC.Type")));
 			ArmorStand stand = (ArmorStand) player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
@@ -61,6 +68,10 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 			break;
 		case "remove":
 		case "delete":
+			if (!sender.hasPermission("customenchants.enchanter.delete")) {
+				MSG.noPerm(sender);
+				return true;
+			}
 			Entity closest = null;
 			double dist = 0;
 			for (Entity e : player.getWorld().getEntities()) {
@@ -78,7 +89,8 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 			}
 			MSG.tell(player, MSG.getString("NPC.Deleted", "NPC deleted"));
 			plugin.data.set("NPC." + closest.getMetadata("isNPC").get(0).asString(), null);
-			Utils.getEntity(closest.getMetadata("holoID").get(0).asString(), player.getWorld()).remove();;
+			Utils.getEntity(closest.getMetadata("holoID").get(0).asString(), player.getWorld()).remove();
+			;
 			closest.remove();
 			break;
 		}
@@ -89,7 +101,7 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 		List<String> result = new ArrayList<>();
 		if (args.length <= 1)
 			for (String res : new String[] { "create", "delete" }) {
-				if (sender.hasPermission("customenchant.enchanter." + res))
+				if (sender.hasPermission("customenchants.enchanter." + res))
 					if (res.toLowerCase().startsWith(args[0].toLowerCase()))
 						result.add(res);
 			}

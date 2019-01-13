@@ -12,21 +12,23 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mswsplex.enchants.checkers.ArmorChecker;
+import org.mswsplex.enchants.checkers.AutoGrabCheck;
 import org.mswsplex.enchants.checkers.AutoSmeltCheck;
 import org.mswsplex.enchants.checkers.ExcavationCheck;
 import org.mswsplex.enchants.checkers.ExplosionCheck;
 import org.mswsplex.enchants.checkers.ExplosiveCheck;
 import org.mswsplex.enchants.checkers.FreezeCheck;
 import org.mswsplex.enchants.checkers.NightshadeCheck;
-import org.mswsplex.enchants.checkers.ToxicPointCheck;
 import org.mswsplex.enchants.checkers.RageCheck;
 import org.mswsplex.enchants.checkers.ReviveCheck;
 import org.mswsplex.enchants.checkers.SeveredCheck;
 import org.mswsplex.enchants.checkers.StormbreakerCheck;
 import org.mswsplex.enchants.checkers.StunCheck;
 import org.mswsplex.enchants.checkers.SummonerCheck;
+import org.mswsplex.enchants.checkers.ToxicPointCheck;
 import org.mswsplex.enchants.checkers.ToxicShotCheck;
 import org.mswsplex.enchants.checkers.WitherPointCheck;
 import org.mswsplex.enchants.checkers.WitherShotCheck;
@@ -41,6 +43,8 @@ import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.NBTEditor;
 import org.mswsplex.enchants.utils.Utils;
 
+import net.milkbowl.vault.economy.Economy;
+
 public class CustomEnchants extends JavaPlugin {
 	public FileConfiguration config, data, lang, gui, enchantCosts;
 	public File configYml = new File(getDataFolder(), "config.yml"), dataYml = new File(getDataFolder(), "data.yml"),
@@ -48,6 +52,8 @@ public class CustomEnchants extends JavaPlugin {
 			enchantCostsYml = new File(getDataFolder(), "enchantCosts.yml");
 
 	private EnchantmentManager eManager;
+
+	private Economy eco = null;
 
 	@SuppressWarnings("deprecation")
 	public void onEnable() {
@@ -69,6 +75,12 @@ public class CustomEnchants extends JavaPlugin {
 		MSG.plugin = this;
 		Utils.plugin = this;
 		PlayerManager.plugin = this;
+
+		if (setupEconomy()) {
+			MSG.log("Successfully linked with Vault.");
+		} else {
+			MSG.log("Vault not found, using Tokens as currency.");
+		}
 
 		new AddEnchantmentCommand(this);
 		new TokenCommand(this);
@@ -93,6 +105,7 @@ public class CustomEnchants extends JavaPlugin {
 		new WitherShotCheck(this);
 		new ToxicShotCheck(this);
 		new RageCheck(this);
+		new AutoGrabCheck(this);
 
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this), 0, 5);
 
@@ -163,5 +176,21 @@ public class CustomEnchants extends JavaPlugin {
 
 	public EnchantmentManager getEnchantmentManager() {
 		return eManager;
+	}
+
+	private boolean setupEconomy() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			return false;
+		}
+		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+		if (rsp == null) {
+			return false;
+		}
+		eco = rsp.getProvider();
+		return eco != null;
+	}
+
+	public Economy getEconomy() {
+		return this.eco;
 	}
 }

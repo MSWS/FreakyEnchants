@@ -40,6 +40,7 @@ public class EnchantmentManager {
 		enchants.put("withershot", new WitherShot(86));
 		enchants.put("toxicshot", new ToxicShot(87));
 		enchants.put("rage", new Rage(88));
+		enchants.put("autograb", new AutoGrab(89));
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");
