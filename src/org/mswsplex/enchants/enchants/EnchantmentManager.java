@@ -42,6 +42,7 @@ public class EnchantmentManager {
 		enchants.put("rage", new Rage(88));
 		enchants.put("autograb", new AutoGrab(89));
 		enchants.put("barrage", new Barrage(90));
+		enchants.put("extraxp", new ExtraXP(91));
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");

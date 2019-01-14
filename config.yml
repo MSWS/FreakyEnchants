@@ -185,7 +185,7 @@ StormBreaker:
     2: 2
     3: 5
     4: 10
-    5: 20
+    5: 15
   SuccessMessage: '&e&l* * * &8&l[&e&lSMITED&8&l] &e&l* * *'
 Nightshade:
   Affects:
@@ -200,7 +200,10 @@ Nightshade:
     5: 15
   SecondsPerLevel: 5000
   EffectType: BLINDNESS
-  Amplifier: 0
+  Amplifier:
+    1: 0
+    4: 2
+    5: 3
   SuccessMessage: '&e&l* * * &8&l[&7&lBLINDED&8&l] &e&l* * *'
 Severed:
   Probability:
@@ -275,3 +278,16 @@ Barrage:
     1: 2
     2: 3
     3: 5
+ExtraXP:
+  MustBeSolid: true #If true then the mined block must be solid
+  Probability: #The probability (per block) to reward the player
+    1: 5
+    2: 8
+    3: 10
+    4: 12
+    5: 15
+  BonusAmount: #The amount of XP to reward
+    1: 1
+    3: 2
+    5: 3
+  SuccessMessage: '&e&l* * * &8&l[&a&lXP GAINED&8&l] &e&l* * *'

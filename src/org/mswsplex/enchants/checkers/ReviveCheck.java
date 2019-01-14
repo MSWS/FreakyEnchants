@@ -41,6 +41,8 @@ public class ReviveCheck implements Listener {
 		if (!plugin.getEnchantmentManager().checkProbability("revive",
 				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("revive"))))
 			return;
+		if(living.getHealth()>plugin.config.getDouble("Revive.MinimumHealth"))
+			return;
 		living.setHealth(Math.min(
 				living.getHealth() + plugin.getEnchantmentManager().getBonusAmount("revive",
 						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("revive"))),

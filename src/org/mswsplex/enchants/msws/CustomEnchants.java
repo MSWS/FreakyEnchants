@@ -21,6 +21,7 @@ import org.mswsplex.enchants.checkers.BarrageCheck;
 import org.mswsplex.enchants.checkers.ExcavationCheck;
 import org.mswsplex.enchants.checkers.ExplosionCheck;
 import org.mswsplex.enchants.checkers.ExplosiveCheck;
+import org.mswsplex.enchants.checkers.ExtraXPCheck;
 import org.mswsplex.enchants.checkers.FreezeCheck;
 import org.mswsplex.enchants.checkers.NightshadeCheck;
 import org.mswsplex.enchants.checkers.RageCheck;
@@ -56,7 +57,6 @@ public class CustomEnchants extends JavaPlugin {
 
 	private Economy eco = null;
 
-	@SuppressWarnings("deprecation")
 	public void onEnable() {
 		if (!configYml.exists())
 			saveResource("config.yml", true);
@@ -93,6 +93,16 @@ public class CustomEnchants extends JavaPlugin {
 		new ShopListener(this);
 		new NPCListener(this);
 
+		registerEnchantChecks();
+		refreshNPCs();
+	}
+
+	public void onDisable() {
+		saveData();
+	}
+
+	@SuppressWarnings("deprecation")
+	public void registerEnchantChecks() {
 		new ExplosionCheck(this);
 		new ExcavationCheck(this);
 		new AutoSmeltCheck(this);
@@ -111,9 +121,8 @@ public class CustomEnchants extends JavaPlugin {
 		new RageCheck(this);
 		new AutoGrabCheck(this);
 		new BarrageCheck(this);
-
+		new ExtraXPCheck(this);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this), 0, 5);
-		refreshNPCs();
 	}
 
 	public void refreshNPCs() {
@@ -140,8 +149,8 @@ public class CustomEnchants extends JavaPlugin {
 				Entity ent = loc.getWorld().spawnEntity(loc, EntityType.valueOf(config.getString("NPC.Type")));
 				NBTEditor.setEntityTag(ent, 1, "NoAI");
 				NBTEditor.setEntityTag(ent, 1, "Silent");
-				ArmorStand stand = (ArmorStand) loc.getWorld()
-						.spawnEntity(loc.clone().add(0, Utils.getEntityHeight(ent.getType()) - 2, 0), EntityType.ARMOR_STAND);
+				ArmorStand stand = (ArmorStand) loc.getWorld().spawnEntity(
+						loc.clone().add(0, Utils.getEntityHeight(ent.getType()) - 2, 0), EntityType.ARMOR_STAND);
 				stand.setVisible(false);
 				stand.setCustomName(MSG.color(config.getString("NPC.Name")));
 				stand.setCustomNameVisible(true);
@@ -151,12 +160,6 @@ public class CustomEnchants extends JavaPlugin {
 				ent.setMetadata("holoID", new FixedMetadataValue(this, stand.getUniqueId() + ""));
 			}
 		}
-	}
-
-
-
-	public void onDisable() {
-		saveData();
 	}
 
 	public void saveData() {

@@ -55,7 +55,7 @@ public class BarrageCheck implements Listener {
 			pullTime = minTime;
 		}
 
-		if (pullTime > minTime || !plugin.config.getBoolean("Barrage.RequireFullCharge")) {
+		if (pullTime >= minTime || !plugin.config.getBoolean("Barrage.RequireFullCharge")) {
 			Random r = new Random();
 			float inaccuracy = (float) plugin.config.getDouble("Barrage.OffsetInaccuracy");
 			for (int i = 0; i < plugin.getEnchantmentManager().getBonusAmount("barrage",

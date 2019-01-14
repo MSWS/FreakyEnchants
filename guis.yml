@@ -26,6 +26,7 @@ MainMenu:
     - '&7 - Excavation'
     - '&7 - AutoGrab'
     - '&7 - AutoSmelt'
+    - '&7 - ExtraXP'
   axe:
     Icon: DIAMOND_AXE
     Name: '&e&lAxe Enchantments'
@@ -115,28 +116,34 @@ PickaxeEnchants:
   explosion:
     Icon: TNT
     Name: '&c&lExplosion %level%'
-    Slot: 10
+    Slot: 9
     Lore:
     - '&7Creates an explosion that breaks many nearby blocks.'
   excavation:
     Icon: DIAMOND_SPADE
     Name: '&e&lExcavation %level%'
     HideAttributes: true
-    Slot: 12
+    Slot: 11
     Lore:
     - '&7Breaks blocks in a certain radius.'
   autograb:
     Icon: HOPPER
     Name: '&3&lAutoGrab %level%'
-    Slot: 14
+    Slot: 13
     Lore:
     - '&7Automagically teleports items into your inventory.'
   autosmelt:
     Icon: IRON_INGOT
     Name: '&f&lAutoSmelt %level%'
-    Slot: 16
+    Slot: 15
     Lore:
     - '&7Automatically smelts certain ores and blocks.'
+  extraxp:
+    Icon: 'EXP_BOTTLE'
+    Name: '&a&lExtra XP'
+    Slot: 17
+    Lore:
+    - '&7Has a small chance of giving you &eExperience Points&7.'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''
