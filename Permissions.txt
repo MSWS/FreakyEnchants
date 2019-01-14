@@ -11,5 +11,11 @@ customenchants.enchanter.[create|delete|settype] - Access to /enchanter [...]
 customenchants.token.give
 customenchants.token.set
 customenchants.token.get
-customenchants.token.get.others
-customenchants.token.shop
+customenchants.token.get.others - Access to see other player's balances
+customenchants.token.shop - Access to /token shop (Basically /enchanter)
+
+Suggested Default Perms:
+
+customenchants.enchanter
+customenchants.token.get
+customenchants.shop

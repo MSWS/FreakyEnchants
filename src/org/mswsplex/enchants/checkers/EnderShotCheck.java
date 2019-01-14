@@ -89,12 +89,7 @@ public class EnderShotCheck implements Listener {
 					if (plugin.config.getBoolean("EnderShot.Cooldown.Actionbar.Enabled"))
 						HotbarMessenger.sendHotBarMessage(player,
 								MSG.color(plugin.config.getString("EnderShot.Cooldown.Actionbar.CompleteMessage")));
-					if (plugin.config.getBoolean("EnderShot.Cooldown.Sound.Enabled")) {
-						player.playSound(player.getLocation(),
-								Sounds.valueOf(plugin.config.getString("EnderShot.Cooldown.Sound.Name")).bukkitSound(),
-								(float) plugin.config.getDouble("EnderShot.Cooldown.Sound.Volume"),
-								(float) plugin.config.getDouble("EnderShot.Cooldown.Sound.Pitch"));
-					}
+					Utils.playSound(plugin.config, "EnderShot.Cooldown.Sound", player);
 					Bukkit.getScheduler().cancelTask(runnables.get(player));
 					runnables.remove(player);
 					return;

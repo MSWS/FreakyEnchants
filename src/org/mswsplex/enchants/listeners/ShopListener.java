@@ -61,10 +61,7 @@ public class ShopListener implements Listener {
 			}
 			plugin.getEnchantmentManager().addEnchant(item, PlayerManager.getDouble(player, "amplifier").intValue(),
 					apply);
-			player.playSound(player.getLocation(),
-					Sounds.valueOf(plugin.config.getString("Sounds.EnchantmentAdded.Name")).bukkitSound(),
-					(float) plugin.config.getDouble("Sounds.EnchantmentAdded.Volume"),
-					(float) plugin.config.getDouble("Sounds.EnchantmentAdded.Pitch"));
+			Utils.playSound(plugin.config, "Sounds.EnchantmentAdded", player);
 			MSG.tell(player,
 					MSG.getString("Enchant.Added", "Added %enchat% %level%").replace("%enchant%", apply.getName())
 							.replace("%level%", PlayerManager.getDouble(player, "amplifier").intValue() + ""));
@@ -76,10 +73,7 @@ public class ShopListener implements Listener {
 		if (section.contains(id + ".NextInventory")) {
 			player.openInventory(Utils.getGui(player, section.getString(id + ".NextInventory"), 0));
 			PlayerManager.setInfo(player, "openInventory", section.getString(id + ".NextInventory"));
-			player.playSound(player.getLocation(),
-					Sounds.valueOf(plugin.config.getString("Sounds.NextInventory.Name")).bukkitSound(),
-					(float) plugin.config.getDouble("Sounds.NextInventory.Volume"),
-					(float) plugin.config.getDouble("Sounds.NextInventory.Pitch"));
+			Utils.playSound(plugin.config, "Sounds.NextInventory", player);
 		}
 		if (plugin.enchantCosts.contains(id)) {
 			Enchantment ench = plugin.getEnchantmentManager().enchants.get(id);
@@ -168,10 +162,7 @@ public class ShopListener implements Listener {
 			return;
 		}
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-			player.playSound(player.getLocation(),
-					Sounds.valueOf(plugin.config.getString("Sounds.GoToMain.Name")).bukkitSound(),
-					(float) plugin.config.getDouble("Sounds.GoToMain.Volume"),
-					(float) plugin.config.getDouble("Sounds.GoToMain.Pitch"));
+			Utils.playSound(plugin.config, "Sounds.GoToMain", player);
 			player.openInventory(Utils.getGui(player, "MainMenu", 0));
 			PlayerManager.setInfo(player, "openInventory", "MainMenu");
 		}, 1);
