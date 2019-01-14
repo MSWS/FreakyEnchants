@@ -38,9 +38,12 @@ import org.mswsplex.enchants.checkers.WitherPointCheck;
 import org.mswsplex.enchants.checkers.WitherShotCheck;
 import org.mswsplex.enchants.commands.AddEnchantmentCommand;
 import org.mswsplex.enchants.commands.EnchanterCommand;
+import org.mswsplex.enchants.commands.GiveEnchantCommand;
+import org.mswsplex.enchants.commands.RedeemCommand;
 import org.mswsplex.enchants.commands.TokenCommand;
 import org.mswsplex.enchants.enchants.EnchantmentManager;
 import org.mswsplex.enchants.listeners.NPCListener;
+import org.mswsplex.enchants.listeners.RedeemGUIListener;
 import org.mswsplex.enchants.listeners.ShopListener;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.utils.MSG;
@@ -91,9 +94,12 @@ public class CustomEnchants extends JavaPlugin {
 		new AddEnchantmentCommand(this);
 		new TokenCommand(this);
 		new EnchanterCommand(this);
+		new RedeemCommand(this);
+		new GiveEnchantCommand(this);
 
 		new ShopListener(this);
 		new NPCListener(this);
+		new RedeemGUIListener(this);
 
 		registerEnchantChecks();
 		refreshNPCs();

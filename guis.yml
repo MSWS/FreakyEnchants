@@ -101,7 +101,8 @@ SwordEnchants:
     Name: '&c&lRage %level%'
     Slot: 15
     Lore:
-    - '&7For every hit you land, total damage is multiplied by &b1.1&7.'
+    - '&7For every combo hit you land,'
+    - '&7total damage is multiplied by &b1.1&7.'
   freeze:
     Icon: ICE
     Name: '&b&lFreeze %level%'
@@ -263,7 +264,8 @@ ArmorEnchants:
     Name: '&d&lSummoner %level%'
     Slot: 15
     Lore:
-    - '&7Has a small chance to summon protectors when melee damaged'
+    - '&7Has a small chance to summon'
+    - '&7protectors when melee damaged'
   selfdestruct:
     Icon: TNT
     Name: '&c&lSelf Destruct %level%'

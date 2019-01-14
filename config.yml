@@ -53,8 +53,12 @@ Sounds:
     Name: BAT_LOOP
     Volume: 2
     Pitch: 2
-  SelectedEnchantment:
+  PurchasedEnchantment: #In /enchanter GUI
     Name: LEVEL_UP
+    Volume: 2
+    Pitch: 2
+  SelectedEnchantment: #In /redeem GUI
+    Name: CLICK
     Volume: 2
     Pitch: 2
   InsufficientFunds:
@@ -88,6 +92,16 @@ EnchantmentSuffix:
   Price:
   - ''
   - '&a&lPrice: &a%price% Token%s%'
+DefaultSpawnedItemsType: 'COMMAND'
+NoTokens:
+  Icon: 'BARRIER'
+  Name: '&c&lNo tokens'
+  Lore:
+  - '&7You do not have any'
+  - '&7redeemable tokens'
+  - ''
+  - '&7Purchase some with &a/enchanter'
+TokenTitle: '&e&lEnchantment Token'
 
 #############################
 #                           #

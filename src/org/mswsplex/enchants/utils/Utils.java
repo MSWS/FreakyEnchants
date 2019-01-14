@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +20,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -303,6 +306,63 @@ public class Utils {
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Inventory getRedeemGUI(Player player) {
+		List<String> tokens = (List<String>) PlayerManager.getInfo(player, "enchantmentTokens");
+		if (tokens == null)
+			tokens = new ArrayList<String>();
+		Collections.sort(tokens);
+		int maxSize = 54;
+		int size = (int) Math.min(Math.max((Math.ceil(tokens.size() / 9.0) * 9), 9), maxSize);
+		int page = (int) Math.round(PlayerManager.getDouble(player, "page"));
+		Inventory inv = Bukkit.createInventory(null, size, "Token Redeemer");
+		if (tokens.size() == 0) {
+			for (int i = 0; i < inv.getSize(); i++) {
+//				ItemStack item = new ItemStack(Material.BARRIER);
+//				ItemMeta meta = item.getItemMeta();
+//				meta.setDisplayName(MSG.color("&c&lNo Entities"));
+//				item.setItemMeta(meta);
+				inv.setItem(i, parseItem(plugin.config, "NoTokens", player));
+			}
+			return inv;
+		}
+		int pos = (maxSize - 2) * page;
+		for (int i = 0; i < size && i + (page * (maxSize - 2)) + 1 <= tokens.size(); i++) {
+			if (inv.getSize() == maxSize && (i == inv.getSize() - 9 || i == inv.getSize() - 1))
+				continue;
+			String enchant = tokens.get(pos);
+			int level = Integer.parseInt(enchant.split(" ")[1]);
+			ItemStack item = new ItemStack(Material.valueOf(enchant.split(" ")[2]), level);
+			ItemMeta meta = item.getItemMeta();
+			meta.addEnchant(plugin.getEnchantmentManager().enchants.get(enchant.split(" ")[0]), level, true);
+			meta.setDisplayName(MSG.color(plugin.config.getString("TokenTitle")));
+			meta.setLore(Arrays.asList(
+					MSG.color("&7" + plugin.getEnchantmentManager().enchants.get(enchant.split(" ")[0]).getName() + " "
+							+ MSG.toRoman(level))));
+			item.setItemMeta(meta);
+			inv.setItem(i, item);
+			pos++;
+		}
+
+		if (page * (maxSize - 2) + (maxSize - 2) < tokens.size()) {
+			ItemStack nextArrow = new ItemStack(Material.ARROW);
+			ItemMeta meta = nextArrow.getItemMeta();
+			meta.setDisplayName(MSG.color("&a&lNext Page"));
+			nextArrow.setItemMeta(meta);
+			inv.setItem(inv.getSize() - 1, nextArrow);
+		}
+
+		if (page > 0) {
+			ItemStack lastArrow = new ItemStack(Material.ARROW);
+			ItemMeta lastMeta = lastArrow.getItemMeta();
+			lastMeta.setDisplayName(MSG.color("&c&lLast Page"));
+			lastArrow.setItemMeta(lastMeta);
+			inv.setItem(inv.getSize() - 9, lastArrow);
+		}
+
+		return inv;
 	}
 
 	/**
@@ -681,6 +741,72 @@ public class Utils {
 		default:
 			return 2;
 		}
+	}
+
+	public static int romanToDecimal(String romanNumber) {
+		int decimal = 0;
+		int lastNumber = 0;
+		String romanNumeral = romanNumber.toUpperCase();
+		/*
+		 * operation to be performed on upper cases even if user enters roman values in
+		 * lower case chars
+		 */
+		for (int x = romanNumeral.length() - 1; x >= 0; x--) {
+			char convertToDecimal = romanNumeral.charAt(x);
+			switch (convertToDecimal) {
+			case 'M':
+				decimal = processDecimal(1000, lastNumber, decimal);
+				lastNumber = 1000;
+				break;
+
+			case 'D':
+				decimal = processDecimal(500, lastNumber, decimal);
+				lastNumber = 500;
+				break;
+
+			case 'C':
+				decimal = processDecimal(100, lastNumber, decimal);
+				lastNumber = 100;
+				break;
+
+			case 'L':
+				decimal = processDecimal(50, lastNumber, decimal);
+				lastNumber = 50;
+				break;
+
+			case 'X':
+				decimal = processDecimal(10, lastNumber, decimal);
+				lastNumber = 10;
+				break;
+
+			case 'V':
+				decimal = processDecimal(5, lastNumber, decimal);
+				lastNumber = 5;
+				break;
+
+			case 'I':
+				decimal = processDecimal(1, lastNumber, decimal);
+				lastNumber = 1;
+				break;
+			}
+		}
+		return decimal;
+	}
+
+	public static int processDecimal(int decimal, int lastNumber, int lastDecimal) {
+		if (lastNumber > decimal) {
+			return lastDecimal - decimal;
+		} else {
+			return lastDecimal + decimal;
+		}
+	}
+
+	public static void playSound(FileConfiguration config, String path, Player player) {
+		if (!config.getBoolean(path + ".Enabled") && config.isSet(path + ".Enabled"))
+			return;
+
+		player.playSound(player.getLocation(), Sounds.valueOf(config.getString(path + ".Name")).bukkitSound(),
+				(float) config.getDouble(path + ".Volume"), (float) config.getDouble(path + ".Pitch"));
 	}
 
 }

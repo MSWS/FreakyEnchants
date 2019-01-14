@@ -13,7 +13,11 @@ Enchant:
   Invalid: '&cUnable to add &e%enchant%&c to that item.'
   Click: '&b%enchant% %level%&7 selected, click on the item that you want to enchant.'
   Air: '&7Hold the item you want to enchant in your hand.'
+  Unused: '&7No item specified. The enchantment has been added to your tokens. Type &a/redeem &7to redeem purchased enchantments.'
   Unknown: '&cUnknown enchantment.'
+  Give:
+    Sender: '&7Successfully gave a &e%ench% %level%&7 token to &a%target%&7.'
+    Receiver: '&e%sender% &7gave you a &e%ench% %level%&7 enchantment token. Type &a/redeem &7to redeem it.'
 InventoryFull:
   Title:
     Enabled: true

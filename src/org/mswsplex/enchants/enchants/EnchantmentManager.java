@@ -71,6 +71,14 @@ public class EnchantmentManager {
 		}
 	}
 
+	public String getId(Enchantment ench) {
+		for (Entry<String, Enchantment> e : enchants.entrySet()) {
+			if (ench.getName().equals(e.getValue().getName()))
+				return e.getKey();
+		}
+		return "";
+	}
+
 	public boolean checkProbability(Enchantment ench, int lvl) {
 		return checkProbability(ench.getName(), lvl);
 	}

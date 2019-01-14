@@ -13,7 +13,7 @@ public class Explosive extends Enchantment {
 
 	@Override
 	public boolean canEnchantItem(ItemStack item) {
-		return item.getType()==Material.BOW;
+		return item.getType() == Material.BOW;
 	}
 
 	@Override

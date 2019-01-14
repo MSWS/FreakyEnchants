@@ -1,6 +1,10 @@
 customenchants.addenchant.[enchantment|all] - Access to /addenchant [enchantment] [level]
 customenchants.addenchant.bypasslimit
 
+customenchants.giveenchant
+customenchants.giveenchant.[enchantment] - Access to /giveenchant [...]
+customenchants.giveenchant.bypasslimit
+
 customenchants.enchanter - Access to the /enchanter shop GUI
 customenchants.enchanter.[create|delete|settype] - Access to /enchanter [...]
 

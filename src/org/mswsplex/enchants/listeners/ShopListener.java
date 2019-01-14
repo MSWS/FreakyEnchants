@@ -1,5 +1,8 @@
 package org.mswsplex.enchants.listeners;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -25,6 +28,7 @@ public class ShopListener implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, this.plugin);
 	}
 
+	@SuppressWarnings("unchecked")
 	@EventHandler
 	public void onClick(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
@@ -32,7 +36,7 @@ public class ShopListener implements Listener {
 		if (item == null || item.getType() == Material.AIR)
 			return;
 		String inv = PlayerManager.getString(player, "openInventory");
-		if (inv == null)
+		if (inv == null || inv.equals("RedeemMenu"))
 			return;
 		event.setCancelled(true);
 		int slot = event.getSlot();
@@ -64,11 +68,8 @@ public class ShopListener implements Listener {
 			MSG.tell(player,
 					MSG.getString("Enchant.Added", "Added %enchat% %level%").replace("%enchant%", apply.getName())
 							.replace("%level%", PlayerManager.getDouble(player, "amplifier").intValue() + ""));
-			PlayerManager.setBalance(player,
-					PlayerManager.getBalance(player) - PlayerManager.getDouble(player, "cost"));
 			PlayerManager.removeInfo(player, "enchantToApply");
 			PlayerManager.removeInfo(player, "amplifier");
-			PlayerManager.removeInfo(player, "cost");
 		}
 		if (id.isEmpty())
 			return;
@@ -105,16 +106,23 @@ public class ShopListener implements Listener {
 							.getString("Token.Insufficient",
 									"&cYou have insufficient funds. (&4%total% &cof &a%cost%%c).")
 							.replace("%total%", PlayerManager.getBalance(player) + "").replace("%cost%", cost + ""));
-					player.playSound(player.getLocation(),
-							Sounds.valueOf(plugin.config.getString("Sounds.InsufficientFunds.Name")).bukkitSound(),
-							(float) plugin.config.getDouble("Sounds.InsufficientFunds.Volume"),
-							(float) plugin.config.getDouble("Sounds.InsufficientFunds.Pitch"));
+					Utils.playSound(plugin.config, "Sounds.InsufficientFunds", player);
 					return;
 				}
-				player.playSound(player.getLocation(),
-						Sounds.valueOf(plugin.config.getString("Sounds.SelectedEnchantment.Name")).bukkitSound(),
-						(float) plugin.config.getDouble("Sounds.SelectedEnchantment.Volume"),
-						(float) plugin.config.getDouble("Sounds.SelectedEnchantment.Pitch"));
+
+				Utils.playSound(plugin.config, "Sounds.PurchasedEnchantment", player);
+				if (PlayerManager.getInfo(player, "enchantToApply") != null) {
+					List<String> tokens = (List<String>) PlayerManager.getInfo(player, "enchantmentTokens");
+					if (tokens == null)
+						tokens = new ArrayList<>();
+					tokens.add(PlayerManager.getString(player, "enchantToApply") + " "
+							+ PlayerManager.getDouble(player, "amplifier").intValue() + " "
+							+ PlayerManager.getString(player, "enchantItem"));
+					PlayerManager.setInfo(player, "enchantmentTokens", tokens);
+					MSG.tell(player, MSG.getString("Enchant.Unused",
+							"enchantment added to your tokens, type /redeem to redeem purchased enchantments"));
+					plugin.saveData();
+				}
 
 				MSG.tell(player, MSG
 						.getString("Enchant.Click",
@@ -122,20 +130,36 @@ public class ShopListener implements Listener {
 						.replace("%enchant%", ench.getName()).replace("%level%", MSG.toRoman(item.getAmount())));
 				PlayerManager.setInfo(player, "enchantToApply", id);
 				PlayerManager.setInfo(player, "amplifier", item.getAmount());
-				PlayerManager.setInfo(player, "cost", cost);
+				PlayerManager.setBalance(player, PlayerManager.getBalance(player) - cost);
+				PlayerManager.setInfo(player, "enchantItem", item.getType() + "");
 			}
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@EventHandler
 	public void onClose(InventoryCloseEvent event) {
 		Player player = (Player) event.getPlayer();
 		String inv = PlayerManager.getString(player, "openInventory");
-		if (inv == null)
+		if (inv == null || inv.equals("RedeemMenu"))
 			return;
 		PlayerManager.removeInfo(player, "openInventory");
 		if (inv.equals("MainMenu"))
 			return;
+
+		if (PlayerManager.getInfo(player, "enchantToApply") != null) {
+			List<String> tokens = (List<String>) PlayerManager.getInfo(player, "enchantmentTokens");
+			if (tokens == null)
+				tokens = new ArrayList<>();
+			tokens.add(PlayerManager.getString(player, "enchantToApply") + " "
+					+ PlayerManager.getDouble(player, "amplifier").intValue() + " "
+					+ PlayerManager.getString(player, "enchantItem"));
+			PlayerManager.setInfo(player, "enchantmentTokens", tokens);
+			MSG.tell(player, MSG.getString("Enchant.Unused",
+					"enchantment added to your tokens, type /redeem to redeem purchased enchantments"));
+			plugin.saveData();
+		}
+
 		PlayerManager.removeInfo(player, "enchantToApply");
 		PlayerManager.removeInfo(player, "amplifier");
 		PlayerManager.removeInfo(player, "cost");

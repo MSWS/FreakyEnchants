@@ -165,7 +165,7 @@ public enum Sounds {
 	}
 
 	public Sound bukkitSound() {
-		if(cache==null)
+		if (cache == null)
 			cache = new HashMap<>();
 		if (cache.containsKey(pre19sound))
 			return cache.get(pre19sound);

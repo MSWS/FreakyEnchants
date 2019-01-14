@@ -9,3 +9,7 @@ commands:
     usage: /<command> [Enchantment|All]
   token:
     usage: /<command>
+  redeem:
+    usage: /<command>
+  giveenchant:
+    usage: /<command> [Player] [Enchantment] <Level>
