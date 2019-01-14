@@ -286,6 +286,7 @@ public class Utils {
 		if (plugin.enchantCosts.contains(enchName)) {
 			if (gui.contains("Name"))
 				meta.setDisplayName(meta.getDisplayName().replace("%level%", MSG.toRoman(item.getAmount())));
+
 			if (plugin.getEnchantmentManager().enchants.get(enchName).getMaxLevel() != 1) {
 				plugin.config.getStringList("EnchantmentSuffix.Level").forEach((line) -> {
 					lore.add(MSG.color(line.replace("%level%",

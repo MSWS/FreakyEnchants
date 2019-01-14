@@ -291,3 +291,38 @@ ExtraXP:
     3: 2
     5: 3
   SuccessMessage: '&e&l* * * &8&l[&a&lXP GAINED&8&l] &e&l* * *'
+SelfDestruct:
+  BreakBlocks: false
+  BonusAmount: #Explosion power
+    1: 1
+    2: 2
+    3: 3
+EnderShot:
+  Cooldown:
+    Actionbar:
+      Enabled: true
+      Message: '%bar% &7%time%'
+      CompleteMessage: '&5&lENDERSHOT &e&lREFRESHED'
+      Bar:
+        Length: 20
+        ProgChar: "&c\u258D"
+        LeftChar: "&4\u258D"
+    Sound:
+      Enabled: true
+      Name: NOTE_PLING
+      Pitch: 2
+      Volume: 2
+    Chat:
+      #Message: '&5&l[&5EnderShot &erefreshed&5&l]'
+  TeleportSound:
+    Enabled: true
+    Name: ENDERMAN_TELEPORT
+    Pitch: 1
+    Volume: 2
+  DeleteArrow: true
+  BonusAmount: #Cooldown duration (in milliseconds)
+    1: 20000
+    2: 18000
+    3: 15000
+    4: 12000
+    5: 10000

@@ -43,6 +43,8 @@ public class EnchantmentManager {
 		enchants.put("autograb", new AutoGrab(89));
 		enchants.put("barrage", new Barrage(90));
 		enchants.put("extraxp", new ExtraXP(91));
+		enchants.put("selfdestruct", new SelfDestruct(92));
+		enchants.put("endershot", new EnderShot(93));
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");

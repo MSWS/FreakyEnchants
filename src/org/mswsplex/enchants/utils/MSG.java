@@ -273,28 +273,32 @@ public class MSG {
 		}
 	}
 
+	private static TreeMap<Integer, String> rom = new TreeMap<>();
+
 	public static String toRoman(int number) {
 		if (number == 0)
 			return "0";
-		TreeMap<Integer, String> map = new TreeMap<Integer, String>();
-		map.put(1000, "M");
-		map.put(900, "CM");
-		map.put(500, "D");
-		map.put(400, "CD");
-		map.put(100, "C");
-		map.put(90, "XC");
-		map.put(50, "L");
-		map.put(40, "XL");
-		map.put(10, "X");
-		map.put(9, "IX");
-		map.put(5, "V");
-		map.put(4, "IV");
-		map.put(1, "I");
-
-		int l = map.floorKey(number);
-		if (number == l) {
-			return map.get(number);
+		if (rom.isEmpty()) {
+			rom.put(1000, "M");
+			rom.put(900, "CM");
+			rom.put(500, "D");
+			rom.put(400, "CD");
+			rom.put(100, "C");
+			rom.put(90, "XC");
+			rom.put(50, "L");
+			rom.put(40, "XL");
+			rom.put(10, "X");
+			rom.put(9, "IX");
+			rom.put(5, "V");
+			rom.put(4, "IV");
+			rom.put(1, "I");
 		}
-		return map.get(l) + toRoman(number - l);
+
+
+		int l = rom.floorKey(number);
+		if (number == l) {
+			return rom.get(number);
+		}
+		return rom.get(l) + toRoman(number - l);
 	}
 }

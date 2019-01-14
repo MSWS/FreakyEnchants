@@ -18,6 +18,7 @@ import org.mswsplex.enchants.checkers.ArmorChecker;
 import org.mswsplex.enchants.checkers.AutoGrabCheck;
 import org.mswsplex.enchants.checkers.AutoSmeltCheck;
 import org.mswsplex.enchants.checkers.BarrageCheck;
+import org.mswsplex.enchants.checkers.EnderShotCheck;
 import org.mswsplex.enchants.checkers.ExcavationCheck;
 import org.mswsplex.enchants.checkers.ExplosionCheck;
 import org.mswsplex.enchants.checkers.ExplosiveCheck;
@@ -26,6 +27,7 @@ import org.mswsplex.enchants.checkers.FreezeCheck;
 import org.mswsplex.enchants.checkers.NightshadeCheck;
 import org.mswsplex.enchants.checkers.RageCheck;
 import org.mswsplex.enchants.checkers.ReviveCheck;
+import org.mswsplex.enchants.checkers.SelfDestructCheck;
 import org.mswsplex.enchants.checkers.SeveredCheck;
 import org.mswsplex.enchants.checkers.StormbreakerCheck;
 import org.mswsplex.enchants.checkers.StunCheck;
@@ -122,6 +124,8 @@ public class CustomEnchants extends JavaPlugin {
 		new AutoGrabCheck(this);
 		new BarrageCheck(this);
 		new ExtraXPCheck(this);
+		new SelfDestructCheck(this);
+		new EnderShotCheck(this);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this), 0, 5);
 	}
 

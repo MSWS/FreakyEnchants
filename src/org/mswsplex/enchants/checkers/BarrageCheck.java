@@ -22,6 +22,7 @@ import org.bukkit.util.Vector;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.Sounds;
+import org.mswsplex.enchants.utils.Utils;
 
 public class BarrageCheck implements Listener {
 
@@ -43,6 +44,8 @@ public class BarrageCheck implements Listener {
 	public void onProjectileLaunch(ProjectileLaunchEvent event) {
 		Projectile proj = event.getEntity();
 		if (proj == null || proj.getShooter() == null || !(proj.getShooter() instanceof LivingEntity))
+			return;
+		if (!Utils.allowEnchant(proj.getWorld(), "barrage"))
 			return;
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();

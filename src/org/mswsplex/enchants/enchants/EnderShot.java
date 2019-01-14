@@ -1,38 +1,39 @@
 package org.mswsplex.enchants.enchants;
 
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
-public class Spring extends Enchantment {
+public class EnderShot extends Enchantment {
 
-	public Spring(int id) {
+	public EnderShot(int id) {
 		super(id);
 	}
 
 	@Override
 	public boolean canEnchantItem(ItemStack item) {
-		return item.getType().toString().contains("BOOTS");
+		return item.getType() == Material.BOW;
 	}
 
 	@Override
-	public boolean conflictsWith(Enchantment arg0) {
+	public boolean conflictsWith(Enchantment enchantment) {
 		return false;
 	}
 
 	@Override
 	public EnchantmentTarget getItemTarget() {
-		return EnchantmentTarget.ARMOR_FEET;
+		return EnchantmentTarget.BOW;
 	}
 
 	@Override
 	public int getMaxLevel() {
-		return 3;
+		return 5;
 	}
 
 	@Override
 	public String getName() {
-		return "Spring";
+		return "Ender Shot";
 	}
 
 	@Override

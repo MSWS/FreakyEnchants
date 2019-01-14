@@ -50,6 +50,7 @@ MainMenu:
     - '&7 - Explosive'
     - '&7 - Stun'
     - '&7 - Barrage'
+    - '&7 - Ender Shot'
     - '&7 - Wither Shot'
     - '&7 - Toxic Shot'
   armor:
@@ -63,6 +64,7 @@ MainMenu:
     - '&7 - Spring'
     - '&7 - Heat Shield'
     - '&7 - Summoner'
+    - '&7 - Self Destruct'
   balance:
     Icon: BOOK
     Name: '&a&l%balance% Tokens'
@@ -139,7 +141,7 @@ PickaxeEnchants:
     Lore:
     - '&7Automatically smelts certain ores and blocks.'
   extraxp:
-    Icon: 'EXP_BOTTLE'
+    Icon: EXP_BOTTLE
     Name: '&a&lExtra XP'
     Slot: 17
     Lore:
@@ -196,35 +198,41 @@ BowEnchants:
   explosive:
     Icon: TNT
     Name: '&c&lExplosive %level%'
-    Slot: 9
+    Slot: 4
     Lore:
     - '&7Arrows will explode on impact'
   stun:
     Icon: SLIME_BALL
     Name: '&e&lStun %level%'
-    Slot: 11
+    Slot: 22
     Lore:
     - '&7Has a small chance to stun an enemy for a short time.'
   barrage:
-    Icon: 'ARROW'
+    Icon: ARROW
     Name: '&d&lBarrage %level%'
-    Slot: 13
+    Slot: 0
     Lore:
     - '&7Shoot many arrows at once.'
   withershot:
     Icon: SKULL_ITEM
     Data: 1
     Name: '&7&lWither Shot %level%'
-    Slot: 15
+    Slot: 11
     Lore:
     - '&7Has a small chance of dealing a Wither Effect.'
   toxicshot:
     Icon: POTION
     Data: 8196
     Name: '&5&lToxic Shot %level%'
-    Slot: 17
+    Slot: 15
     Lore:
     - '&7Has a small chance of dealing a &5Poison Effect&7.'
+  endershot:
+    Icon: ENDER_PEARL
+    Name: '&5&lEnderShot %level%'
+    Slot: 8
+    Lore:
+    - '&7Teleport where your arrow lands (with cooldown)'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''
@@ -235,27 +243,33 @@ ArmorEnchants:
   hearty:
     Icon: GOLDEN_APPLE
     Name: '&c&lHearty %level%'
-    Slot: 10
+    Slot: 9
     Lore:
     - '&7Increases your max health'
   spring:
     Icon: RABBIT_FOOT
     Name: '&a&lSpring %level%'
-    Slot: 12
+    Slot: 11
     Lore:
     - '&7Gives a jump boost when worn'
   heatshield:
     Icon: BLAZE_POWDER
     Name: '&6&lHeat Shield %level%'
-    Slot: 14
+    Slot: 13
     Lore:
     - '&7Grants immunity to fire'
   summoner:
     Icon: IRON_BLOCK
     Name: '&d&lSummoner %level%'
-    Slot: 16
+    Slot: 15
     Lore:
     - '&7Has a small chance to summon protectors when melee damaged'
+  selfdestruct:
+    Icon: TNT
+    Name: '&c&lSelf Destruct %level%'
+    Slot: 17
+    Lore:
+    - '&7Creates an &cexplosion &7when killed'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''

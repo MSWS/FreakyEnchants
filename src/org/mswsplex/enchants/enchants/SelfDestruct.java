@@ -4,15 +4,15 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
-public class Spring extends Enchantment {
+public class SelfDestruct extends Enchantment {
 
-	public Spring(int id) {
+	public SelfDestruct(int id) {
 		super(id);
 	}
 
 	@Override
 	public boolean canEnchantItem(ItemStack item) {
-		return item.getType().toString().contains("BOOTS");
+		return item.getType().toString().contains("CHESTPLATE");
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class Spring extends Enchantment {
 
 	@Override
 	public EnchantmentTarget getItemTarget() {
-		return EnchantmentTarget.ARMOR_FEET;
+		return EnchantmentTarget.ARMOR_TORSO;
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class Spring extends Enchantment {
 
 	@Override
 	public String getName() {
-		return "Spring";
+		return "Self Destruct";
 	}
 
 	@Override
