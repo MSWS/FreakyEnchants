@@ -18,34 +18,48 @@ public class EnchantmentManager {
 
 	private CustomEnchants plugin;
 
+	@SuppressWarnings("deprecation")
 	public EnchantmentManager(CustomEnchants plugin) {
 		this.plugin = plugin;
 		enchants = new HashMap<>();
-		enchants.put("explosion", new Explosion(70));
-		enchants.put("excavation", new Excavation(71));
-		enchants.put("autosmelt", new AutoSmelt(72));
-		enchants.put("witherpoint", new WitherPoint(73));
-		enchants.put("toxicpoint", new ToxicPoint(74));
-		enchants.put("revive", new Revive(75));
-		enchants.put("freeze", new Freeze(76));
-		enchants.put("stormbreaker", new Stormbreaker(77));
-		enchants.put("nightshade", new Nightshade(78));
-		enchants.put("severed", new Severed(79));
-		enchants.put("hearty", new Hearty(80));
-		enchants.put("spring", new Spring(81));
-		enchants.put("heatshield", new HeatShield(82));
-		enchants.put("summoner", new Summoner(83));
-		enchants.put("explosive", new Explosive(84));
-		enchants.put("stun", new Stun(85));
-		enchants.put("withershot", new WitherShot(86));
-		enchants.put("toxicshot", new ToxicShot(87));
-		enchants.put("rage", new Rage(88));
-		enchants.put("autograb", new AutoGrab(89));
-		enchants.put("barrage", new Barrage(90));
-		enchants.put("extraxp", new ExtraXP(91));
-		enchants.put("selfdestruct", new SelfDestruct(92));
-		enchants.put("endershot", new EnderShot(93));
-		enchants.put("burning", new Burning(94));
+		List<Integer> validIds = new ArrayList<Integer>();
+		for (int i = 0; i < 255; i++) {
+			if (Enchantment.getById(i) == null) {
+				validIds.add(i);
+			}
+		}
+		
+		enchants.put("burning", new Burning(validIds.get(0)));
+		enchants.put("explosion", new Explosion(validIds.get(1)));
+		enchants.put("excavation", new Excavation(validIds.get(2)));
+		enchants.put("autosmelt", new AutoSmelt(validIds.get(3)));
+		enchants.put("witherpoint", new WitherPoint(validIds.get(4)));
+		enchants.put("toxicpoint", new ToxicPoint(validIds.get(5)));
+		enchants.put("revive", new Revive(validIds.get(6)));
+		enchants.put("freeze", new Freeze(validIds.get(7)));
+		enchants.put("stormbreaker", new Stormbreaker(validIds.get(8)));
+		enchants.put("nightshade", new Nightshade(validIds.get(9)));
+		enchants.put("severed", new Severed(validIds.get(10)));
+		enchants.put("hearty", new Hearty(validIds.get(11)));
+		enchants.put("spring", new Spring(validIds.get(12)));
+		enchants.put("heatshield", new HeatShield(validIds.get(13)));
+		enchants.put("summoner", new Summoner(validIds.get(14)));
+		enchants.put("explosive", new Explosive(validIds.get(15)));
+		enchants.put("stun", new Stun(validIds.get(16)));
+		enchants.put("withershot", new WitherShot(validIds.get(17)));
+		enchants.put("toxicshot", new ToxicShot(validIds.get(18)));
+		enchants.put("rage", new Rage(validIds.get(19)));
+		enchants.put("autograb", new AutoGrab(validIds.get(20)));
+		enchants.put("barrage", new Barrage(validIds.get(21)));
+		enchants.put("extraxp", new ExtraXP(validIds.get(22)));
+		enchants.put("selfdestruct", new SelfDestruct(validIds.get(23)));
+		enchants.put("endershot", new EnderShot(validIds.get(24)));
+
+		if (validIds.size() < enchants.size()) {
+			MSG.log("[WARNING] This server has reached the limit of 255 custom enchantments.");
+			MSG.log("[WARNING] This means that only certain enchantments may work.");
+		}
+
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");
@@ -68,7 +82,7 @@ public class EnchantmentManager {
 				}
 			}
 			if (fail)
-				MSG.log("WARNING >> Some enchantments have failed to register. If you have just reloaded the server then do not worry about this. If this is after a fresh restart then a different enchantment plugin is interfering with this plugin.");
+				MSG.log("[WARNING] Some enchantments have failed to register. If you have just reloaded the server then do not worry about this. If this is after a fresh restart then a different enchantment plugin is interfering with this plugin.");
 
 			if (save)
 				plugin.saveCosts();
