@@ -1,4 +1,5 @@
 NoPermission: '&cYou do not have permission to do this.'
+UnknownCommand: '&cUnknown command.'
 Token:
   Give: '&7Successfully gave &e%target% &a%amo% &7token%s%, they now have &b%total%&7.'
   Set: '&7Successfully set &e%target%&7 to have &b%total% &7token%s%.'
@@ -13,11 +14,13 @@ Enchant:
   Invalid: '&cUnable to add &e%enchant%&c to that item.'
   Click: '&b%enchant% %level%&7 selected, click on the item that you want to enchant.'
   Air: '&7Hold the item you want to enchant in your hand.'
-  Unused: '&7No item specified. The enchantment has been added to your tokens. Type &a/redeem &7to redeem purchased enchantments.'
+  Unused: '&7No item specified. The enchantment has been added to your tokens. Type
+    &a/redeem &7to redeem purchased enchantments.'
   Unknown: '&cUnknown enchantment.'
   Give:
     Sender: '&7Successfully gave a &e%ench% %level%&7 token to &a%target%&7.'
-    Receiver: '&e%sender% &7gave you a &e%ench% %level%&7 enchantment token. Type &a/redeem &7to redeem it.'
+    Receiver: '&e%sender% &7gave you a &e%ench% %level%&7 enchantment token. Type
+      &a/redeem &7to redeem it.'
 InventoryFull:
   Title:
     Enabled: true
@@ -33,9 +36,13 @@ InventoryFull:
     Volume: 2
     Pitch: 2
 Help:
-  default:
+  token:
   - '&e<> &fOptional &e[] &fRequired'
   - perm:customenchant.token.give &e/token give [Player] [Amount] &f- Gives the player tokens
-  - perm:customenchant.token.set &e/token set [Player] [Amount] &f- Sets a player's tokesn
+  - perm:customenchant.token.set &e/token set [Player] [Amount] &f- Sets a player's tokens
   - perm:customenchant.token.shop &e/token shop &f- Opens the shop GUI
   - perm:customenchant.token.get &e/token get [Player] &fGets how many tokens a player has
+  giveenchant:
+  - '&e<> &fOptional &e[] &fRequired'
+  - '&e/giveenchant [Player] [Enchantment] <Level> &f- Gives the player the specified
+    enchantment'

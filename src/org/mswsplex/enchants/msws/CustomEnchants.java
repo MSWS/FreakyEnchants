@@ -35,6 +35,7 @@ import org.mswsplex.enchants.checkers.StunCheck;
 import org.mswsplex.enchants.checkers.SummonerCheck;
 import org.mswsplex.enchants.checkers.ToxicPointCheck;
 import org.mswsplex.enchants.checkers.ToxicShotCheck;
+import org.mswsplex.enchants.checkers.TreeFellerCheck;
 import org.mswsplex.enchants.checkers.WitherPointCheck;
 import org.mswsplex.enchants.checkers.WitherShotCheck;
 import org.mswsplex.enchants.commands.AddEnchantmentCommand;
@@ -134,7 +135,8 @@ public class CustomEnchants extends JavaPlugin {
 		new SelfDestructCheck(this);
 		new EnderShotCheck(this);
 		new BurningCheck(this);
-
+		new TreeFellerCheck(this);
+		
 		new ArmorChecker(this);
 		// Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this),
 		// 0, 5);

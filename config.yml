@@ -360,3 +360,14 @@ Burning:
     4: 80
     5: 100
   SuccessMessage: '&e&l* * * &8&l[&6&lENFLAMED&8&l] &e&l* * *'
+TreeFeller:
+  BonusAmount: #Delay (in ticks) per log block
+    1: 10
+    2: 8
+    3: 5
+    4: 3
+    5: 1
+  Sound:
+    Name: DIG_WOOD
+    Pitch: 1
+    Volume: 2

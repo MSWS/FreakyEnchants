@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.net.ssl.HttpsURLConnection;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
@@ -805,8 +806,16 @@ public class Utils {
 		if (!config.getBoolean(path + ".Enabled") && config.isSet(path + ".Enabled"))
 			return;
 
-		player.playSound(player.getLocation(), Sounds.valueOf(config.getString(path + ".Name")).bukkitSound(),
+		player.getWorld().playSound(player.getLocation(),
+				Sounds.valueOf(config.getString(path + ".Name")).bukkitSound(),
 				(float) config.getDouble(path + ".Volume"), (float) config.getDouble(path + ".Pitch"));
 	}
 
+	public static void playSound(FileConfiguration config, String path, Location loc) {
+		if (!config.getBoolean(path + ".Enabled") && config.isSet(path + ".Enabled"))
+			return;
+
+		loc.getWorld().playSound(loc, Sounds.valueOf(config.getString(path + ".Name")).bukkitSound(),
+				(float) config.getDouble(path + ".Volume"), (float) config.getDouble(path + ".Pitch"));
+	}
 }

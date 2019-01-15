@@ -48,6 +48,7 @@ public class EnchantmentManager {
 		enchants.put("endershot", new EnderShot(93));
 		enchants.put("burning", new Burning(94));
 		enchants.put("speed", new Speed(95));
+		enchants.put("treefeller", new TreeFeller(96));
 
 		try {
 			try {

@@ -33,7 +33,6 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		Player player = (Player) sender;
-
 		if (args.length == 0) {
 			PlayerManager.setInfo(player, "openInventory", "MainMenu");
 			player.openInventory(Utils.getGui(player, "MainMenu", 0));

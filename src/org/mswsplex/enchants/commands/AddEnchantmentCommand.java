@@ -29,7 +29,8 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length == 0) {
-			return false;
+			MSG.sendHelp(sender, "addenchant");
+			return true;
 		}
 		Player player = (Player) sender;
 		if (player.getItemInHand() == null || player.getItemInHand().getType() == Material.AIR) {

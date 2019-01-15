@@ -39,7 +39,6 @@ public class ArmorChecker {
 								maxHealth += plugin.getEnchantmentManager().getBonusAmount("hearty", armor
 										.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("hearty")));
 							}
-
 							for (String eName : new String[] { "Spring", "Speed", "HeatShield" }) {
 								if (armor.containsEnchantment(
 										plugin.getEnchantmentManager().enchants.get(eName.toLowerCase()))
@@ -51,31 +50,6 @@ public class ArmorChecker {
 													armor.getEnchantmentLevel(plugin.getEnchantmentManager().enchants
 															.get(eName.toLowerCase())))));
 							}
-
-//							if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("spring"))
-//									&& Utils.allowEnchant(w, "spring"))
-//								ent.addPotionEffect(new PotionEffect(
-//										PotionEffectType.getByName(plugin.config.getString("Spring.EffectType")), 20,
-//										plugin.getEnchantmentManager().checkAmplifier("spring",
-//												armor.getEnchantmentLevel(
-//														plugin.getEnchantmentManager().enchants.get("spring")))));
-//
-//							if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("speed"))
-//									&& Utils.allowEnchant(w, "spring"))
-//								ent.addPotionEffect(new PotionEffect(
-//										PotionEffectType.getByName(plugin.config.getString("Spring.EffectType")), 20,
-//										plugin.getEnchantmentManager().checkAmplifier("spring",
-//												armor.getEnchantmentLevel(
-//														plugin.getEnchantmentManager().enchants.get("spring")))));
-//
-//							if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("heatshield"))
-//									&& Utils.allowEnchant(w, "heatshield"))
-//								ent.addPotionEffect(new PotionEffect(
-//										PotionEffectType.getByName(plugin.config.getString("HeatShield.EffectType")),
-//										20,
-//										plugin.getEnchantmentManager().checkAmplifier("heatshield",
-//												armor.getEnchantmentLevel(
-//														plugin.getEnchantmentManager().enchants.get("heatshield")))));
 						}
 						ent.setMaxHealth(maxHealth);
 					}

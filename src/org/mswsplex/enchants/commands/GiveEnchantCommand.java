@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,15 +31,13 @@ public class GiveEnchantCommand implements CommandExecutor, TabCompleter {
 		cmd.setPermissionMessage(MSG.color(MSG.getString("NoPermission", "No permission")));
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length <= 1) {
-			return false;
-		}
-		Player target = Bukkit.getPlayer(args[0]);
-
-		if (target == null) {
+			MSG.sendHelp(sender, "giveenchant");
 			return true;
 		}
+		OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
 
 		int level = 1;
 		if (args.length > 2)
@@ -66,10 +65,11 @@ public class GiveEnchantCommand implements CommandExecutor, TabCompleter {
 				MSG.getString("Enchant.Give.Sender", "gave %target% %ench% %level%")
 						.replace("%target%", target.getName()).replace("%ench%", ench.getName())
 						.replace("%level%", MSG.toRoman(level)));
-		MSG.tell(target,
-				MSG.getString("Enchant.Give.Receiver", "%sender% gave you a %ench% %level%")
-						.replace("%sender%", sender.getName()).replace("%ench%", ench.getName())
-						.replace("%level%", MSG.toRoman(level)));
+		if (target.isOnline())
+			MSG.tell((Player) target,
+					MSG.getString("Enchant.Give.Receiver", "%sender% gave you a %ench% %level%")
+							.replace("%sender%", sender.getName()).replace("%ench%", ench.getName())
+							.replace("%level%", MSG.toRoman(level)));
 		return true;
 	}
 

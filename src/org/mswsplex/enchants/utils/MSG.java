@@ -167,12 +167,11 @@ public class MSG {
 	 * @param page    Page of help messages
 	 * @param command Command to send help to
 	 */
-	public static void sendHelp(CommandSender sender, int page, String command) {
+	public static void sendHelp(CommandSender sender, String command) {
 		if (!plugin.lang.contains("Help." + command.toLowerCase())) {
 			tell(sender, getString("UnknownCommand", "There is no help available for this command."));
 			return;
 		}
-		int length = plugin.config.getInt("HelpLength");
 		List<String> help = plugin.lang.getStringList("Help." + command.toLowerCase()), list = new ArrayList<String>();
 		for (String res : help) {
 			if (res.startsWith("perm:")) {
@@ -189,14 +188,8 @@ public class MSG {
 			}
 			list.add(res);
 		}
-		if (help.size() > length)
-			tell(sender, "Page: " + (page + 1) + " of " + (int) Math.ceil((list.size() / length) + 1));
-		for (int i = page * length; i < list.size() && i < page * length + length; i++) {
-			String res = list.get(i);
+		for (String res : list)
 			tell(sender, res);
-		}
-		if (command.equals("default"))
-			tell(sender, "&d&lCustomEnchants &ev" + plugin.getDescription().getVersion() + " &7created by &bMSWS");
 	}
 
 	/**

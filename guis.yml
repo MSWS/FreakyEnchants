@@ -157,19 +157,19 @@ AxeEnchants:
   stormbreaker:
     Icon: BLAZE_ROD
     Name: '&e&lStormbreaker %level%'
-    Slot: 9
+    Slot: 0
     Lore:
     - '&7Has a small chance of &esmiting&7 your opponent.'
   nightshade:
     Icon: COAL
     Name: '&7&lNightshade %level%'
-    Slot: 11
+    Slot: 4
     Lore:
     - '&7Has a small chance of dealing a Blindness Effect.'
   severed:
     Icon: SKULL_ITEM
     Data: 3
-    Slot: 13
+    Slot: 8
     Owner: MSWS
     Name: '&c&lSevered %level%'
     Lore:
@@ -179,16 +179,22 @@ AxeEnchants:
     Icon: SKULL_ITEM
     Data: 1
     Name: '&7&lWither Point %level%'
-    Slot: 15
+    Slot: 11
     Lore:
     - '&7Has a small chance of dealing a Wither Effect.'
   toxicpoint:
     Icon: POTION
     Data: 8196
     Name: '&5&lToxic Point %level%'
-    Slot: 17
+    Slot: 15
     Lore:
     - '&7Has a small chance of dealing a &5Poison Effect&7.'
+  treefeller:
+    Icon: LOG
+    Name: '&d&lTree Feller %level%'
+    Slot: 22
+    Lore:
+    - '&7Automatically harvest treees'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''
@@ -253,6 +259,8 @@ ArmorEnchants:
     Slot: 4
     Lore:
     - '&7Gives a jump boost when worn'
+    - ''
+    - '&c&lBoots Only'
   heatshield:
     Icon: WATER_BUCKET
     Name: '&6&lHeat Shield %level%'

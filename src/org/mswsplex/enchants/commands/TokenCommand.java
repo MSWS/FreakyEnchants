@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,29 +30,17 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 		cmd.setPermissionMessage(MSG.color(MSG.getString("NoPermission", "No permission")));
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length == 0) {
-			MSG.sendHelp(sender, 0, "default");
+			MSG.sendHelp(sender, "token");
 			return true;
 		}
-		Player target = null;
+		OfflinePlayer target = null;
 		double amo;
 		switch (args[0].toLowerCase()) {
 		case "help":
-			if (args.length == 1) {
-				try {
-					MSG.sendHelp(sender, Integer.parseInt(args[0]), "default");
-				} catch (Exception e) {
-					MSG.sendHelp(sender, 0, args[0]);
-				}
-			} else {
-				try {
-					MSG.sendHelp(sender, Integer.parseInt(args[1]), args[0]);
-				} catch (Exception e) {
-					MSG.sendHelp(sender, 0, args[0]);
-				}
-			}
-			break;
+			MSG.sendHelp(sender, "token");
 		case "give":
 			if (!sender.hasPermission("customenchants.token.give")) {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
@@ -61,7 +50,7 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 				MSG.tell(sender, "");
 				return true;
 			}
-			target = Bukkit.getPlayer(args[1]);
+			target = Bukkit.getOfflinePlayer(args[1]);
 			if (target == null) {
 				MSG.tell(sender, "Unknown Player");
 				return true;
