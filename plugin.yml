@@ -2,6 +2,9 @@ name: CustomEnchants
 main: org.mswsplex.enchants.msws.CustomEnchants
 version: 1.0
 description: Custom Enchants coded for Blitz Network
+softdepend:
+- Vault
+- WorldEdit
 commands:
   enchanter:
     usage: /<command>
