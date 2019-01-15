@@ -138,8 +138,10 @@ public class ShopListener implements Listener {
 		if (inv == null || inv.equals("RedeemMenu"))
 			return;
 		PlayerManager.removeInfo(player, "openInventory");
-		if (inv.equals("MainMenu"))
+		if (inv.equals("MainMenu")) {
+			Utils.playSound(plugin.config, "Sounds.CloseEnchantmentInventory", player);
 			return;
+		}
 
 		if (PlayerManager.getInfo(player, "enchantToApply") != null) {
 			List<String> tokens = (List<String>) PlayerManager.getInfo(player, "enchantmentTokens");
@@ -161,6 +163,9 @@ public class ShopListener implements Listener {
 			PlayerManager.removeInfo(player, "ignore");
 			return;
 		}
+		for (String r : plugin.getEnchantmentManager().enchants.keySet())
+			PlayerManager.removeInfo(player, r);
+
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
 			Utils.playSound(plugin.config, "Sounds.GoToMain", player);
 			player.openInventory(Utils.getGui(player, "MainMenu", 0));

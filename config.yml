@@ -53,6 +53,7 @@ Sounds:
     Name: BAT_LOOP
     Volume: 2
     Pitch: 2
+   #Enabled: false #If you want to disable certain sounds
   PurchasedEnchantment: #In /enchanter GUI
     Name: LEVEL_UP
     Volume: 2
@@ -79,6 +80,20 @@ Sounds:
     Name: ANVIL_USE
     Volume: 1
     Pitch: 2
+  CloseEnchantmentInventory:
+    Name: ENDERMAN_TELEPORT
+    Pitch: 2
+  OpenRedeemInventory:
+    Name: CHEST_OPEN
+    Volume: .5
+    Pitch: 1
+  CloseRedeemInventory:
+    Name: CHEST_CLOSE
+    Volume: .5
+  TokenDeleted:
+    Name: ANVIL_BREAK
+    Volume: 1.5
+    Pitch: .5
 
 #############################
 #                           #
@@ -102,6 +117,7 @@ NoTokens:
   - ''
   - '&7Purchase some with &a/enchanter'
 TokenTitle: '&e&lEnchantment Token'
+TokenDeleteLine: '&c&l[Q] To Delete'
 
 #############################
 #                           #

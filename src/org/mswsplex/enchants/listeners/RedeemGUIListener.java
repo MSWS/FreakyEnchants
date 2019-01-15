@@ -11,6 +11,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
@@ -43,6 +44,7 @@ public class RedeemGUIListener implements Listener {
 					.get(PlayerManager.getString(player, "enchantToApply"));
 			if (!event.getClickedInventory().getName().equals("container.inventory"))
 				break shop;
+
 			if (!apply.canEnchantItem(item)) {
 				MSG.tell(player, MSG.getString("Enchant.Invalid", "unable to add %enchant% to item")
 						.replace("%enchant%", apply.getName()));
@@ -68,7 +70,6 @@ public class RedeemGUIListener implements Listener {
 				}
 			}
 			PlayerManager.setInfo(player, "enchantmentTokens", tokens);
-
 			PlayerManager.removeInfo(player, "enchantToApply");
 			PlayerManager.removeInfo(player, "amplifier");
 
@@ -113,14 +114,29 @@ public class RedeemGUIListener implements Listener {
 
 		int level = Utils.romanToDecimal(e.split(" ")[e.split(" ").length - 1]);
 
-		MSG.tell(player,
-				MSG.getString("Enchant.Click", "click item in inventory you want to enchant with %enchant% %level%")
-						.replace("%enchant%", ench.getName()).replace("%level%", MSG.toRoman(level)));
+		if (event.getClick() == ClickType.DROP) {
+			List<String> tokens = PlayerManager.getStringList(player, "enchantmentTokens");
+			Iterator<String> tokenIt = tokens.iterator();
+			while (tokenIt.hasNext()) {
+				String line = tokenIt.next();
+				if (line.contains(id + " " + level)) {
+					tokenIt.remove();
+					break;
+				}
+			}
+			PlayerManager.setInfo(player, "enchantmentTokens", tokens);
+			Utils.playSound(plugin.config, "Sounds.TokenDeleted", player);
+			player.openInventory(Utils.getRedeemGUI(player));
+			PlayerManager.setInfo(player, "openInventory", "RedeemMenu");
+		} else {
+			MSG.tell(player,
+					MSG.getString("Enchant.Click", "click item in inventory you want to enchant with %enchant% %level%")
+							.replace("%enchant%", ench.getName()).replace("%level%", MSG.toRoman(level)));
 
-		Utils.playSound(plugin.config, "Sounds.SelectedEnchantment", player);
-
-		PlayerManager.setInfo(player, "enchantToApply", id);
-		PlayerManager.setInfo(player, "amplifier", item.getAmount());
+			Utils.playSound(plugin.config, "Sounds.SelectedEnchantment", player);
+			PlayerManager.setInfo(player, "enchantToApply", id);
+			PlayerManager.setInfo(player, "amplifier", item.getAmount());
+		}
 	}
 
 	@EventHandler
@@ -129,6 +145,7 @@ public class RedeemGUIListener implements Listener {
 		String inv = PlayerManager.getString(player, "openInventory");
 		if (inv == null || !inv.equals("RedeemMenu"))
 			return;
+		Utils.playSound(plugin.config, "Sounds.CloseRedeemInventory", player);
 		PlayerManager.removeInfo(player, "openInventory");
 		PlayerManager.removeInfo(player, "enchantToApply");
 		PlayerManager.removeInfo(player, "amplifier");

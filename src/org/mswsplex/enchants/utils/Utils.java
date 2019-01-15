@@ -339,9 +339,12 @@ public class Utils {
 			ItemMeta meta = item.getItemMeta();
 			meta.addEnchant(plugin.getEnchantmentManager().enchants.get(enchant.split(" ")[0]), level, true);
 			meta.setDisplayName(MSG.color(plugin.config.getString("TokenTitle")));
-			meta.setLore(Arrays.asList(
-					MSG.color("&7" + plugin.getEnchantmentManager().enchants.get(enchant.split(" ")[0]).getName() + " "
-							+ MSG.toRoman(level))));
+			meta.setLore(
+					Arrays.asList(
+							MSG.color(
+									"&7" + plugin.getEnchantmentManager().enchants.get(enchant.split(" ")[0]).getName()
+											+ " " + MSG.toRoman(level)),
+							"", MSG.color(plugin.config.getString("TokenDeleteLine"))));
 			item.setItemMeta(meta);
 			inv.setItem(i, item);
 			pos++;
@@ -808,7 +811,8 @@ public class Utils {
 
 		player.getWorld().playSound(player.getLocation(),
 				Sounds.valueOf(config.getString(path + ".Name")).bukkitSound(),
-				(float) config.getDouble(path + ".Volume"), (float) config.getDouble(path + ".Pitch"));
+				config.contains(path + ".Volume") ? (float) config.getDouble(path + ".Volume") : 1,
+				config.contains(path + ".Pitch") ? (float) config.getDouble(path + ".Pitch") : 1);
 	}
 
 	public static void playSound(FileConfiguration config, String path, Location loc) {
@@ -816,6 +820,7 @@ public class Utils {
 			return;
 
 		loc.getWorld().playSound(loc, Sounds.valueOf(config.getString(path + ".Name")).bukkitSound(),
-				(float) config.getDouble(path + ".Volume"), (float) config.getDouble(path + ".Pitch"));
+				config.contains(path + ".Volume") ? (float) config.getDouble(path + ".Volume") : 1,
+				config.contains(path + ".Pitch") ? (float) config.getDouble(path + ".Pitch") : 1);
 	}
 }

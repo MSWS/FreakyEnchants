@@ -12,7 +12,10 @@ import org.mswsplex.enchants.utils.Utils;
 
 public class RedeemCommand implements CommandExecutor {
 
+	private CustomEnchants plugin;
+
 	public RedeemCommand(CustomEnchants plugin) {
+		this.plugin = plugin;
 		PluginCommand cmd = plugin.getCommand("redeem");
 		cmd.setExecutor(this);
 		cmd.setPermission("customenchants.redeem");
@@ -23,6 +26,7 @@ public class RedeemCommand implements CommandExecutor {
 		Player player = (Player) sender;
 		PlayerManager.setInfo(player, "page", 0);
 		PlayerManager.setInfo(player, "openInventory", "RedeemMenu");
+		Utils.playSound(plugin.config, "Sounds.OpenRedeemInventory", player);
 		player.openInventory(Utils.getRedeemGUI(player));
 		return true;
 	}

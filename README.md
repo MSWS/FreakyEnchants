@@ -1,6 +1,6 @@
 # CustomEnchants
 Features:
-  * Over 20+ custom enchantments
+  * Over 25+ custom enchantments
   * NPC Support
   * Enchantments work with regular entities
   * Extremely customizable enchantments, messages, prices, and GUIs

@@ -250,13 +250,13 @@ ArmorEnchants:
   hearty:
     Icon: GOLDEN_APPLE
     Name: '&c&lHearty %level%'
-    Slot: 0
+    Slot: 9
     Lore:
     - '&7Increases your max health'
   spring:
     Icon: RABBIT_FOOT
     Name: '&a&lSpring %level%'
-    Slot: 4
+    Slot: 24
     Lore:
     - '&7Gives a jump boost when worn'
     - ''
@@ -264,29 +264,37 @@ ArmorEnchants:
   heatshield:
     Icon: WATER_BUCKET
     Name: '&6&lHeat Shield %level%'
-    Slot: 8
+    Slot: 17
     Lore:
     - '&7Grants immunity to fire'
   summoner:
     Icon: IRON_BLOCK
     Name: '&d&lSummoner %level%'
-    Slot: 11
+    Slot: 13
     Lore:
     - '&7Has a small chance to summon'
     - '&7protectors when melee damaged'
   selfdestruct:
     Icon: TNT
     Name: '&c&lSelf Destruct %level%'
-    Slot: 15
+    Slot: 2
     Lore:
     - '&7Creates an &cexplosion &7when killed'
   burning:
     Icon: BLAZE_POWDER
     Name: '&6&lBurning %level%'
-    Slot: 22
+    Slot: 6
     Lore:
     - '&7Has a small chance to set'
     - '&7mobs on &6fire&7 on melee damage'
+  speed:
+    Icon: FEATHER
+    Name: '&a&lSpeed %level%'
+    Slot: 20
+    Lore:
+    - '&7Gain permanent speed.'
+    - ''
+    - '&c&lBoots Only'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''
