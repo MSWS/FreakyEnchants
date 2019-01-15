@@ -17,7 +17,6 @@ import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.NBTEditor;
-import org.mswsplex.enchants.utils.Sounds;
 import org.mswsplex.enchants.utils.Utils;
 
 public class EnchanterCommand implements CommandExecutor, TabCompleter {
@@ -36,10 +35,7 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 		if (args.length == 0) {
 			PlayerManager.setInfo(player, "openInventory", "MainMenu");
 			player.openInventory(Utils.getGui(player, "MainMenu", 0));
-			player.playSound(player.getLocation(),
-					Sounds.valueOf(plugin.config.getString("Sounds.OpenEnchantmentInventory.Name")).bukkitSound(),
-					(float) plugin.config.getDouble("Sounds.OpenEnchantmentInventory.Volume"),
-					(float) plugin.config.getDouble("Sounds.OpenEnchantmentInventory.Pitch"));
+			Utils.playSound(plugin.config, "Sounds.OpenEnchantmentInventory", player);
 			return true;
 		}
 		Entity ent;

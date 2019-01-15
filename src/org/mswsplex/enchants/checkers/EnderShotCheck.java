@@ -18,7 +18,6 @@ import org.mswsplex.enchants.managers.TimeManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
 import org.mswsplex.enchants.utils.HotbarMessenger;
 import org.mswsplex.enchants.utils.MSG;
-import org.mswsplex.enchants.utils.Sounds;
 import org.mswsplex.enchants.utils.Utils;
 
 public class EnderShotCheck implements Listener {
@@ -41,11 +40,7 @@ public class EnderShotCheck implements Listener {
 		if (!Utils.allowEnchant(player.getWorld(), "endershot"))
 			return;
 		player.teleport(event.getEntity(), TeleportCause.ENDER_PEARL);
-		if (plugin.config.getBoolean("EnderShot.TeleportSound.Enabled"))
-			player.playSound(player.getLocation(),
-					Sounds.valueOf(plugin.config.getString("EnderShot.TeleportSound.Name")).bukkitSound(),
-					(float) plugin.config.getDouble("EnderShot.TeleportSound.Volume"),
-					(float) plugin.config.getDouble("EnderShot.TeleportSound.Pitch"));
+		Utils.playSound(plugin.config, "Endershot.TeleportSound", player.getLocation());
 		if (plugin.config.getBoolean("EnderShot.DeleteArrow"))
 			event.getEntity().remove();
 	}
