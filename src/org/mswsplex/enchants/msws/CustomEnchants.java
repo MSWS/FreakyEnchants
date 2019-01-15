@@ -18,6 +18,7 @@ import org.mswsplex.enchants.checkers.ArmorChecker;
 import org.mswsplex.enchants.checkers.AutoGrabCheck;
 import org.mswsplex.enchants.checkers.AutoSmeltCheck;
 import org.mswsplex.enchants.checkers.BarrageCheck;
+import org.mswsplex.enchants.checkers.BurningCheck;
 import org.mswsplex.enchants.checkers.EnderShotCheck;
 import org.mswsplex.enchants.checkers.ExcavationCheck;
 import org.mswsplex.enchants.checkers.ExplosionCheck;
@@ -76,11 +77,12 @@ public class CustomEnchants extends JavaPlugin {
 		lang = YamlConfiguration.loadConfiguration(langYml);
 		gui = YamlConfiguration.loadConfiguration(guiYml);
 		enchantCosts = YamlConfiguration.loadConfiguration(enchantCostsYml);
-		eManager = new EnchantmentManager(this);
 
 		MSG.plugin = this;
 		Utils.plugin = this;
 		PlayerManager.plugin = this;
+
+		eManager = new EnchantmentManager(this);
 
 		if (setupEconomy()) {
 			MSG.log("Successfully linked with Vault.");
@@ -89,7 +91,7 @@ public class CustomEnchants extends JavaPlugin {
 		}
 
 		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard"))
-			MSG.log("WorldGuard successfully linked.");
+			MSG.log("Successfully linked with WorldGuard.");
 
 		new AddEnchantmentCommand(this);
 		new TokenCommand(this);
@@ -109,7 +111,6 @@ public class CustomEnchants extends JavaPlugin {
 		saveData();
 	}
 
-	@SuppressWarnings("deprecation")
 	public void registerEnchantChecks() {
 		new ExplosionCheck(this);
 		new ExcavationCheck(this);
@@ -132,7 +133,11 @@ public class CustomEnchants extends JavaPlugin {
 		new ExtraXPCheck(this);
 		new SelfDestructCheck(this);
 		new EnderShotCheck(this);
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this), 0, 5);
+		new BurningCheck(this);
+
+		new ArmorChecker(this);
+		// Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this),
+		// 0, 5);
 	}
 
 	public void refreshNPCs() {

@@ -45,6 +45,7 @@ public class EnchantmentManager {
 		enchants.put("extraxp", new ExtraXP(91));
 		enchants.put("selfdestruct", new SelfDestruct(92));
 		enchants.put("endershot", new EnderShot(93));
+		enchants.put("burning", new Burning(94));
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");
@@ -54,16 +55,21 @@ public class EnchantmentManager {
 				e.printStackTrace();
 			}
 			boolean save = false;
+			boolean fail = false;
 			for (Entry<String, Enchantment> r : enchants.entrySet()) {
 				try {
 					Enchantment.registerEnchantment(r.getValue());
 				} catch (IllegalArgumentException e) {
+					fail = true;
 				}
 				if (!plugin.enchantCosts.contains(r.getKey())) {
 					save = true;
 					plugin.enchantCosts.set(r.getKey(), 0);
 				}
 			}
+			if (fail)
+				MSG.log("WARNING >> Some enchantments have failed to register. If you have just reloaded the server then do not worry about this. If this is after a fresh restart then a different enchantment plugin is interfering with this plugin.");
+
 			if (save)
 				plugin.saveCosts();
 		} catch (Exception e) {
