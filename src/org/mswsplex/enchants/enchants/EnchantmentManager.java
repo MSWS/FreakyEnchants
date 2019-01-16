@@ -50,8 +50,8 @@ public class EnchantmentManager {
 		enchants.put("speed", new Speed(95));
 		enchants.put("treefeller", new TreeFeller(96));
 		enchants.put("frostwalker", new FrostWalker(97));
-		
-		
+		enchants.put("tripper", new Tripper(98));
+
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");
@@ -66,7 +66,7 @@ public class EnchantmentManager {
 					Enchantment.registerEnchantment(r.getValue());
 				} catch (IllegalArgumentException e) {
 					if (Enchantment.getByName(r.getValue().getName()) == null) {
-						MSG.log("Failed to register enchantment " + r.getValue().getName());
+						MSG.log("[WARNING] Failed to register enchantment " + r.getValue().getName());
 					}
 				}
 				if (!plugin.enchantCosts.contains(r.getKey())) {

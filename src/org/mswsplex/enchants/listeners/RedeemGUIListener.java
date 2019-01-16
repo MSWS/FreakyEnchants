@@ -57,7 +57,7 @@ public class RedeemGUIListener implements Listener {
 
 			MSG.tell(player,
 					MSG.getString("Enchant.Added", "Added %enchat% %level%").replace("%enchant%", apply.getName())
-							.replace("%level%", PlayerManager.getDouble(player, "amplifier").intValue() + ""));
+							.replace("%level%", MSG.toRoman(PlayerManager.getDouble(player, "amplifier").intValue())));
 
 			List<String> tokens = PlayerManager.getStringList(player, "enchantmentTokens");
 			Iterator<String> tokenIt = tokens.iterator();

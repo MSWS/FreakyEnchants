@@ -64,7 +64,7 @@ public class ShopListener implements Listener {
 			Utils.playSound(plugin.config, "Sounds.EnchantmentAdded", player);
 			MSG.tell(player,
 					MSG.getString("Enchant.Added", "Added %enchat% %level%").replace("%enchant%", apply.getName())
-							.replace("%level%", PlayerManager.getDouble(player, "amplifier").intValue() + ""));
+							.replace("%level%", MSG.toRoman(PlayerManager.getDouble(player, "amplifier").intValue())));
 			PlayerManager.removeInfo(player, "enchantToApply");
 			PlayerManager.removeInfo(player, "amplifier");
 		}

@@ -401,3 +401,10 @@ FrostWalker:
   - 'WOOL:3'
   - 'PACKED_ICE'
   - 'STATIONARY_WATER'
+Tripper:
+  BonusAmount: #Amount for vertical KB
+    1: .25
+    2: .3
+    3: .4
+    4: .5
+    5: .75

@@ -37,6 +37,7 @@ import org.mswsplex.enchants.checkers.SummonerCheck;
 import org.mswsplex.enchants.checkers.ToxicPointCheck;
 import org.mswsplex.enchants.checkers.ToxicShotCheck;
 import org.mswsplex.enchants.checkers.TreeFellerCheck;
+import org.mswsplex.enchants.checkers.TripperCheck;
 import org.mswsplex.enchants.checkers.WitherPointCheck;
 import org.mswsplex.enchants.checkers.WitherShotCheck;
 import org.mswsplex.enchants.commands.AddEnchantmentCommand;
@@ -59,7 +60,7 @@ public class CustomEnchants extends JavaPlugin {
 	public FileConfiguration config, data, lang, gui, enchantCosts;
 	public File configYml = new File(getDataFolder(), "config.yml"), dataYml = new File(getDataFolder(), "data.yml"),
 			langYml = new File(getDataFolder(), "lang.yml"), guiYml = new File(getDataFolder(), "guis.yml"),
-			enchantCostsYml = new File(getDataFolder(), "enchantCosts.yml");
+			enchantCostsYml = new File(getDataFolder(), "enchantments.yml");
 
 	private EnchantmentManager eManager;
 
@@ -73,7 +74,7 @@ public class CustomEnchants extends JavaPlugin {
 		if (!guiYml.exists())
 			saveResource("guis.yml", true);
 		if (!enchantCostsYml.exists())
-			saveResource("enchantCosts.yml", true);
+			saveResource("enchantments.yml", true);
 		config = YamlConfiguration.loadConfiguration(configYml);
 		data = YamlConfiguration.loadConfiguration(dataYml);
 		lang = YamlConfiguration.loadConfiguration(langYml);
@@ -138,10 +139,9 @@ public class CustomEnchants extends JavaPlugin {
 		new BurningCheck(this);
 		new TreeFellerCheck(this);
 		new FrostWalkerCheck(this);
+		new TripperCheck(this);
 
 		new ArmorChecker(this);
-		// Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this),
-		// 0, 5);
 	}
 
 	public void refreshNPCs() {
