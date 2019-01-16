@@ -63,7 +63,6 @@ public class CustomEnchants extends JavaPlugin {
 			enchantCostsYml = new File(getDataFolder(), "enchantments.yml");
 
 	private EnchantmentManager eManager;
-
 	private Economy eco = null;
 
 	public void onEnable() {

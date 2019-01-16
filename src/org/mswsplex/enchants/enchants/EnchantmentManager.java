@@ -90,10 +90,6 @@ public class EnchantmentManager {
 		return "";
 	}
 
-	public boolean checkProbability(Enchantment ench, int lvl) {
-		return checkProbability(ench.getName(), lvl);
-	}
-
 	public boolean checkProbability(String ench, int lvl) {
 		ench = enchants.get(ench.toLowerCase()).getName().replace(" ", "");
 		if (!plugin.config.contains(ench) || plugin.config.getConfigurationSection(ench) == null)
@@ -137,7 +133,7 @@ public class EnchantmentManager {
 		return plugin.config.getDouble(ench + ".BonusAmount." + big);
 	}
 
-	public ItemStack addEnchant(ItemStack item, int level, Enchantment enchant) {
+	public void addEnchant(ItemStack item, int level, Enchantment enchant) {
 		ItemMeta meta = item.getItemMeta();
 		List<String> lore = meta.getLore();
 		if (lore == null) {
@@ -159,6 +155,5 @@ public class EnchantmentManager {
 		meta = item.getItemMeta();
 		meta.setLore(lore);
 		item.setItemMeta(meta);
-		return item;
 	}
 }

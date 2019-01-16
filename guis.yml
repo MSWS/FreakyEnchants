@@ -4,10 +4,10 @@ MainMenu:
   sword:
     Icon: DIAMOND_SWORD
     Name: '&e&lSword Enchantments'
-    Slot: 9
+    Slot: 10
     NextInventory: SwordEnchants
     HideAttributes: true
-    Amount: 5
+    Amount: 6
     Lore:
     - '&b&lEnchantments'
     - '&7 - Wither Point'
@@ -15,10 +15,11 @@ MainMenu:
     - '&7 - Revive'
     - '&7 - Rage'
     - '&7 - Freeze'
+    - '&7 - Tripper'
   pick:
     Icon: DIAMOND_PICKAXE
     Name: '&e&lPickaxe Enchantments'
-    Slot: 20
+    Slot: 28
     NextInventory: PickaxeEnchants
     HideAttributes: true
     Amount: 5
@@ -32,7 +33,7 @@ MainMenu:
   axe:
     Icon: DIAMOND_AXE
     Name: '&e&lAxe Enchantments'
-    Slot: 13
+    Slot: 34
     NextInventory: AxeEnchants
     HideAttributes: true
     Amount: 6
@@ -47,7 +48,7 @@ MainMenu:
   bow:
     Icon: BOW
     Name: '&e&lBow Enchantments'
-    Slot: 24
+    Slot: 13
     NextInventory: BowEnchants
     Amount: 6
     Lore:
@@ -61,7 +62,7 @@ MainMenu:
   armor:
     Icon: DIAMOND_CHESTPLATE
     Name: '&e&lArmor Enchantments'
-    Slot: 17
+    Slot: 16
     NextInventory: ArmorEnchants
     Amount: 8
     Lore:
@@ -84,40 +85,46 @@ MainMenu:
     Data: 3
 SwordEnchants:
   Title: Sword Enchantments
-  Size: 27
+  Size: 45
   witherpoint:
     Icon: SKULL_ITEM
     Data: 1
     Name: '&7&lWither Point %level%'
-    Slot: 9
+    Slot: 10
     Lore:
     - '&7Has a small chance of dealing a Wither Effect.'
   toxicpoint:
     Icon: POTION
     Data: 8196
     Name: '&5&lToxic Point %level%'
-    Slot: 11
+    Slot: 13
     Lore:
     - '&7Has a small chance of dealing a &5Poison Effect&7.'
   revive:
     Icon: GOLDEN_APPLE
     Name: '&a&lRevive %level%'
-    Slot: 13
+    Slot: 16
     Lore:
     - '&7Has a small chance of &ahealing you&7 when healt is low&7.'
   rage:
     Icon: DIAMOND_SWORD
     Name: '&c&lRage %level%'
-    Slot: 15
+    Slot: 28
     Lore:
     - '&7For every combo hit you land,'
     - '&7total damage is multiplied by &b1.1&7.'
   freeze:
     Icon: ICE
     Name: '&b&lFreeze %level%'
-    Slot: 17
+    Slot: 34
     Lore:
     - '&7Has a small chance of dealing a &bSlowness Effect&7.'
+  tripper:
+    Icon: LEATHER_BOOTS
+    Name: '&7&lTripper %level%'
+    Slot: 31
+    Lore:
+    - '&7Entities you hit will be thrown directly vertically'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''
@@ -162,23 +169,23 @@ PickaxeEnchants:
     Data: 7
 AxeEnchants:
   Title: Axe Enchantments
-  Size: 27
+  Size: 45
   stormbreaker:
     Icon: BLAZE_ROD
     Name: '&e&lStormbreaker %level%'
-    Slot: 0
+    Slot: 10
     Lore:
     - '&7Has a small chance of &esmiting&7 your opponent.'
   nightshade:
     Icon: COAL
     Name: '&7&lNightshade %level%'
-    Slot: 4
+    Slot: 13
     Lore:
     - '&7Has a small chance of dealing a Blindness Effect.'
   severed:
     Icon: SKULL_ITEM
     Data: 3
-    Slot: 8
+    Slot: 16
     Owner: MSWS
     Name: '&c&lSevered %level%'
     Lore:
@@ -188,20 +195,20 @@ AxeEnchants:
     Icon: SKULL_ITEM
     Data: 1
     Name: '&7&lWither Point %level%'
-    Slot: 11
+    Slot: 28
     Lore:
     - '&7Has a small chance of dealing a Wither Effect.'
   toxicpoint:
     Icon: POTION
     Data: 8196
     Name: '&5&lToxic Point %level%'
-    Slot: 15
+    Slot: 34
     Lore:
     - '&7Has a small chance of dealing a &5Poison Effect&7.'
   treefeller:
     Icon: LOG
     Name: '&d&lTree Feller %level%'
-    Slot: 22
+    Slot: 31
     Lore:
     - '&7Automatically harvest treees'
   BACKGROUND_ITEM:
@@ -210,43 +217,43 @@ AxeEnchants:
     Data: 9
 BowEnchants:
   Title: Bow Enchantments
-  Size: 27
+  Size: 45
   explosive:
     Icon: TNT
     Name: '&c&lExplosive %level%'
-    Slot: 4
+    Slot: 31
     Lore:
     - '&7Arrows will explode on impact'
   stun:
     Icon: SLIME_BALL
     Name: '&e&lStun %level%'
-    Slot: 22
+    Slot: 13
     Lore:
     - '&7Has a small chance to stun an enemy for a short time.'
   barrage:
     Icon: ARROW
     Name: '&d&lBarrage %level%'
-    Slot: 0
+    Slot: 16
     Lore:
     - '&7Shoot many arrows at once.'
   withershot:
     Icon: SKULL_ITEM
     Data: 1
     Name: '&7&lWither Shot %level%'
-    Slot: 11
+    Slot: 10
     Lore:
     - '&7Has a small chance of dealing a Wither Effect.'
   toxicshot:
     Icon: POTION
     Data: 8196
     Name: '&5&lToxic Shot %level%'
-    Slot: 15
+    Slot: 28
     Lore:
     - '&7Has a small chance of dealing a &5Poison Effect&7.'
   endershot:
     Icon: ENDER_PEARL
     Name: '&5&lEnderShot %level%'
-    Slot: 8
+    Slot: 34
     Lore:
     - '&7Teleport where your arrow lands (with cooldown)'
   BACKGROUND_ITEM:
