@@ -49,7 +49,9 @@ public class EnchantmentManager {
 		enchants.put("burning", new Burning(94));
 		enchants.put("speed", new Speed(95));
 		enchants.put("treefeller", new TreeFeller(96));
-
+		enchants.put("frostwalker", new FrostWalker(97));
+		
+		
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");

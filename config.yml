@@ -387,3 +387,17 @@ TreeFeller:
     Name: DIG_WOOD
     Pitch: 1
     Volume: 2
+FrostWalker:
+  BonusAmount:
+    1: 3
+    2: 4
+    3: 5
+    4: 6
+    5: 7
+  Lifetime: 60 #How long the ice will stay in ticks
+  BlockTypes:
+  - 'LAPIS_BLOCK'
+  - 'WOOL:11'
+  - 'WOOL:3'
+  - 'PACKED_ICE'
+  - 'STATIONARY_WATER'

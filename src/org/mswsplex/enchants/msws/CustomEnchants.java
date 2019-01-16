@@ -25,6 +25,7 @@ import org.mswsplex.enchants.checkers.ExplosionCheck;
 import org.mswsplex.enchants.checkers.ExplosiveCheck;
 import org.mswsplex.enchants.checkers.ExtraXPCheck;
 import org.mswsplex.enchants.checkers.FreezeCheck;
+import org.mswsplex.enchants.checkers.FrostWalkerCheck;
 import org.mswsplex.enchants.checkers.NightshadeCheck;
 import org.mswsplex.enchants.checkers.RageCheck;
 import org.mswsplex.enchants.checkers.ReviveCheck;
@@ -136,7 +137,8 @@ public class CustomEnchants extends JavaPlugin {
 		new EnderShotCheck(this);
 		new BurningCheck(this);
 		new TreeFellerCheck(this);
-		
+		new FrostWalkerCheck(this);
+
 		new ArmorChecker(this);
 		// Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ArmorChecker(this),
 		// 0, 5);

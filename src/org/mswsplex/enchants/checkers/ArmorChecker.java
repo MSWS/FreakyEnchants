@@ -18,11 +18,12 @@ public class ArmorChecker {
 	@SuppressWarnings("deprecation")
 	public ArmorChecker(CustomEnchants plugin) {
 		this.plugin = plugin;
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this.plugin, run(), 0, 5);
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this.plugin, run(), 0, 3);
 	}
 
 	public BukkitRunnable run() {
 		return new BukkitRunnable() {
+
 			@Override
 			public void run() {
 				for (World w : Bukkit.getWorlds()) {
