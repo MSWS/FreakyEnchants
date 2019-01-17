@@ -21,12 +21,13 @@ NPC:
   AllowRightClick: true
   AllowLeftClick: true
 
-#What should the economy be called (you will have to customize this in guis.yml)
-EconomyName: Token%s%
+Economy:
 #What sort of economy/currency should be used? TOKEN is CustomEnchant's custom currency
-#Swap to vault if you want to use with Essentials or other Vault compatible plugins
-EconomyType: TOKEN #Options: TOKEN, VAULT
-
+#Set to vault if you want to use with Essentials or other Vault compatible plugins
+#XP is the player's experience level, note that this won't work if they're offline
+  Type: TOKEN #Options: TOKEN, VAULT, XP
+  Precision: 2
+  
 #What blocks will autosmelt affect?
 #For example, IRON_ORE will be changed into IRON_INGOT
 AutoSmeltDrops:

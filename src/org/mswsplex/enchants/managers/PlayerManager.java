@@ -50,15 +50,29 @@ public class PlayerManager {
 	}
 
 	public static double getBalance(OfflinePlayer player) {
-		if (plugin.getEconomy() == null || plugin.config.getString("EconomyType").equals("TOKEN")) {
+		if (plugin.config.getString("Economy.Type").equals("XP")) {
+			if (player.isOnline())
+				return Double.parseDouble(MSG.parseDecimal(((Player) player).getLevel() + ((Player) player).getExp(),
+						plugin.config.getInt("Economy.Precision")));
+			return -1;
+		}
+		if (plugin.getEconomy() == null || plugin.config.getString("Economy.Type").equals("TOKEN")) {
 			return getDouble(player, "tokens");
 		}
 		return plugin.getEconomy().getBalance(player);
 	}
 
 	public static void setBalance(OfflinePlayer player, double bal) {
-		if (plugin.getEconomy() == null || plugin.config.getString("EconomyType").equals("TOKEN")) {
+		if (plugin.config.getString("Economy.Type").equals("XP")) {
+			if (player.isOnline()) {
+				((Player) player).setLevel((int) Math.floor(bal));
+				((Player) player).setExp((float) (bal - Math.floor(bal)));
+				return;
+			}
+		}
+		if (plugin.getEconomy() == null || plugin.config.getString("Economy.Type").equals("TOKEN")) {
 			setInfo(player, "tokens", bal);
+			return;
 		}
 		plugin.getEconomy().depositPlayer(player, bal - getBalance(player));
 	}

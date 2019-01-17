@@ -56,12 +56,12 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			amo = Double.parseDouble(args[2]);
-			PlayerManager.setInfo(target, "tokens", PlayerManager.getDouble(target, "tokens") + amo);
+			PlayerManager.setBalance(target, PlayerManager.getBalance(target) + amo);
 			MSG.tell(sender,
 					MSG.getString("Token.Give", "gave %target% %amo% token%s%, they now have %total%")
-							.replace("%target%", sender.getName()).replace("%amo%", (int) Math.round(amo) + "")
-							.replace("%total%", (int) Math.round(PlayerManager.getDouble(target, "tokens")) + "")
-							.replace("%s%", PlayerManager.getDouble(target, "tokens") == 1 ? "" : "s"));
+							.replace("%target%", sender.getName()).replace("%amo%", amo + "")
+							.replace("%total%", PlayerManager.getBalance(target) + "")
+							.replace("%s%", PlayerManager.getBalance(target) == 1 ? "" : "s"));
 			break;
 		case "set":
 			if (!sender.hasPermission("freakyenchants.token.set")) {
@@ -82,8 +82,8 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 			MSG.tell(sender,
 					MSG.getString("Token.Set", "set %target% %amo% to have %total%")
 							.replace("%target%", sender.getName()).replace("%amo%", amo + "")
-							.replace("%total%", (int) Math.round(PlayerManager.getDouble(target, "tokens")) + "")
-							.replace("%s%", PlayerManager.getDouble(target, "tokens") == 1 ? "" : "s"));
+							.replace("%total%", PlayerManager.getBalance(target) + "")
+							.replace("%s%", PlayerManager.getBalance(target) == 1 ? "" : "s"));
 			break;
 		case "shop":
 			if (sender instanceof Player) {
@@ -107,7 +107,7 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 			}
 			MSG.tell(sender,
 					MSG.getString("Token.Get", "%target% has %total%").replace("%target%", target.getName())
-							.replace("%total%", (int) Math.round(PlayerManager.getBalance(target)) + "")
+							.replace("%total%", PlayerManager.getBalance(target) + "")
 							.replace("%s%", PlayerManager.getBalance(target) == 1 ? "" : "s"));
 			break;
 		}

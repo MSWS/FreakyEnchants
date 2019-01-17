@@ -28,14 +28,14 @@ public class PAPIHook extends PlaceholderExpansion {
 			if (!player.isOnline())
 				return null;
 			Player p = (Player) player;
-			return Utils.allowEnchant(p.getWorld(), args.substring("allow_".length())) ? "True" : "False";
+			return Utils.allowEnchant(p.getWorld(), args.substring("allow_".length())) ? "true" : "false";
 		}
 		if (args.startsWith("allowworld_")) {
 			World world = Bukkit.getWorld(args.substring("allowworld_".length(), args.lastIndexOf("_")));
 			if (world == null)
 				return null;
-			return Utils.allowEnchant(world, args.substring(("allowworld_" + world.getName()).length() + 1)) ? "True"
-					: "False";
+			return Utils.allowEnchant(world, args.substring(("allowworld_" + world.getName()).length() + 1)) ? "true"
+					: "false";
 		}
 		if (args.startsWith("cost_")) {
 			if (args.substring("cost_".length()).indexOf("_") == -1)
@@ -70,7 +70,7 @@ public class PAPIHook extends PlaceholderExpansion {
 
 	@Override
 	public String getIdentifier() {
-		return "ce";
+		return "fe";
 	}
 
 	@Override

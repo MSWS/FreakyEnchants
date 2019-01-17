@@ -46,3 +46,6 @@ Help:
   - '&e<> &fOptional &e[] &fRequired'
   - '&e/giveenchant [Player] [Enchantment] <Level> &f- Gives the player the specified
     enchantment'
+  addenchant:
+  - '&e<> &fOptional &e[] &fRequired'
+  - '&e/addenchant [Enchantment|All] <Level> &f- Enchants the item in your hand'

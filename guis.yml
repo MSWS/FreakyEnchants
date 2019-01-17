@@ -64,7 +64,7 @@ MainMenu:
     Name: '&e&lArmor Enchantments'
     Slot: 16
     NextInventory: ArmorEnchants
-    Amount: 8
+    Amount: 9
     Lore:
     - '&b&lEnchantments'
     - '&7 - Hearty'
@@ -75,6 +75,7 @@ MainMenu:
     - '&7 - Burning'
     - '&7 - Speed'
     - '&7 - FrostWalker'
+    - '&7 - DoubleJump'
   balance:
     Icon: BOOK
     Name: '&a&l%balance% Tokens'

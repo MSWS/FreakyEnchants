@@ -1,4 +1,4 @@
-# CustomEnchants
+# FreakyEnchantments
 Features:
   * Over 25+ custom enchantments
   * NPC Support
@@ -8,7 +8,7 @@ Features:
   * PlaceholderAPI support
   
 PlaceholderAPI:
-%ce_[name]%
+%fe_[name]%
 
 balance - Returns the player's balance in decimal form (%ce_balance%)
 balance_round - Returns the player's balance in integer form, rounded normally
