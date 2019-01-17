@@ -8,15 +8,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Utils;
 
 public class ArmorChecker {
 
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
 	@SuppressWarnings("deprecation")
-	public ArmorChecker(CustomEnchants plugin) {
+	public ArmorChecker(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this.plugin, run(), 0, 3);
 	}

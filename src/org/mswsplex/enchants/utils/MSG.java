@@ -13,10 +13,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.managers.TimeManager;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 
 public class MSG {
-	public static CustomEnchants plugin;
+	public static FreakyEnchants plugin;
 
 	/**
 	 * Returns the string with &'s being §

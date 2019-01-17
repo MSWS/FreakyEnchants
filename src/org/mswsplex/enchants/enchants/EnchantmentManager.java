@@ -10,15 +10,15 @@ import java.util.Random;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 
 public class EnchantmentManager {
 	public HashMap<String, Enchantment> enchants;
 
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
-	public EnchantmentManager(CustomEnchants plugin) {
+	public EnchantmentManager(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		enchants = new HashMap<>();
 

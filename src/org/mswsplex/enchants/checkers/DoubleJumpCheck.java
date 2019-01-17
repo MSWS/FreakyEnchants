@@ -10,14 +10,14 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.inventory.ItemStack;
 import org.mswsplex.enchants.managers.PlayerManager;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Utils;
 
 public class DoubleJumpCheck implements Listener {
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
-	public DoubleJumpCheck(CustomEnchants plugin) {
+	public DoubleJumpCheck(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, this.plugin);
 	}

@@ -14,19 +14,19 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.mswsplex.enchants.managers.PlayerManager;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.NBTEditor;
 import org.mswsplex.enchants.utils.Utils;
 
 public class EnchanterCommand implements CommandExecutor, TabCompleter {
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
-	public EnchanterCommand(CustomEnchants plugin) {
+	public EnchanterCommand(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		PluginCommand cmd = plugin.getCommand("enchanter");
 		cmd.setExecutor(this);
-		cmd.setPermission("customenchants.enchanter");
+		cmd.setPermission("freakyenchants.enchanter");
 		cmd.setPermissionMessage(MSG.color(MSG.getString("NoPermission", "No permission")));
 	}
 
@@ -41,7 +41,7 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 		Entity ent;
 		switch (args[0].toLowerCase()) {
 		case "create":
-			if (!sender.hasPermission("customenchants.enchanter.create")) {
+			if (!sender.hasPermission("freakyenchants.enchanter.create")) {
 				MSG.noPerm(sender);
 				return true;
 			}
@@ -66,7 +66,7 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 			break;
 		case "remove":
 		case "delete":
-			if (!sender.hasPermission("customenchants.enchanter.delete")) {
+			if (!sender.hasPermission("freakyenchants.enchanter.delete")) {
 				MSG.noPerm(sender);
 				return true;
 			}
@@ -92,7 +92,7 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 			closest.remove();
 			break;
 		case "settype":
-			if (!sender.hasPermission("customenchants.enchanter.settype")) {
+			if (!sender.hasPermission("freakyenchants.enchanter.settype")) {
 				MSG.noPerm(sender);
 				return true;
 			}
@@ -110,7 +110,7 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 		List<String> result = new ArrayList<>();
 		if (args.length <= 1)
 			for (String res : new String[] { "create", "delete", "settype" }) {
-				if (sender.hasPermission("customenchants.enchanter." + res))
+				if (sender.hasPermission("freakyenchants.enchanter." + res))
 					if (res.toLowerCase().startsWith(args[0].toLowerCase()))
 						result.add(res);
 			}

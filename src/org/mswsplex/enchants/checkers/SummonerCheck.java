@@ -15,16 +15,16 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Utils;
 
 public class SummonerCheck implements Listener {
 
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
 	@SuppressWarnings("deprecation")
-	public SummonerCheck(CustomEnchants plugin) {
+	public SummonerCheck(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, run(), 0, 5);

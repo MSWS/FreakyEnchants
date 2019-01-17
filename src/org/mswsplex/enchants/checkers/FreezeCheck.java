@@ -11,15 +11,15 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Utils;
 
 public class FreezeCheck implements Listener {
 
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
-	public FreezeCheck(CustomEnchants plugin) {
+	public FreezeCheck(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}

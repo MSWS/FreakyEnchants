@@ -14,7 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.mswsplex.enchants.managers.PlayerManager;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Cuboid;
 import org.mswsplex.enchants.utils.Sounds;
 import org.mswsplex.enchants.utils.Utils;
@@ -22,9 +22,9 @@ import org.mswsplex.enchants.utils.Utils;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 public class ExcavationCheck implements Listener {
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
-	public ExcavationCheck(CustomEnchants plugin) {
+	public ExcavationCheck(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}

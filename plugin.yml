@@ -1,7 +1,7 @@
-name: CustomEnchants
-main: org.mswsplex.enchants.msws.CustomEnchants
+name: FreakyEnchants
+main: org.mswsplex.enchants.msws.FreakyEnchants
 version: 1.0
-description: Custom Enchants coded for Blitz Network
+description: Freaky Enchantments created by MSWS
 softdepend:
 - Vault
 - WorldEdit

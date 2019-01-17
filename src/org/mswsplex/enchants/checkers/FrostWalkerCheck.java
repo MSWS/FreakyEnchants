@@ -13,15 +13,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Cuboid;
 
 public class FrostWalkerCheck implements Listener {
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
 	private List<Block> handleBlocks;
 
-	public FrostWalkerCheck(CustomEnchants plugin) {
+	public FrostWalkerCheck(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, this.plugin);
 		handleBlocks = new ArrayList<>();

@@ -20,15 +20,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 import org.mswsplex.enchants.managers.PlayerManager;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Sounds;
 import org.mswsplex.enchants.utils.Utils;
 
 public class BarrageCheck implements Listener {
 
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
-	public BarrageCheck(CustomEnchants plugin) {
+	public BarrageCheck(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}

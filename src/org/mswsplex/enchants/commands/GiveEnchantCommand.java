@@ -15,19 +15,19 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.mswsplex.enchants.managers.PlayerManager;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 
 public class GiveEnchantCommand implements CommandExecutor, TabCompleter {
 
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
-	public GiveEnchantCommand(CustomEnchants plugin) {
+	public GiveEnchantCommand(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		PluginCommand cmd = this.plugin.getCommand("giveenchant");
 		cmd.setExecutor(this);
 		cmd.setTabCompleter(this);
-		cmd.setPermission("customenchants.giveenchant");
+		cmd.setPermission("freakyenchants.giveenchant");
 		cmd.setPermissionMessage(MSG.color(MSG.getString("NoPermission", "No permission")));
 	}
 
@@ -47,12 +47,12 @@ public class GiveEnchantCommand implements CommandExecutor, TabCompleter {
 			MSG.tell(sender, MSG.getString("Enchant.Unknown", "unknown enchantment"));
 			return true;
 		}
-		if (!sender.hasPermission("customenchants.giveenchant." + args[0])) {
+		if (!sender.hasPermission("freakyenchants.giveenchant." + args[0])) {
 			MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 			return true;
 		}
 		Enchantment ench = plugin.getEnchantmentManager().enchants.get(args[1].toLowerCase());
-		if (!sender.hasPermission("customenchants.addenchant.bypasslimit"))
+		if (!sender.hasPermission("freakyenchants.addenchant.bypasslimit"))
 			level = Math.min(ench.getMaxLevel(), level);
 
 		List<String> tokens = PlayerManager.getStringList(target, "enchantmentTokens");

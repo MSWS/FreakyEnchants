@@ -14,19 +14,19 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.mswsplex.enchants.managers.PlayerManager;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Utils;
 
 public class TokenCommand implements CommandExecutor, TabCompleter {
 
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
-	public TokenCommand(CustomEnchants plugin) {
+	public TokenCommand(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		PluginCommand cmd = this.plugin.getCommand("token");
 		cmd.setExecutor(this);
-		cmd.setPermission("customenchants.token");
+		cmd.setPermission("freakyenchants.token");
 		cmd.setPermissionMessage(MSG.color(MSG.getString("NoPermission", "No permission")));
 	}
 
@@ -42,7 +42,7 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 		case "help":
 			MSG.sendHelp(sender, "token");
 		case "give":
-			if (!sender.hasPermission("customenchants.token.give")) {
+			if (!sender.hasPermission("freakyenchants.token.give")) {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 				return true;
 			}
@@ -64,7 +64,7 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 							.replace("%s%", PlayerManager.getDouble(target, "tokens") == 1 ? "" : "s"));
 			break;
 		case "set":
-			if (!sender.hasPermission("customenchants.token.set")) {
+			if (!sender.hasPermission("freakyenchants.token.set")) {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 				return true;
 			}
@@ -93,13 +93,13 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 			}
 			break;
 		case "get":
-			if (!sender.hasPermission("customenchant.token.get")) {
+			if (!sender.hasPermission("freakyenchants.token.get")) {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 				return true;
 			}
 			if (sender instanceof Player)
 				target = (Player) sender;
-			if (args.length > 1 && sender.hasPermission("customenchants.token.get.others"))
+			if (args.length > 1 && sender.hasPermission("freakyenchants.token.get.others"))
 				target = Bukkit.getPlayer(args[1]);
 			if (target == null) {
 				MSG.tell(sender, "Unknown Player");
@@ -119,7 +119,7 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 		List<String> result = new ArrayList<>();
 		if (args.length <= 1) {
 			for (String res : new String[] { "give", "get", "set", "shop" }) {
-				if (sender.hasPermission("customenchant.token." + res)
+				if (sender.hasPermission("freakyenchants.token." + res)
 						&& res.toLowerCase().startsWith(args[0].toLowerCase())) {
 					result.add(res);
 				}

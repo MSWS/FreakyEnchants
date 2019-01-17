@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.HotbarMessenger;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Sounds;
 
 public class PlayerManager {
-	public static CustomEnchants plugin;
+	public static FreakyEnchants plugin;
 
 	public static void setInfo(OfflinePlayer player, String id, Object data) {
 		if (!isSaveable(data)) {

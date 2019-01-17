@@ -9,13 +9,13 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Utils;
 
 public class ExplosiveCheck implements Listener {
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
-	public ExplosiveCheck(CustomEnchants plugin) {
+	public ExplosiveCheck(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, this.plugin);
 	}

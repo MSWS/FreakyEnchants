@@ -12,18 +12,18 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 
 public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
-	public AddEnchantmentCommand(CustomEnchants plugin) {
+	public AddEnchantmentCommand(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		PluginCommand cmd = plugin.getCommand("addenchant");
 		cmd.setExecutor(this);
 		cmd.setTabCompleter(this);
-		cmd.setPermission("customenchants.addenchant");
+		cmd.setPermission("freakyenchants.addenchant");
 		cmd.setPermissionMessage(MSG.color(MSG.getString("NoPermission", "No permission")));
 	}
 
@@ -41,13 +41,13 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 		if (args.length > 1)
 			level = Integer.parseInt(args[1]);
 		if (args[0].equalsIgnoreCase("all")) {
-			if (!sender.hasPermission("customenchants.addenchant.all")) {
+			if (!sender.hasPermission("freakyenchants.addenchant.all")) {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 				return true;
 			}
 			for (Entry<String, Enchantment> e : plugin.getEnchantmentManager().enchants.entrySet()) {
 				Enchantment ench = e.getValue();
-				if (!player.hasPermission("customenchants.addenchant.bypasslimit")) {
+				if (!player.hasPermission("freakyenchants.addenchant.bypasslimit")) {
 					plugin.getEnchantmentManager().addEnchant(player.getItemInHand(),
 							Math.min(level, ench.getMaxLevel()), ench);
 				} else {
@@ -61,12 +61,12 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 			MSG.tell(sender, MSG.getString("Enchant.Unknown", "unknown enchantment"));
 			return true;
 		} else {
-			if (!sender.hasPermission("customenchants.addenchant." + args[0])) {
+			if (!sender.hasPermission("freakyenchants.addenchant." + args[0])) {
 				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 				return true;
 			}
 			Enchantment ench = plugin.getEnchantmentManager().enchants.get(args[0].toLowerCase());
-			if (!player.hasPermission("customenchants.addenchant.bypasslimit")) {
+			if (!player.hasPermission("freakyenchants.addenchant.bypasslimit")) {
 				plugin.getEnchantmentManager().addEnchant(player.getItemInHand(), Math.min(level, ench.getMaxLevel()),
 						ench);
 			} else {

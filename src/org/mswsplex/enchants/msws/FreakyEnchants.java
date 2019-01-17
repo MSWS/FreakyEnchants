@@ -14,6 +14,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mswsplex.enchants.bstats.MetricsLite;
 import org.mswsplex.enchants.checkers.ArmorChecker;
 import org.mswsplex.enchants.checkers.AutoGrabCheck;
 import org.mswsplex.enchants.checkers.AutoSmeltCheck;
@@ -58,7 +59,7 @@ import org.mswsplex.enchants.utils.Utils;
 
 import net.milkbowl.vault.economy.Economy;
 
-public class CustomEnchants extends JavaPlugin {
+public class FreakyEnchants extends JavaPlugin {
 	public FileConfiguration config, data, lang, gui, enchantCosts;
 	public File configYml = new File(getDataFolder(), "config.yml"), dataYml = new File(getDataFolder(), "data.yml"),
 			langYml = new File(getDataFolder(), "lang.yml"), guiYml = new File(getDataFolder(), "guis.yml"),
@@ -98,7 +99,7 @@ public class CustomEnchants extends JavaPlugin {
 			MSG.log("Successfully linked with WorldGuard.");
 
 		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-			new PAPIHook().register();
+			new PAPIHook(this).register();
 			MSG.log("Successfully linked with PlaceholderAPI.");
 		}
 
@@ -111,6 +112,8 @@ public class CustomEnchants extends JavaPlugin {
 		new ShopListener(this);
 		new NPCListener(this);
 		new RedeemGUIListener(this);
+
+		new MetricsLite(this);
 
 		registerEnchantChecks();
 		refreshNPCs();

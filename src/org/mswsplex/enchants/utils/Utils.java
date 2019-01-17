@@ -32,10 +32,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.mswsplex.enchants.managers.PlayerManager;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 
 public class Utils {
-	public static CustomEnchants plugin;
+	public static FreakyEnchants plugin;
 
 	/**
 	 * Returns a ranking of all the armor from value

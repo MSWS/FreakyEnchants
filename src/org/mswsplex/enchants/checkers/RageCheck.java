@@ -12,16 +12,16 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
-import org.mswsplex.enchants.msws.CustomEnchants;
+import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Utils;
 
 public class RageCheck implements Listener {
 
-	private CustomEnchants plugin;
+	private FreakyEnchants plugin;
 
 	private HashMap<LivingEntity, Integer> rage;
 
-	public RageCheck(CustomEnchants plugin) {
+	public RageCheck(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		rage = new HashMap<>();
 		Bukkit.getPluginManager().registerEvents(this, plugin);
