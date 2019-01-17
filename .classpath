@@ -4,8 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/imodm/Documents/API/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar"/>
 	<classpathentry kind="lib" path="C:/Users/imodm/Documents/API/worldguard-6.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/imodm/Documents/API/AutoSell-1.8.6.jar"/>
 	<classpathentry kind="lib" path="C:/Users/imodm/Documents/API/Vault.jar"/>
-	<classpathentry kind="lib" path="C:/Users/imodm/Documents/API/PlotSquared.jar"/>
+	<classpathentry kind="lib" path="C:/Users/imodm/Documents/API/PlaceholderAPI-2.9.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

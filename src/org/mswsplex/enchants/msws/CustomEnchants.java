@@ -19,6 +19,7 @@ import org.mswsplex.enchants.checkers.AutoGrabCheck;
 import org.mswsplex.enchants.checkers.AutoSmeltCheck;
 import org.mswsplex.enchants.checkers.BarrageCheck;
 import org.mswsplex.enchants.checkers.BurningCheck;
+import org.mswsplex.enchants.checkers.DoubleJumpCheck;
 import org.mswsplex.enchants.checkers.EnderShotCheck;
 import org.mswsplex.enchants.checkers.ExcavationCheck;
 import org.mswsplex.enchants.checkers.ExplosionCheck;
@@ -50,6 +51,7 @@ import org.mswsplex.enchants.listeners.NPCListener;
 import org.mswsplex.enchants.listeners.RedeemGUIListener;
 import org.mswsplex.enchants.listeners.ShopListener;
 import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.papi.PAPIHook;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.NBTEditor;
 import org.mswsplex.enchants.utils.Utils;
@@ -60,7 +62,7 @@ public class CustomEnchants extends JavaPlugin {
 	public FileConfiguration config, data, lang, gui, enchantCosts;
 	public File configYml = new File(getDataFolder(), "config.yml"), dataYml = new File(getDataFolder(), "data.yml"),
 			langYml = new File(getDataFolder(), "lang.yml"), guiYml = new File(getDataFolder(), "guis.yml"),
-			enchantCostsYml = new File(getDataFolder(), "enchantments.yml");
+			enchantCostsYml = new File(getDataFolder(), "costs.yml");
 
 	private EnchantmentManager eManager;
 	private Economy eco = null;
@@ -73,7 +75,7 @@ public class CustomEnchants extends JavaPlugin {
 		if (!guiYml.exists())
 			saveResource("guis.yml", true);
 		if (!enchantCostsYml.exists())
-			saveResource("enchantments.yml", true);
+			saveResource("costs.yml", true);
 		config = YamlConfiguration.loadConfiguration(configYml);
 		data = YamlConfiguration.loadConfiguration(dataYml);
 		lang = YamlConfiguration.loadConfiguration(langYml);
@@ -94,6 +96,11 @@ public class CustomEnchants extends JavaPlugin {
 
 		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard"))
 			MSG.log("Successfully linked with WorldGuard.");
+
+		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+			new PAPIHook().register();
+			MSG.log("Successfully linked with PlaceholderAPI.");
+		}
 
 		new AddEnchantmentCommand(this);
 		new TokenCommand(this);
@@ -139,6 +146,7 @@ public class CustomEnchants extends JavaPlugin {
 		new TreeFellerCheck(this);
 		new FrostWalkerCheck(this);
 		new TripperCheck(this);
+		new DoubleJumpCheck(this);
 
 		new ArmorChecker(this);
 	}

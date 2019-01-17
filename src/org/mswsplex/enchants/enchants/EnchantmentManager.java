@@ -51,6 +51,7 @@ public class EnchantmentManager {
 		enchants.put("treefeller", new TreeFeller(96));
 		enchants.put("frostwalker", new FrostWalker(97));
 		enchants.put("tripper", new Tripper(98));
+		enchants.put("doublejump", new DoubleJump(99));
 
 		try {
 			try {

@@ -41,7 +41,7 @@ public class TreeFellerCheck implements Listener {
 	}
 
 	public void breakTree(Block tree, int level) {
-		if (tree.getType() != Material.LOG)
+		if (tree.getType() != Material.LOG && tree.getType() != Material.LOG_2)
 			return;
 		boolean leaves = false;
 		for (int y = 0; y <= 50; y++) {

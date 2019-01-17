@@ -272,7 +272,7 @@ ArmorEnchants:
   spring:
     Icon: RABBIT_FOOT
     Name: '&a&lSpring %level%'
-    Slot: 30
+    Slot: 5
     Lore:
     - '&7Gives a jump boost when worn'
     - ''
@@ -280,41 +280,50 @@ ArmorEnchants:
   heatshield:
     Icon: WATER_BUCKET
     Name: '&6&lHeat Shield %level%'
-    Slot: 14
+    Slot: 28
     Lore:
     - '&7Grants immunity to fire'
   summoner:
     Icon: IRON_BLOCK
     Name: '&d&lSummoner %level%'
-    Slot: 16
+    Slot: 41
     Lore:
     - '&7Has a small chance to summon'
     - '&7protectors when melee damaged'
   selfdestruct:
     Icon: TNT
     Name: '&c&lSelf Destruct %level%'
-    Slot: 28
+    Slot: 16
     Lore:
     - '&7Creates an &cexplosion &7when killed'
   burning:
     Icon: BLAZE_POWDER
     Name: '&6&lBurning %level%'
-    Slot: 12
+    Slot: 34
     Lore:
     - '&7Has a small chance to set'
     - '&7mobs on &6fire&7 on melee damage'
   speed:
-    Icon: FEATHER
+    Icon: SUGAR
     Name: '&a&lSpeed %level%'
-    Slot: 32
+    Slot: 3
     Lore:
     - '&7Gain permanent speed.'
+    - ''
+    - '&c&lBoots Only'
+  doublejump:
+    Icon: FEATHER
+    Name: '&d&lDoubleJump %level%'
+    Slot: 22
+    Lore:
+    - '&7Gain an extra boost by'
+    - '&7double tapping space'
     - ''
     - '&c&lBoots Only'
   frostwalker:
     Icon: ICE
     Name: '&b&lFrostWalker %level%'
-    Slot: 34
+    Slot: 39
     Lore:
     - '&7Be able to walk on water'
     - ''

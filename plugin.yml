@@ -5,6 +5,7 @@ description: Custom Enchants coded for Blitz Network
 softdepend:
 - Vault
 - WorldEdit
+- PlaceholderAPI
 commands:
   enchanter:
     usage: /<command>

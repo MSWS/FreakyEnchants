@@ -1,6 +1,7 @@
 package org.mswsplex.enchants.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -10,6 +11,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.TimeManager;
 import org.mswsplex.enchants.msws.CustomEnchants;
 
 public class MSG {
@@ -292,5 +295,41 @@ public class MSG {
 			return rom.get(number);
 		}
 		return rom.get(l) + toRoman(number - l);
+	}
+
+	private static HashMap<Player, Integer> runnables = new HashMap<>();
+
+	public static void sendTimedHotbar(Player player, String format, int level) {
+		int id = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+			if (player == null) {
+				Bukkit.getScheduler().cancelTask(runnables.get(player));
+				runnables.remove(player);
+				return;
+			}
+			double total = plugin.getEnchantmentManager().getBonusAmount(format.toLowerCase(), level);
+			double timeLeft = total
+					- (System.currentTimeMillis() - PlayerManager.getDouble(player, format.toLowerCase() + ""));
+
+			if (timeLeft <= 0) {
+				MSG.tell(player, plugin.config.getString(format + ".Cooldown.Chat.Message"));
+				if (plugin.config.getBoolean(format + ".Cooldown.Actionbar.Enabled"))
+					HotbarMessenger.sendHotBarMessage(player,
+							MSG.color(plugin.config.getString(format + ".Cooldown.Actionbar.CompleteMessage")));
+				Utils.playSound(plugin.config, format + ".Cooldown.Sound", player);
+				Bukkit.getScheduler().cancelTask(runnables.get(player));
+				runnables.remove(player);
+				return;
+			}
+			if (plugin.config.getBoolean(format + ".Cooldown.Actionbar.Enabled")) {
+				HotbarMessenger.sendHotBarMessage(player, MSG.color(plugin.config
+						.getString(format + ".Cooldown.Actionbar.Message")
+						.replace("%time%", TimeManager.getTime(timeLeft)).replace("%bar%",
+								MSG.progressBar(plugin.config.getString(format + ".Cooldown.Actionbar.Bar.ProgChar"),
+										plugin.config.getString(format + ".Cooldown.Actionbar.Bar.LeftChar"),
+										total - timeLeft, total,
+										plugin.config.getInt(format + ".Cooldown.Actionbar.Bar.Length")))));
+			}
+		}, 0, 1);
+		runnables.put(player, id);
 	}
 }

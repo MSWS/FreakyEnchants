@@ -809,8 +809,7 @@ public class Utils {
 		if (!config.getBoolean(path + ".Enabled") && config.isSet(path + ".Enabled"))
 			return;
 
-		player.getWorld().playSound(player.getLocation(),
-				Sounds.valueOf(config.getString(path + ".Name")).bukkitSound(),
+		player.playSound(player.getLocation(), Sounds.valueOf(config.getString(path + ".Name")).bukkitSound(),
 				config.contains(path + ".Volume") ? (float) config.getDouble(path + ".Volume") : 1,
 				config.contains(path + ".Pitch") ? (float) config.getDouble(path + ".Pitch") : 1);
 	}
