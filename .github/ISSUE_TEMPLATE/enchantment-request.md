@@ -14,8 +14,8 @@ _Please try to be creative_
 _What would each level effect?_
 
 **What items can this enchantment be applied to?**
-[ ] Swords
-[ ] Bows
-[ ] Armor
-[ ] Pickaxes 
-[ ] Axes
+- [ ] Swords
+- [ ] Bows
+- [ ] Armor
+- [ ] Pickaxes 
+- [ ] Axes
