@@ -52,7 +52,7 @@ public class EnchantmentManager {
 		enchants.put("frostwalker", new FrostWalker(97));
 		enchants.put("tripper", new Tripper(98));
 		enchants.put("doublejump", new DoubleJump(99));
-
+		enchants.put("chainreaction", new ChainReaction(100));
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");
@@ -91,6 +91,23 @@ public class EnchantmentManager {
 		return "";
 	}
 
+	public double getDouble(String ench, String id, int lvl) {
+		ench = enchants.get(ench.toLowerCase()).getName().replace(" ", "");
+		if (!plugin.config.contains(ench) || plugin.config.getConfigurationSection(ench) == null)
+			return 0.0;
+		int big = 0;
+		for (String level : plugin.config.getConfigurationSection(ench + "." + id).getKeys(false)) {
+			int l = Integer.parseInt(level);
+			if (lvl >= l && l >= big)
+				big = l;
+		}
+		return plugin.config.getDouble(ench + "." + id + "." + big);
+	}
+
+	public double getBonusAmount(String ench, int lvl) {
+		return getDouble(ench, "BonusAmount", lvl);
+	}
+
 	public boolean checkProbability(String ench, int lvl) {
 		ench = enchants.get(ench.toLowerCase()).getName().replace(" ", "");
 		if (!plugin.config.contains(ench) || plugin.config.getConfigurationSection(ench) == null)
@@ -121,18 +138,18 @@ public class EnchantmentManager {
 		return plugin.config.getInt(ench + ".Amplifier." + big);
 	}
 
-	public double getBonusAmount(String ench, int lvl) {
-		ench = enchants.get(ench.toLowerCase()).getName().replace(" ", "");
-		if (!plugin.config.contains(ench) || plugin.config.getConfigurationSection(ench) == null)
-			return 0.0;
-		int big = 0;
-		for (String level : plugin.config.getConfigurationSection(ench + ".BonusAmount").getKeys(false)) {
-			int l = Integer.parseInt(level);
-			if (lvl >= l && l >= big)
-				big = l;
-		}
-		return plugin.config.getDouble(ench + ".BonusAmount." + big);
-	}
+//	public double getBonusAmount(String ench, int lvl) {
+//		ench = enchants.get(ench.toLowerCase()).getName().replace(" ", "");
+//		if (!plugin.config.contains(ench) || plugin.config.getConfigurationSection(ench) == null)
+//			return 0.0;
+//		int big = 0;
+//		for (String level : plugin.config.getConfigurationSection(ench + ".BonusAmount").getKeys(false)) {
+//			int l = Integer.parseInt(level);
+//			if (lvl >= l && l >= big)
+//				big = l;
+//		}
+//		return plugin.config.getDouble(ench + ".BonusAmount." + big);
+//	}
 
 	public void addEnchant(ItemStack item, int level, Enchantment enchant) {
 		ItemMeta meta = item.getItemMeta();

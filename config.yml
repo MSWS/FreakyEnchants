@@ -395,12 +395,13 @@ FrostWalker:
     3: 5
     4: 6
     5: 7
-  Lifetime: 60 #How long the ice will stay in ticks
+  Lifetime: 200 #How long the ice will stay in ticks
   BlockTypes:
-  - 'LAPIS_BLOCK'
   - 'WOOL:11'
+  - 'WOOL:9'
   - 'WOOL:3'
   - 'PACKED_ICE'
+  - 'ICE'
   - 'STATIONARY_WATER'
 Tripper:
   BonusAmount: #Amount for vertical KB
@@ -436,3 +437,17 @@ DoubleJump:
     3: 10000
     4: 7000
     5: 5000
+ChainReaction:
+  Reiterate: true #Should entities that be hit also affect entities that are in range of them?
+  Radius: #The radius to damage entities by
+    1: 2
+    2: 2.5
+    3: 3
+    4: 4
+    5: 5
+  Damage:
+    1: 1
+    2: 2
+    3: 2.5
+    4: 3
+    5: 2

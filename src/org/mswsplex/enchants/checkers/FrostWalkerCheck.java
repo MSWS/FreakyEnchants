@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -51,6 +52,8 @@ public class FrostWalkerCheck implements Listener {
 			if (!b.getType().toString().contains("WATER"))
 				continue;
 			if (b.getLocation().distanceSquared(player.getLocation()) > mL)
+				continue;
+			if (b.getRelative(BlockFace.UP).getType() != Material.AIR)
 				continue;
 			blocks.add(b);
 			handleBlocks.add(b);

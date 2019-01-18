@@ -20,6 +20,7 @@ import org.mswsplex.enchants.checkers.AutoGrabCheck;
 import org.mswsplex.enchants.checkers.AutoSmeltCheck;
 import org.mswsplex.enchants.checkers.BarrageCheck;
 import org.mswsplex.enchants.checkers.BurningCheck;
+import org.mswsplex.enchants.checkers.ChainReactionCheck;
 import org.mswsplex.enchants.checkers.DoubleJumpCheck;
 import org.mswsplex.enchants.checkers.EnderShotCheck;
 import org.mswsplex.enchants.checkers.ExcavationCheck;
@@ -150,6 +151,7 @@ public class FreakyEnchants extends JavaPlugin {
 		new FrostWalkerCheck(this);
 		new TripperCheck(this);
 		new DoubleJumpCheck(this);
+		new ChainReactionCheck(this);
 
 		new ArmorChecker(this);
 	}

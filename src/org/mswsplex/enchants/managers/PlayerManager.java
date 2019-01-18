@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.HotbarMessenger;
 import org.mswsplex.enchants.utils.MSG;
-import org.mswsplex.enchants.utils.Sounds;
+import org.mswsplex.enchants.utils.Utils;
 
 public class PlayerManager {
 	public static FreakyEnchants plugin;
@@ -82,23 +82,18 @@ public class PlayerManager {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static void emptyInventory(Player p) {
+	public static void emptyInventory(Player player) {
 		if (plugin.lang.getBoolean("InventoryFull.Title.Enabled")) {
-			p.sendTitle(MSG.color(plugin.lang.getString("InventoryFull.Title.Top")),
+			player.sendTitle(MSG.color(plugin.lang.getString("InventoryFull.Title.Toplayer")),
 					MSG.color(plugin.lang.getString("InventoryFull.Title.Bottom")));
 
 		}
 		if (plugin.lang.getBoolean("InventoryFull.ActionBarMessage.Enabled")) {
-			HotbarMessenger.sendHotBarMessage(p,
+			HotbarMessenger.sendHotBarMessage(player,
 					MSG.color(plugin.lang.getString("InventoryFull.ActionBarMessage.Message")));
 		}
-		if (plugin.lang.getBoolean("InventoryFull.Sound.Enabled")) {
-			p.playSound(p.getLocation(),
-					Sounds.valueOf(plugin.lang.getString("InventoryFull.Sound.Name")).bukkitSound(),
-					(float) plugin.lang.getDouble("InventoryFull.Sound.Volume"),
-					(float) plugin.lang.getDouble("InventoryFull.Sound.Pitch"));
-		}
-		MSG.tell(p, plugin.lang.getString("InventoryFull.ChatMessage"));
+		Utils.playSound(plugin.lang, "InventoryFull.Sound", player);
+		MSG.tell(player, plugin.lang.getString("InventoryFull.ChatMessage"));
 	}
 
 	/**

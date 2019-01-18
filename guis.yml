@@ -7,7 +7,7 @@ MainMenu:
     Slot: 10
     NextInventory: SwordEnchants
     HideAttributes: true
-    Amount: 6
+    Amount: 7
     Lore:
     - '&b&lEnchantments'
     - '&7 - Wither Point'
@@ -16,6 +16,7 @@ MainMenu:
     - '&7 - Rage'
     - '&7 - Freeze'
     - '&7 - Tripper'
+    - '&7 - Chain Reaction'
   pick:
     Icon: DIAMOND_PICKAXE
     Name: '&e&lPickaxe Enchantments'
@@ -86,7 +87,7 @@ MainMenu:
     Data: 3
 SwordEnchants:
   Title: Sword Enchantments
-  Size: 45
+  Size: 36
   witherpoint:
     Icon: SKULL_ITEM
     Data: 1
@@ -98,34 +99,40 @@ SwordEnchants:
     Icon: POTION
     Data: 8196
     Name: '&5&lToxic Point %level%'
-    Slot: 13
+    Slot: 12
     Lore:
     - '&7Has a small chance of dealing a &5Poison Effect&7.'
   revive:
     Icon: GOLDEN_APPLE
     Name: '&a&lRevive %level%'
-    Slot: 16
+    Slot: 14
     Lore:
     - '&7Has a small chance of &ahealing you&7 when healt is low&7.'
   rage:
     Icon: DIAMOND_SWORD
     Name: '&c&lRage %level%'
-    Slot: 28
+    Slot: 16
     Lore:
     - '&7For every combo hit you land,'
     - '&7total damage is multiplied by &b1.1&7.'
   freeze:
     Icon: ICE
     Name: '&b&lFreeze %level%'
-    Slot: 34
+    Slot: 20
     Lore:
     - '&7Has a small chance of dealing a &bSlowness Effect&7.'
   tripper:
     Icon: LEATHER_BOOTS
     Name: '&7&lTripper %level%'
-    Slot: 31
+    Slot: 22
     Lore:
-    - '&7Entities you hit will be thrown directly vertically'
+    - '&7Entities you hit will be thrown directly vertically.'
+  chainreaction:
+    Icon: STRING
+    Name: '&d&lChain Reaction %level%'
+    Slot: 24
+    Lore:
+    - '&7Damage entities nearby the entity you originally hit.'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''
@@ -151,7 +158,7 @@ PickaxeEnchants:
     Name: '&3&lAutoGrab %level%'
     Slot: 13
     Lore:
-    - '&7Automagically teleports items into your inventory.'
+    - '&7Automatically teleports items into your inventory.'
   autosmelt:
     Icon: IRON_INGOT
     Name: '&f&lAutoSmelt %level%'
