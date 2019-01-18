@@ -437,6 +437,20 @@ DoubleJump:
     3: 10000
     4: 7000
     5: 5000
+ChainReaction:
+  Reiterate: true #Should entities that be hit also affect entities that are in range of them?
+  Radius: #The radius to damage entities by
+    1: 2
+    2: 2.5
+    3: 3
+    4: 4
+    5: 5
+  Damage:
+    1: 1
+    2: 2
+    3: 2.5
+    4: 3
+    5: 2
 OreSeeking:
   Cooldown:
     Actionbar:
