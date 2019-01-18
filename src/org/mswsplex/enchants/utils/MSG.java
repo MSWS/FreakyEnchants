@@ -297,13 +297,16 @@ public class MSG {
 		return rom.get(l) + toRoman(number - l);
 	}
 
-	private static HashMap<Player, Integer> runnables = new HashMap<>();
+	private static HashMap<String, Integer> runnables = new HashMap<>();
 
 	public static void sendTimedHotbar(Player player, String format, int level) {
+		if (runnables.containsKey(player.getName() + format))
+			return;
+
 		int id = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-			if (player == null) {
-				Bukkit.getScheduler().cancelTask(runnables.get(player));
-				runnables.remove(player);
+			if (!player.isOnline()) {
+				Bukkit.getScheduler().cancelTask(runnables.get(player.getName() + format));
+				runnables.remove(player.getName() + format);
 				return;
 			}
 			double total = plugin.getEnchantmentManager().getBonusAmount(format.toLowerCase(), level);
@@ -316,8 +319,9 @@ public class MSG {
 					HotbarMessenger.sendHotBarMessage(player,
 							MSG.color(plugin.config.getString(format + ".Cooldown.Actionbar.CompleteMessage")));
 				Utils.playSound(plugin.config, format + ".Cooldown.Sound", player);
-				Bukkit.getScheduler().cancelTask(runnables.get(player));
-				runnables.remove(player);
+
+				Bukkit.getScheduler().cancelTask(runnables.get(player.getName() + format));
+				runnables.remove(player.getName() + format);
 				return;
 			}
 			if (plugin.config.getBoolean(format + ".Cooldown.Actionbar.Enabled")) {
@@ -330,6 +334,6 @@ public class MSG {
 										plugin.config.getInt(format + ".Cooldown.Actionbar.Bar.Length")))));
 			}
 		}, 0, 1);
-		runnables.put(player, id);
+		runnables.put(player.getName() + format, id);
 	}
 }

@@ -437,17 +437,44 @@ DoubleJump:
     3: 10000
     4: 7000
     5: 5000
-ChainReaction:
-  Reiterate: true #Should entities that be hit also affect entities that are in range of them?
-  Radius: #The radius to damage entities by
-    1: 2
-    2: 2.5
-    3: 3
-    4: 4
-    5: 5
-  Damage:
-    1: 1
-    2: 2
-    3: 2.5
-    4: 3
-    5: 2
+OreSeeking:
+  Cooldown:
+    Actionbar:
+      Enabled: false
+      Message: '&7(OreSeeker) %bar% &7%time%'
+      CompleteMessage: "&e&l\u2739\u2726\u2733 &a&lOre Seeking Refreshed &e&l\u2733\u2726\u2739"
+      Bar:
+        Length: 20
+        ProgChar: "&c\u258D"
+        LeftChar: "&4\u258D"
+    Sound:
+      Enabled: true
+      Name: NOTE_PLING
+      Pitch: 2
+      Volume: 2
+    Chat:
+      Message: "&e&l\u2739\u2726\u2733 &a&lOre Seeking Refreshed &e&l\u2733\u2726\u2739"
+  NotFound: '&cNo ore found.'
+  Found: '&e%type% &7found within &a%distance% &7blocks.'
+  Delay: '&aOre Seeker &7will be available in &e%time%&7.'
+  IncludeOres:
+  - 'DIAMOND_ORE'
+  - 'GOLD_ORE'
+  - 'IRON_ORE'
+  - 'REDSTONE_ORE'
+  - 'LAPIS_ORE'
+  - 'COAL_ORE'
+  - 'QUARTZ_ORE'
+  - 'EMERALD_ORE'
+  BonusAmount: #Cooldown duration (in milliseconds)
+    1: 300000
+    2: 240000
+    3: 180000
+    4: 120000
+    5: 60000
+  Range: #Range for the orechecker
+    1: 5
+    2: 5
+    3: 7
+    4: 8
+    5: 10

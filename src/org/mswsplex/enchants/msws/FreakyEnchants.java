@@ -15,34 +15,35 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mswsplex.enchants.bstats.MetricsLite;
-import org.mswsplex.enchants.checkers.ArmorChecker;
-import org.mswsplex.enchants.checkers.AutoGrabCheck;
-import org.mswsplex.enchants.checkers.AutoSmeltCheck;
-import org.mswsplex.enchants.checkers.BarrageCheck;
-import org.mswsplex.enchants.checkers.BurningCheck;
-import org.mswsplex.enchants.checkers.ChainReactionCheck;
-import org.mswsplex.enchants.checkers.DoubleJumpCheck;
-import org.mswsplex.enchants.checkers.EnderShotCheck;
-import org.mswsplex.enchants.checkers.ExcavationCheck;
-import org.mswsplex.enchants.checkers.ExplosionCheck;
-import org.mswsplex.enchants.checkers.ExplosiveCheck;
-import org.mswsplex.enchants.checkers.ExtraXPCheck;
-import org.mswsplex.enchants.checkers.FreezeCheck;
-import org.mswsplex.enchants.checkers.FrostWalkerCheck;
-import org.mswsplex.enchants.checkers.NightshadeCheck;
-import org.mswsplex.enchants.checkers.RageCheck;
-import org.mswsplex.enchants.checkers.ReviveCheck;
-import org.mswsplex.enchants.checkers.SelfDestructCheck;
-import org.mswsplex.enchants.checkers.SeveredCheck;
-import org.mswsplex.enchants.checkers.StormbreakerCheck;
-import org.mswsplex.enchants.checkers.StunCheck;
-import org.mswsplex.enchants.checkers.SummonerCheck;
-import org.mswsplex.enchants.checkers.ToxicPointCheck;
-import org.mswsplex.enchants.checkers.ToxicShotCheck;
-import org.mswsplex.enchants.checkers.TreeFellerCheck;
-import org.mswsplex.enchants.checkers.TripperCheck;
-import org.mswsplex.enchants.checkers.WitherPointCheck;
-import org.mswsplex.enchants.checkers.WitherShotCheck;
+import org.mswsplex.enchants.checkers.armor.ArmorChecker;
+import org.mswsplex.enchants.checkers.armor.BurningCheck;
+import org.mswsplex.enchants.checkers.armor.DoubleJumpCheck;
+import org.mswsplex.enchants.checkers.armor.FrostWalkerCheck;
+import org.mswsplex.enchants.checkers.armor.SelfDestructCheck;
+import org.mswsplex.enchants.checkers.armor.SummonerCheck;
+import org.mswsplex.enchants.checkers.axe.NightshadeCheck;
+import org.mswsplex.enchants.checkers.axe.TreeFellerCheck;
+import org.mswsplex.enchants.checkers.bow.BarrageCheck;
+import org.mswsplex.enchants.checkers.bow.EnderShotCheck;
+import org.mswsplex.enchants.checkers.bow.ExplosiveCheck;
+import org.mswsplex.enchants.checkers.bow.StunCheck;
+import org.mswsplex.enchants.checkers.bow.ToxicShotCheck;
+import org.mswsplex.enchants.checkers.bow.WitherShotCheck;
+import org.mswsplex.enchants.checkers.pickaxe.AutoGrabCheck;
+import org.mswsplex.enchants.checkers.pickaxe.AutoSmeltCheck;
+import org.mswsplex.enchants.checkers.pickaxe.ExcavationCheck;
+import org.mswsplex.enchants.checkers.pickaxe.ExplosionCheck;
+import org.mswsplex.enchants.checkers.pickaxe.ExtraXPCheck;
+import org.mswsplex.enchants.checkers.pickaxe.OreSeekingCheck;
+import org.mswsplex.enchants.checkers.sword.ChainReactionCheck;
+import org.mswsplex.enchants.checkers.sword.FreezeCheck;
+import org.mswsplex.enchants.checkers.sword.RageCheck;
+import org.mswsplex.enchants.checkers.sword.ReviveCheck;
+import org.mswsplex.enchants.checkers.sword.SeveredCheck;
+import org.mswsplex.enchants.checkers.sword.StormbreakerCheck;
+import org.mswsplex.enchants.checkers.sword.ToxicPointCheck;
+import org.mswsplex.enchants.checkers.sword.TripperCheck;
+import org.mswsplex.enchants.checkers.sword.WitherPointCheck;
 import org.mswsplex.enchants.commands.AddEnchantmentCommand;
 import org.mswsplex.enchants.commands.EnchanterCommand;
 import org.mswsplex.enchants.commands.GiveEnchantCommand;
@@ -125,6 +126,8 @@ public class FreakyEnchants extends JavaPlugin {
 	}
 
 	public void registerEnchantChecks() {
+		new ArmorChecker(this);
+
 		new ExplosionCheck(this);
 		new ExcavationCheck(this);
 		new AutoSmeltCheck(this);
@@ -152,8 +155,7 @@ public class FreakyEnchants extends JavaPlugin {
 		new TripperCheck(this);
 		new DoubleJumpCheck(this);
 		new ChainReactionCheck(this);
-
-		new ArmorChecker(this);
+		new OreSeekingCheck(this);
 	}
 
 	public void refreshNPCs() {

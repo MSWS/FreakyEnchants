@@ -20,8 +20,6 @@ import org.mswsplex.enchants.enchants.armor.Speed;
 import org.mswsplex.enchants.enchants.armor.Spring;
 import org.mswsplex.enchants.enchants.armor.Summoner;
 import org.mswsplex.enchants.enchants.axe.Nightshade;
-import org.mswsplex.enchants.enchants.axe.Severed;
-import org.mswsplex.enchants.enchants.axe.Stormbreaker;
 import org.mswsplex.enchants.enchants.axe.TreeFeller;
 import org.mswsplex.enchants.enchants.bow.Barrage;
 import org.mswsplex.enchants.enchants.bow.EnderShot;
@@ -34,10 +32,13 @@ import org.mswsplex.enchants.enchants.pickaxe.AutoSmelt;
 import org.mswsplex.enchants.enchants.pickaxe.Excavation;
 import org.mswsplex.enchants.enchants.pickaxe.Explosion;
 import org.mswsplex.enchants.enchants.pickaxe.ExtraXP;
+import org.mswsplex.enchants.enchants.pickaxe.OreSeeking;
 import org.mswsplex.enchants.enchants.sword.ChainReaction;
 import org.mswsplex.enchants.enchants.sword.Freeze;
 import org.mswsplex.enchants.enchants.sword.Rage;
 import org.mswsplex.enchants.enchants.sword.Revive;
+import org.mswsplex.enchants.enchants.sword.Severed;
+import org.mswsplex.enchants.enchants.sword.Stormbreaker;
 import org.mswsplex.enchants.enchants.sword.ToxicPoint;
 import org.mswsplex.enchants.enchants.sword.Tripper;
 import org.mswsplex.enchants.enchants.sword.WitherPoint;
@@ -84,6 +85,7 @@ public class EnchantmentManager {
 		enchants.put("tripper", new Tripper(98));
 		enchants.put("doublejump", new DoubleJump(99));
 		enchants.put("chainreaction", new ChainReaction(100));
+		enchants.put("oreseeking", new OreSeeking(101));
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");
