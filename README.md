@@ -10,14 +10,14 @@ Features:
 PlaceholderAPI:
 %fe_[name]%
 
-balance - Returns the player's balance in decimal form (%ce_balance%)
+balance - Returns the player's balance in decimal form (%fe_balance%)
 balance_round - Returns the player's balance in integer form, rounded normally
 balance_floor - Returns the player's balance in integer form, rounded down
 balance_ceil - Returns the player's balance in integer form, rounded up
 
-cost_[enchantment]_[level] - Returns the cost of the enchantment (level should be an integer) (%ce_cost_excavation_1%)
+cost_[enchantment]_[level] - Returns the cost of the enchantment (level should be an integer) (%fe_cost_excavation_1%)
 
-allow_[enchantment] - Returns whether or not an enchantment is allowed where the player is (%ce_allow_excavation%)
-allowworld_[world]_enchantment] - Returns whether or not a specific enchantment is allowed in the specified world (%ce_allowworld_world_excavation%)
+allow_[enchantment] - Returns whether or not an enchantment is allowed where the player is (%fe_allow_excavation%)
+allowworld_[world]_enchantment] - Returns whether or not a specific enchantment is allowed in the specified world (%fe_allowworld_world_excavation%)
 
-enchants - Returns a list of all enchantments separated by ,'s (%ce_enchants%)
+enchants - Returns a list of all enchantments separated by ,'s (%fe_enchants%)
