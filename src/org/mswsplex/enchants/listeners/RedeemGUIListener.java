@@ -114,7 +114,7 @@ public class RedeemGUIListener implements Listener {
 
 		int level = Utils.romanToDecimal(e.split(" ")[e.split(" ").length - 1]);
 
-		if (event.getClick() == ClickType.DROP) {
+		if (event.getClick() == ClickType.DROP && player.hasPermission("freakyenchants.redeem.delete")) {
 			List<String> tokens = PlayerManager.getStringList(player, "enchantmentTokens");
 			Iterator<String> tokenIt = tokens.iterator();
 			while (tokenIt.hasNext()) {

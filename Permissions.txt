@@ -1,21 +1,24 @@
-customenchants.addenchant.[enchantment|all] - Access to /addenchant [enchantment] [level]
-customenchants.addenchant.bypasslimit
+freakyenchants.addenchant.[enchantment|all] - Access to /addenchant [enchantment] [level]
+freakyenchants.addenchant.bypasslimit
 
-customenchants.giveenchant
-customenchants.giveenchant.[enchantment] - Access to /giveenchant [...]
-customenchants.giveenchant.bypasslimit
+freakyenchants.giveenchant
+freakyenchants.giveenchant.[enchantment] - Access to /giveenchant [...]
+freakyenchants.giveenchant.bypasslimit
 
-customenchants.enchanter - Access to the /enchanter shop GUI
-customenchants.enchanter.[create|delete|settype] - Access to /enchanter [...]
+freakyenchants.enchanter - Access to the /enchanter shop GUI
+freakyenchants.enchanter.[create|delete|settype] - Access to /enchanter [...]
 
-customenchants.token.give
-customenchants.token.set
-customenchants.token.get
-customenchants.token.get.others - Access to see other player's balances
-customenchants.token.shop - Access to /token shop (Basically /enchanter)
+freakyenchants.token.give
+freakyenchants.token.set
+freakyenchants.token.get
+freakyenchants.token.get.others - Access to see other player's balances
+freakyenchants.token.shop - Access to /token shop (Basically /enchanter)
+
+freakyenchants.redeem - Access to the /redeem GUI
+freakyenchants.redeem.delete - Access to delete own tokens with Q
 
 Suggested Default Perms:
 
-customenchants.enchanter
-customenchants.token.get
-customenchants.shop
+freakyenchants.enchanter
+freakyenchants.token.get
+freakyenchants.shop
