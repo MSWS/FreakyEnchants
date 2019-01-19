@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -37,10 +38,13 @@ public class RageCheck implements Listener {
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("rage")))
+		Enchantment ench = plugin.getEnchant("rage");
+		if (!hand.containsEnchantment(ench))
 			return;
 		if (rage.containsKey(ent)) {
-			event.setDamage(event.getDamage() * Math.pow(plugin.config.getDouble("Rage.Multiplier"), rage.get(ent)));
+			event.setDamage(event.getDamage()
+					* Math.pow(plugin.getEnchManager().getDouble("rage", "Multiplier", hand.getEnchantmentLevel(ench)),
+							rage.get(ent)));
 			rage.put((LivingEntity) ent, rage.get(ent) + 1);
 		} else {
 			rage.put((LivingEntity) ent, 1);

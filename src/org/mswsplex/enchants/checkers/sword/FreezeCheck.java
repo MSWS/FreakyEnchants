@@ -34,22 +34,21 @@ public class FreezeCheck implements Listener {
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("freeze")))
+		if (!hand.containsEnchantment(plugin.getEnchant("freeze")))
 			return;
 		String name = plugin.config.contains("Freeze.Affects." + event.getEntity().getType())
 				? event.getEntity().getType() + ""
 				: "Generic";
 		if (!plugin.config.getBoolean("Freeze.Affects." + name))
 			return;
-		if (!plugin.getEnchantmentManager().checkProbability("freeze",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("freeze"))))
+		if (!plugin.getEnchManager().checkProbability("freeze", hand.getEnchantmentLevel(plugin.getEnchant("freeze"))))
 			return;
 		LivingEntity target = (LivingEntity) event.getEntity();
 		PotionEffect effect = new PotionEffect(PotionEffectType.getByName(plugin.config.getString("Freeze.EffectType")),
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("freeze"))
-						* plugin.config.getInt("Freeze.SecondsPerLevel") / 1000 * 20,
-				plugin.getEnchantmentManager().checkAmplifier("freeze",
-						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("freeze"))));
+				hand.getEnchantmentLevel(plugin.getEnchant("freeze")) * plugin.config.getInt("Freeze.SecondsPerLevel")
+						/ 1000 * 20,
+				plugin.getEnchManager().checkAmplifier("freeze",
+						hand.getEnchantmentLevel(plugin.getEnchant("freeze"))));
 		target.addPotionEffect(effect);
 		if (ent instanceof Player)
 			MSG.sendStatusMessage((Player) ent, plugin.config.getString("Freeze.SuccessMessage"));

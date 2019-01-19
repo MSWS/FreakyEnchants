@@ -30,10 +30,10 @@ public class AutoSmeltCheck implements Listener {
 		ItemStack hand = player.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("autosmelt")))
+		if (!hand.containsEnchantment(plugin.getEnchant("autosmelt")))
 			return;
 
-		if (hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("autograb"))) {
+		if (hand.containsEnchantment(plugin.getEnchant("autograb"))) {
 			for (ItemStack item : event.getBlock().getDrops()) {
 				ItemStack replace = item;
 				ConfigurationSection reps = plugin.config.getConfigurationSection("AutoSmeltDrops");

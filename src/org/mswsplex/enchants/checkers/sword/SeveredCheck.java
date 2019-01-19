@@ -33,10 +33,10 @@ public class SeveredCheck implements Listener {
 		ItemStack hand = killer.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("severed")))
+		if (!hand.containsEnchantment(plugin.getEnchant("severed")))
 			return;
-		if (!plugin.getEnchantmentManager().checkProbability("severed",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("severed"))))
+		if (!plugin.getEnchManager().checkProbability("severed",
+				hand.getEnchantmentLevel(plugin.getEnchant("severed"))))
 			return;
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 		SkullMeta meta = (SkullMeta) skull.getItemMeta();

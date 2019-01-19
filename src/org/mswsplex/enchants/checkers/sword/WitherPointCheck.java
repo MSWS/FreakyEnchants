@@ -35,23 +35,23 @@ public class WitherPointCheck implements Listener {
 		ItemStack hand = living.getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("witherpoint")))
+		if (!hand.containsEnchantment(plugin.getEnchant("witherpoint")))
 			return;
 		String name = plugin.config.contains("WitherPoint.Affects." + event.getEntity().getType())
 				? event.getEntity().getType() + ""
 				: "Generic";
 		if (!plugin.config.getBoolean("WitherPoint.Affects." + name))
 			return;
-		if (!plugin.getEnchantmentManager().checkProbability("witherpoint",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("witherpoint"))))
+		if (!plugin.getEnchManager().checkProbability("witherpoint",
+				hand.getEnchantmentLevel(plugin.getEnchant("witherpoint"))))
 			return;
 		LivingEntity target = (LivingEntity) event.getEntity();
 		target.addPotionEffect(
 				new PotionEffect(PotionEffectType.getByName(plugin.config.getString("WitherPoint.EffectType")),
-						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("witherpoint"))
+						hand.getEnchantmentLevel(plugin.getEnchant("witherpoint"))
 								* plugin.config.getInt("WitherPoint.SecondsPerLevel") / 1000 * 20,
-						plugin.getEnchantmentManager().checkAmplifier("witherpoint",
-								hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("witherpoint")))));
+						plugin.getEnchManager().checkAmplifier("witherpoint",
+								hand.getEnchantmentLevel(plugin.getEnchant("witherpoint")))));
 		if (ent instanceof Player)
 			MSG.sendStatusMessage((Player) ent, plugin.config.getString("WitherPoint.SuccessMessage"));
 	}

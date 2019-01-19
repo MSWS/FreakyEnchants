@@ -50,8 +50,7 @@ public class ShopListener implements Listener {
 		}
 
 		shop: if (PlayerManager.getInfo(player, "enchantToApply") != null) {
-			Enchantment apply = plugin.getEnchantmentManager().enchants
-					.get(PlayerManager.getString(player, "enchantToApply"));
+			Enchantment apply = plugin.getEnchManager().enchants.get(PlayerManager.getString(player, "enchantToApply"));
 			if (!event.getClickedInventory().getName().equals("container.inventory"))
 				break shop;
 			if (!apply.canEnchantItem(item)) {
@@ -59,8 +58,7 @@ public class ShopListener implements Listener {
 						.replace("%enchant%", apply.getName()));
 				break shop;
 			}
-			plugin.getEnchantmentManager().addEnchant(item, PlayerManager.getDouble(player, "amplifier").intValue(),
-					apply);
+			plugin.getEnchManager().addEnchant(item, PlayerManager.getDouble(player, "amplifier").intValue(), apply);
 			Utils.playSound(plugin.config, "Sounds.EnchantmentAdded", player);
 			MSG.tell(player,
 					MSG.getString("Enchant.Added", "Added %enchat% %level%").replace("%enchant%", apply.getName())
@@ -76,7 +74,7 @@ public class ShopListener implements Listener {
 			Utils.playSound(plugin.config, "Sounds.NextInventory", player);
 		}
 		if (plugin.enchantCosts.contains(id)) {
-			Enchantment ench = plugin.getEnchantmentManager().enchants.get(id);
+			Enchantment ench = plugin.getEnchant(id);
 			double cost = plugin.enchantCosts.getInt(id + "." + item.getAmount());
 			if (event.getClick() == ClickType.RIGHT && ench.getMaxLevel() != 1) {
 				PlayerManager.setInfo(player, id,
@@ -163,7 +161,7 @@ public class ShopListener implements Listener {
 			PlayerManager.removeInfo(player, "ignore");
 			return;
 		}
-		for (String r : plugin.getEnchantmentManager().enchants.keySet())
+		for (String r : plugin.getEnchManager().enchants.keySet())
 			PlayerManager.removeInfo(player, r);
 
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {

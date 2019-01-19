@@ -36,13 +36,13 @@ public class FrostWalkerCheck implements Listener {
 			return;
 
 		ItemStack armor = player.getEquipment().getBoots();
-		if (!armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("frostwalker"))
-				|| player.getLocation().getY() % 1 != 0 || player.isFlying())
+		if (!armor.containsEnchantment(plugin.getEnchant("frostwalker")) || player.getLocation().getY() % 1 != 0
+				|| player.isFlying())
 			return;
 		if (event.getTo().getBlock().equals(event.getFrom().getBlock()))
 			return;
-		float radius = (float) plugin.getEnchantmentManager().getBonusAmount("frostwalker",
-				armor.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("frostwalker")));
+		float radius = (float) plugin.getEnchManager().getBonusAmount("frostwalker",
+				armor.getEnchantmentLevel(plugin.getEnchant("frostwalker")));
 		Location loc = player.getLocation();
 		Cuboid cube = new Cuboid(loc.clone().add(radius, -1, radius), loc.clone().subtract(radius, 1, radius));
 		List<Block> blocks = new ArrayList<Block>();

@@ -32,9 +32,9 @@ public class AutoGrabCheck implements Listener {
 			return;
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("autograb")))
+		if (!hand.containsEnchantment(plugin.getEnchant("autograb")))
 			return;
-		if (hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("autosmelt")))
+		if (hand.containsEnchantment(plugin.getEnchant("autosmelt")))
 			return;
 		event.getBlock().getDrops().forEach((item) -> {
 			player.getInventory().addItem(item);

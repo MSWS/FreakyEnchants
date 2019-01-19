@@ -40,8 +40,7 @@ public class RedeemGUIListener implements Listener {
 		event.setCancelled(true);
 
 		shop: if (PlayerManager.getInfo(player, "enchantToApply") != null) {
-			Enchantment apply = plugin.getEnchantmentManager().enchants
-					.get(PlayerManager.getString(player, "enchantToApply"));
+			Enchantment apply = plugin.getEnchManager().enchants.get(PlayerManager.getString(player, "enchantToApply"));
 			if (!event.getClickedInventory().getName().equals("container.inventory"))
 				break shop;
 
@@ -50,8 +49,7 @@ public class RedeemGUIListener implements Listener {
 						.replace("%enchant%", apply.getName()));
 				break shop;
 			}
-			plugin.getEnchantmentManager().addEnchant(item, PlayerManager.getDouble(player, "amplifier").intValue(),
-					apply);
+			plugin.getEnchManager().addEnchant(item, PlayerManager.getDouble(player, "amplifier").intValue(), apply);
 
 			Utils.playSound(plugin.config, "Sounds.EnchantmentAdded", player);
 
@@ -101,7 +99,7 @@ public class RedeemGUIListener implements Listener {
 		}
 		name = name.trim();
 		String id = "";
-		for (Entry<String, Enchantment> en : plugin.getEnchantmentManager().enchants.entrySet()) {
+		for (Entry<String, Enchantment> en : plugin.getEnchManager().enchants.entrySet()) {
 			if (en.getValue().getName().equals(name)) {
 				ench = en.getValue();
 				id = en.getKey();

@@ -35,21 +35,18 @@ public class ArmorChecker {
 							continue;
 						}
 						for (ItemStack armor : equipment.getArmorContents()) {
-							if (armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("hearty"))
+							if (armor.containsEnchantment(plugin.getEnchant("hearty"))
 									&& Utils.allowEnchant(w, "hearty")) {
-								maxHealth += plugin.getEnchantmentManager().getBonusAmount("hearty", armor
-										.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("hearty")));
+								maxHealth += plugin.getEnchManager().getBonusAmount("hearty",
+										armor.getEnchantmentLevel(plugin.getEnchant("hearty")));
 							}
 							for (String eName : new String[] { "Spring", "Speed", "HeatShield" }) {
-								if (armor.containsEnchantment(
-										plugin.getEnchantmentManager().enchants.get(eName.toLowerCase()))
+								if (armor.containsEnchantment(plugin.getEnchant(eName.toLowerCase()))
 										&& Utils.allowEnchant(w, eName.toLowerCase()))
 									ent.addPotionEffect(new PotionEffect(
 											PotionEffectType.getByName(plugin.config.getString(eName + ".EffectType")),
-											20,
-											plugin.getEnchantmentManager().checkAmplifier(eName,
-													armor.getEnchantmentLevel(plugin.getEnchantmentManager().enchants
-															.get(eName.toLowerCase())))));
+											20, plugin.getEnchManager().checkAmplifier(eName, armor.getEnchantmentLevel(
+													plugin.getEnchManager().enchants.get(eName.toLowerCase())))));
 							}
 						}
 						ent.setMaxHealth(maxHealth);

@@ -51,16 +51,15 @@ public class ToxicShotCheck implements Listener {
 			return;
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("toxicshot")))
+		if (!hand.containsEnchantment(plugin.getEnchant("toxicshot")))
 			return;
-		if (!plugin.getEnchantmentManager().checkProbability("toxicshot",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("toxicshot"))))
+		if (!plugin.getEnchManager().checkProbability("toxicshot",
+				hand.getEnchantmentLevel(plugin.getEnchant("toxicshot"))))
 			return;
-		proj.setMetadata("toxicAmplifier",
-				new FixedMetadataValue(plugin, plugin.getEnchantmentManager().checkAmplifier("ToxicShot",
-						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("toxicshot")))));
+		proj.setMetadata("toxicAmplifier", new FixedMetadataValue(plugin, plugin.getEnchManager()
+				.checkAmplifier("ToxicShot", hand.getEnchantmentLevel(plugin.getEnchant("toxicshot")))));
 		proj.setMetadata("toxicArrow",
 				new FixedMetadataValue(plugin, plugin.config.getDouble("ToxicShot.SecondsPerLevel")
-						* hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("toxicshot"))));
+						* hand.getEnchantmentLevel(plugin.getEnchant("toxicshot"))));
 	}
 }

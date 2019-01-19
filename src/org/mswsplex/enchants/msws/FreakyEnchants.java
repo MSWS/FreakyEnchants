@@ -8,6 +8,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -158,6 +159,10 @@ public class FreakyEnchants extends JavaPlugin {
 		new OreSeekingCheck(this);
 	}
 
+	public Enchantment getEnchant(String id) {
+		return eManager.enchants.get(id.toLowerCase());
+	}
+
 	public void refreshNPCs() {
 		deleteNPCs();
 		loadNPCs();
@@ -228,7 +233,7 @@ public class FreakyEnchants extends JavaPlugin {
 		}
 	}
 
-	public EnchantmentManager getEnchantmentManager() {
+	public EnchantmentManager getEnchManager() {
 		return eManager;
 	}
 

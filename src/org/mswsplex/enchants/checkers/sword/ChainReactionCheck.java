@@ -35,16 +35,14 @@ public class ChainReactionCheck implements Listener {
 		ItemStack hand = living.getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		Enchantment ench = plugin.getEnchantmentManager().enchants.get("chainreaction");
+		Enchantment ench = plugin.getEnchant("chainreaction");
 		if (!hand.containsEnchantment(ench))
 			return;
-		double rad = plugin.getEnchantmentManager().getDouble("chainreaction", "Radius",
-				hand.getEnchantmentLevel(ench));
+		double rad = plugin.getEnchManager().getDouble("chainreaction", "Radius", hand.getEnchantmentLevel(ench));
 		List<LivingEntity> ents = iterateNearby(event.getEntity(), ent, rad, null);
 
 		for (LivingEntity e : ents) {
-			e.damage(plugin.getEnchantmentManager().getDouble("chainreaction", "Damage",
-					hand.getEnchantmentLevel(ench)));
+			e.damage(plugin.getEnchManager().getDouble("chainreaction", "Damage", hand.getEnchantmentLevel(ench)));
 		}
 	}
 

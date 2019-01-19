@@ -31,7 +31,7 @@ public class TripperCheck implements Listener {
 			return;
 		LivingEntity living = (LivingEntity) event.getDamager();
 		ItemStack hand = living.getEquipment().getItemInHand();
-		Enchantment ench = plugin.getEnchantmentManager().enchants.get("tripper");
+		Enchantment ench = plugin.getEnchant("tripper");
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
 		if (!hand.containsEnchantment(ench))
@@ -39,8 +39,8 @@ public class TripperCheck implements Listener {
 		Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
 			Vector vel = new Vector(0, Math.abs(Math.abs(ent.getVelocity().getX()))
 					+ Math.abs(Math.abs(ent.getVelocity().getY())) + Math.abs(Math.abs(ent.getVelocity().getX())), 0);
-			ent.setVelocity(vel.multiply(
-					plugin.getEnchantmentManager().getBonusAmount("tripper", hand.getEnchantmentLevel(ench))));
+			ent.setVelocity(
+					vel.multiply(plugin.getEnchManager().getBonusAmount("tripper", hand.getEnchantmentLevel(ench))));
 		}, 1);
 	}
 

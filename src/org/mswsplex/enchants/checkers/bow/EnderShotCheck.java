@@ -45,16 +45,14 @@ public class EnderShotCheck implements Listener {
 			return;
 		Player player = (Player) proj.getShooter();
 		ItemStack hand = player.getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("endershot")))
+		if (!hand.containsEnchantment(plugin.getEnchant("endershot")))
 			return;
-		if (System.currentTimeMillis() - PlayerManager.getDouble(player, "endershot") > plugin.getEnchantmentManager()
-				.getBonusAmount("endershot",
-						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("endershot")))
+		if (System.currentTimeMillis() - PlayerManager.getDouble(player, "endershot") > plugin.getEnchManager()
+				.getBonusAmount("endershot", hand.getEnchantmentLevel(plugin.getEnchant("endershot")))
 				|| PlayerManager.getDouble(player, "endershot") == 0) {
 			proj.setMetadata("enderArrow", new FixedMetadataValue(plugin, true));
 			PlayerManager.setInfo(player, "endershot", (double) System.currentTimeMillis());
-			MSG.sendTimedHotbar(player, "EnderShot",
-					hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("endershot")));
+			MSG.sendTimedHotbar(player, "EnderShot", hand.getEnchantmentLevel(plugin.getEnchant("endershot")));
 		}
 	}
 }

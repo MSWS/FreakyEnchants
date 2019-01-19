@@ -34,23 +34,23 @@ public class NightshadeCheck implements Listener {
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("nightshade")))
+		if (!hand.containsEnchantment(plugin.getEnchant("nightshade")))
 			return;
 		String name = plugin.config.contains("Nightshade.Affects." + event.getEntity().getType())
 				? event.getEntity().getType() + ""
 				: "Generic";
 		if (!plugin.config.getBoolean("Nightshade.Affects." + name))
 			return;
-		if (!plugin.getEnchantmentManager().checkProbability("Nightshade",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("nightshade"))))
+		if (!plugin.getEnchManager().checkProbability("Nightshade",
+				hand.getEnchantmentLevel(plugin.getEnchant("nightshade"))))
 			return;
 		LivingEntity target = (LivingEntity) event.getEntity();
 		PotionEffect effect = new PotionEffect(
 				PotionEffectType.getByName(plugin.config.getString("Nightshade.EffectType")),
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("nightshade"))
+				hand.getEnchantmentLevel(plugin.getEnchant("nightshade"))
 						* plugin.config.getInt("Nightshade.SecondsPerLevel") / 1000 * 20,
-				plugin.getEnchantmentManager().checkAmplifier("nightshade",
-						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("nightshade"))));
+				plugin.getEnchManager().checkAmplifier("nightshade",
+						hand.getEnchantmentLevel(plugin.getEnchant("nightshade"))));
 		target.addPotionEffect(effect);
 		if (ent instanceof Player)
 			MSG.sendStatusMessage((Player) ent, plugin.config.getString("Nightshade.SuccessMessage"));

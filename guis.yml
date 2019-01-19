@@ -7,7 +7,7 @@ MainMenu:
     Slot: 10
     NextInventory: SwordEnchants
     HideAttributes: true
-    Amount: 7
+    Amount: 8
     Lore:
     - '&b&lEnchantments'
     - '&7 - Wither Point'
@@ -17,6 +17,7 @@ MainMenu:
     - '&7 - Freeze'
     - '&7 - Tripper'
     - '&7 - Chain Reaction'
+    - '&7 - Nightshade'
   pick:
     Icon: DIAMOND_PICKAXE
     Name: '&e&lPickaxe Enchantments'
@@ -38,7 +39,7 @@ MainMenu:
     Slot: 34
     NextInventory: AxeEnchants
     HideAttributes: true
-    Amount: 6
+    Amount: 7
     Lore:
     - '&b&lEnchantments'
     - '&7 - Stormbreaker'
@@ -88,7 +89,7 @@ MainMenu:
     Data: 3
 SwordEnchants:
   Title: Sword Enchantments
-  Size: 36
+  Size: 45
   witherpoint:
     Icon: SKULL_ITEM
     Data: 1
@@ -119,21 +120,27 @@ SwordEnchants:
   freeze:
     Icon: ICE
     Name: '&b&lFreeze %level%'
-    Slot: 20
+    Slot: 28
     Lore:
     - '&7Has a small chance of dealing a &bSlowness Effect&7.'
   tripper:
     Icon: LEATHER_BOOTS
     Name: '&7&lTripper %level%'
-    Slot: 22
+    Slot: 30
     Lore:
     - '&7Entities you hit will be thrown directly vertically.'
   chainreaction:
     Icon: STRING
     Name: '&d&lChain Reaction %level%'
-    Slot: 24
+    Slot: 32
     Lore:
     - '&7Damage entities nearby the entity you originally hit.'
+  nightshade:
+    Icon: COAL
+    Name: '&7&lNightshade %level%'
+    Slot: 34
+    Lore:
+    - '&7Has a small chance of dealing a Blindness Effect.'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''

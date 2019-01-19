@@ -49,7 +49,7 @@ public class BarrageCheck implements Listener {
 			return;
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("barrage")))
+		if (!hand.containsEnchantment(plugin.getEnchant("barrage")))
 			return;
 		double pullTime, minTime = 950;
 		if (ent instanceof Player) {
@@ -61,8 +61,8 @@ public class BarrageCheck implements Listener {
 		if (pullTime >= minTime || !plugin.config.getBoolean("Barrage.RequireFullCharge")) {
 			Random r = new Random();
 			float inaccuracy = (float) plugin.config.getDouble("Barrage.OffsetInaccuracy");
-			for (int i = 0; i < plugin.getEnchantmentManager().getBonusAmount("barrage",
-					hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("barrage"))); i++) {
+			for (int i = 0; i < plugin.getEnchManager().getBonusAmount("barrage",
+					hand.getEnchantmentLevel(plugin.getEnchant("barrage"))); i++) {
 				if (ent instanceof Player && plugin.config.getBoolean("Barrage.UseInventoryArrows")
 						&& ((Player) ent).getGameMode() != GameMode.CREATIVE
 						&& !(hand.containsEnchantment(Enchantment.ARROW_INFINITE)
@@ -97,7 +97,7 @@ public class BarrageCheck implements Listener {
 	public void onInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack hand = player.getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("barrage")))
+		if (!hand.containsEnchantment(plugin.getEnchant("barrage")))
 			return;
 		if (!(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK))
 			return;

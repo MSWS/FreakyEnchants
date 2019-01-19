@@ -37,22 +37,21 @@ public class OreSeekingCheck implements Listener {
 		ItemStack hand = player.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		Enchantment ench = plugin.getEnchantmentManager().enchants.get("oreseeking");
+		Enchantment ench = plugin.getEnchant("oreseeking");
 		if (!hand.containsEnchantment(ench))
 			return;
-		if (System.currentTimeMillis() - PlayerManager.getDouble(player, "oreseeking") < plugin.getEnchantmentManager()
+		if (System.currentTimeMillis() - PlayerManager.getDouble(player, "oreseeking") < plugin.getEnchManager()
 				.getBonusAmount("oreseeking", hand.getEnchantmentLevel(ench))
 				&& PlayerManager.getDouble(player, "oreseeking") != 0) {
 			MSG.tell(player, plugin.config.getString("OreSeeking.Delay").replace("%time%",
 					TimeManager.getTime(
-							plugin.getEnchantmentManager().getBonusAmount("oreseeking", hand.getEnchantmentLevel(ench))
+							plugin.getEnchManager().getBonusAmount("oreseeking", hand.getEnchantmentLevel(ench))
 									- (System.currentTimeMillis() - PlayerManager.getDouble(player, "oreseeking")))));
 			return;
 		}
 		List<String> materials = plugin.config.getStringList("OreSeeking.IncludeOres");
 
-		double range = plugin.getEnchantmentManager().getDouble("oreseeking", "Range",
-				hand.getEnchantmentLevel(ench));
+		double range = plugin.getEnchManager().getDouble("oreseeking", "Range", hand.getEnchantmentLevel(ench));
 
 		Cuboid cube = new Cuboid(player.getLocation().add(range / 2, range / 2, range / 2),
 				player.getLocation().subtract(range / 2, range / 2, range / 2));

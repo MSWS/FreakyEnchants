@@ -30,16 +30,16 @@ public class BurningCheck implements Listener {
 			return;
 		if (!Utils.allowEnchant(ent.getWorld(), "burning"))
 			return;
-		Enchantment burn = plugin.getEnchantmentManager().enchants.get("burning");
+		Enchantment burn = plugin.getEnchant("burning");
 		for (ItemStack hand : ((LivingEntity) ent).getEquipment().getArmorContents()) {
 			if (hand == null || hand.getType() == Material.AIR)
 				continue;
 			if (!hand.containsEnchantment(burn))
 				continue;
-			if (!plugin.getEnchantmentManager().checkProbability("burning", hand.getEnchantmentLevel(burn)))
+			if (!plugin.getEnchManager().checkProbability("burning", hand.getEnchantmentLevel(burn)))
 				continue;
 			((LivingEntity) event.getDamager()).setFireTicks(
-					(int) plugin.getEnchantmentManager().getBonusAmount("burning", hand.getEnchantmentLevel(burn)));
+					(int) plugin.getEnchManager().getBonusAmount("burning", hand.getEnchantmentLevel(burn)));
 			if (ent instanceof Player)
 				MSG.sendStatusMessage((Player) ent, plugin.config.getString("Burning.SuccessMessage"));
 		}

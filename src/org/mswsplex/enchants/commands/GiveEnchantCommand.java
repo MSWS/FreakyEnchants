@@ -43,7 +43,7 @@ public class GiveEnchantCommand implements CommandExecutor, TabCompleter {
 		if (args.length > 2)
 			level = Integer.parseInt(args[2]);
 
-		if (!plugin.getEnchantmentManager().enchants.containsKey(args[1].toLowerCase())) {
+		if (!plugin.getEnchManager().enchants.containsKey(args[1].toLowerCase())) {
 			MSG.tell(sender, MSG.getString("Enchant.Unknown", "unknown enchantment"));
 			return true;
 		}
@@ -51,7 +51,7 @@ public class GiveEnchantCommand implements CommandExecutor, TabCompleter {
 			MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
 			return true;
 		}
-		Enchantment ench = plugin.getEnchantmentManager().enchants.get(args[1].toLowerCase());
+		Enchantment ench = plugin.getEnchant(args[1].toLowerCase());
 		if (!sender.hasPermission("freakyenchants.addenchant.bypasslimit"))
 			level = Math.min(ench.getMaxLevel(), level);
 
@@ -83,7 +83,7 @@ public class GiveEnchantCommand implements CommandExecutor, TabCompleter {
 				}
 			}
 		} else if (args.length <= 2) {
-			for (Entry<String, Enchantment> res : plugin.getEnchantmentManager().enchants.entrySet()) {
+			for (Entry<String, Enchantment> res : plugin.getEnchManager().enchants.entrySet()) {
 				if (res.getKey().toLowerCase().startsWith(args[1].toLowerCase())) {
 					result.add(res.getValue().getName().replace(" ", ""));
 				}

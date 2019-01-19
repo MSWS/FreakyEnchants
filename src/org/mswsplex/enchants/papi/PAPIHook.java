@@ -55,7 +55,7 @@ public class PAPIHook extends PlaceholderExpansion {
 			return (int) Math.ceil(bal) + "";
 		case "enchants":
 			String res = "";
-			for (Entry<String, Enchantment> e : plugin.getEnchantmentManager().enchants.entrySet()) {
+			for (Entry<String, Enchantment> e : plugin.getEnchManager().enchants.entrySet()) {
 				res += e.getValue().getName() + ", ";
 			}
 			return res.substring(0, res.length() - 2);

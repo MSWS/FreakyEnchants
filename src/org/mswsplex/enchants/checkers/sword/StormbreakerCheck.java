@@ -32,10 +32,10 @@ public class StormbreakerCheck implements Listener {
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("stormbreaker")))
+		if (!hand.containsEnchantment(plugin.getEnchant("stormbreaker")))
 			return;
-		if (!plugin.getEnchantmentManager().checkProbability("stormbreaker",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("stormbreaker"))))
+		if (!plugin.getEnchManager().checkProbability("stormbreaker",
+				hand.getEnchantmentLevel(plugin.getEnchant("stormbreaker"))))
 			return;
 		event.getEntity().getWorld().strikeLightning(event.getEntity().getLocation());
 		if (ent instanceof Player)

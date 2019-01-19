@@ -243,8 +243,8 @@ public class Utils {
 		String enchName = path.split("\\.")[path.split("\\.").length - 1];
 		if (gui.contains("Amount"))
 			item.setAmount(gui.getInt("Amount"));
-		if (plugin.getEnchantmentManager().enchants.containsKey(enchName)) {
-			item.setAmount(plugin.getEnchantmentManager().enchants.get(enchName).getStartLevel() + 1);
+		if (plugin.getEnchManager().enchants.containsKey(enchName)) {
+			item.setAmount(plugin.getEnchant(enchName).getStartLevel() + 1);
 		}
 		if (PlayerManager.getInfo(player, enchName) != null)
 			item.setAmount((int) Math.round(PlayerManager.getDouble(player, enchName)));
@@ -291,10 +291,9 @@ public class Utils {
 			if (gui.contains("Name"))
 				meta.setDisplayName(meta.getDisplayName().replace("%level%", MSG.toRoman(item.getAmount())));
 
-			if (plugin.getEnchantmentManager().enchants.get(enchName).getMaxLevel() != 1) {
+			if (plugin.getEnchant(enchName).getMaxLevel() != 1) {
 				plugin.config.getStringList("EnchantmentSuffix.Level").forEach((line) -> {
-					lore.add(MSG.color(line.replace("%level%",
-							plugin.getEnchantmentManager().enchants.get(enchName).getMaxLevel() + "")));
+					lore.add(MSG.color(line.replace("%level%", plugin.getEnchant(enchName).getMaxLevel() + "")));
 				});
 			}
 			plugin.config.getStringList("EnchantmentSuffix.Price").forEach((line) -> {
@@ -337,14 +336,11 @@ public class Utils {
 			int level = Integer.parseInt(enchant.split(" ")[1]);
 			ItemStack item = new ItemStack(Material.valueOf(enchant.split(" ")[2]), level);
 			ItemMeta meta = item.getItemMeta();
-			meta.addEnchant(plugin.getEnchantmentManager().enchants.get(enchant.split(" ")[0]), level, true);
+			meta.addEnchant(plugin.getEnchant(enchant.split(" ")[0]), level, true);
 			meta.setDisplayName(MSG.color(plugin.config.getString("TokenTitle")));
-			meta.setLore(
-					Arrays.asList(
-							MSG.color(
-									"&7" + plugin.getEnchantmentManager().enchants.get(enchant.split(" ")[0]).getName()
-											+ " " + MSG.toRoman(level)),
-							"", MSG.color(plugin.config.getString("TokenDeleteLine"))));
+			meta.setLore(Arrays.asList(
+					MSG.color("&7" + plugin.getEnchant(enchant.split(" ")[0]).getName() + " " + MSG.toRoman(level)), "",
+					MSG.color(plugin.config.getString("TokenDeleteLine"))));
 			item.setItemMeta(meta);
 			inv.setItem(i, item);
 			pos++;

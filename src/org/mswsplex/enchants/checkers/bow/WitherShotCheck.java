@@ -51,16 +51,15 @@ public class WitherShotCheck implements Listener {
 			return;
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("withershot")))
+		if (!hand.containsEnchantment(plugin.getEnchant("withershot")))
 			return;
-		if (!plugin.getEnchantmentManager().checkProbability("withershot",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("withershot"))))
+		if (!plugin.getEnchManager().checkProbability("withershot",
+				hand.getEnchantmentLevel(plugin.getEnchant("withershot"))))
 			return;
-		proj.setMetadata("witherAmplifier",
-				new FixedMetadataValue(plugin, plugin.getEnchantmentManager().checkAmplifier("WitherShot",
-						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("withershot")))));
+		proj.setMetadata("witherAmplifier", new FixedMetadataValue(plugin, plugin.getEnchManager()
+				.checkAmplifier("WitherShot", hand.getEnchantmentLevel(plugin.getEnchant("withershot")))));
 		proj.setMetadata("witherArrow",
 				new FixedMetadataValue(plugin, plugin.config.getDouble("WitherShot.SecondsPerLevel")
-						* hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("withershot"))));
+						* hand.getEnchantmentLevel(plugin.getEnchant("withershot"))));
 	}
 }

@@ -309,7 +309,7 @@ public class MSG {
 				runnables.remove(player.getName() + format);
 				return;
 			}
-			double total = plugin.getEnchantmentManager().getBonusAmount(format.toLowerCase(), level);
+			double total = plugin.getEnchManager().getBonusAmount(format.toLowerCase(), level);
 			double timeLeft = total
 					- (System.currentTimeMillis() - PlayerManager.getDouble(player, format.toLowerCase() + ""));
 

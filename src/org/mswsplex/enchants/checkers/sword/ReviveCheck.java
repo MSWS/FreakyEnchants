@@ -35,18 +35,15 @@ public class ReviveCheck implements Listener {
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("revive")))
+		if (!hand.containsEnchantment(plugin.getEnchant("revive")))
 			return;
 		LivingEntity living = (LivingEntity) ent;
-		if (!plugin.getEnchantmentManager().checkProbability("revive",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("revive"))))
+		if (!plugin.getEnchManager().checkProbability("revive", hand.getEnchantmentLevel(plugin.getEnchant("revive"))))
 			return;
 		if (living.getHealth() > plugin.config.getDouble("Revive.MinimumHealth"))
 			return;
-		living.setHealth(Math.min(
-				living.getHealth() + plugin.getEnchantmentManager().getBonusAmount("revive",
-						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("revive"))),
-				living.getMaxHealth()));
+		living.setHealth(Math.min(living.getHealth() + plugin.getEnchManager().getBonusAmount("revive",
+				hand.getEnchantmentLevel(plugin.getEnchant("revive"))), living.getMaxHealth()));
 		if (ent instanceof Player)
 			MSG.sendStatusMessage((Player) ent, plugin.config.getString("Revive.SuccessMessage"));
 	}

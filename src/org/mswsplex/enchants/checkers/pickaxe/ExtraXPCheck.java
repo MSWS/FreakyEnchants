@@ -29,15 +29,15 @@ public class ExtraXPCheck implements Listener {
 		ItemStack hand = player.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("extraxp")))
+		if (!hand.containsEnchantment(plugin.getEnchant("extraxp")))
 			return;
 		if (!event.getBlock().getType().isSolid() && plugin.getConfig().getBoolean("ExtraXP.MustBeSolid"))
 			return;
-		int lvl = hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("extraxp"));
-		if (!plugin.getEnchantmentManager().checkProbability("extraxp", lvl))
+		int lvl = hand.getEnchantmentLevel(plugin.getEnchant("extraxp"));
+		if (!plugin.getEnchManager().checkProbability("extraxp", lvl))
 			return;
-		if (!plugin.getEnchantmentManager().checkProbability("extraxp", lvl))
-			player.giveExp((int) plugin.getEnchantmentManager().getBonusAmount("extraxp", lvl));
+		if (!plugin.getEnchManager().checkProbability("extraxp", lvl))
+			player.giveExp((int) plugin.getEnchManager().getBonusAmount("extraxp", lvl));
 		MSG.sendStatusMessage(player, plugin.config.getString("ExtraXP.SuccessMessage"));
 	}
 }

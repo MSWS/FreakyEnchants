@@ -30,13 +30,12 @@ public class TreeFellerCheck implements Listener {
 		ItemStack hand = player.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("treefeller")))
+		if (!hand.containsEnchantment(plugin.getEnchant("treefeller")))
 			return;
 		if (event.getBlock().getType() != Material.LOG && event.getBlock().getType() != Material.LOG_2)
 			return;
 
-		breakTree(event.getBlock(),
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("treefeller")));
+		breakTree(event.getBlock(), hand.getEnchantmentLevel(plugin.getEnchant("treefeller")));
 
 	}
 
@@ -61,7 +60,7 @@ public class TreeFellerCheck implements Listener {
 		for (BlockFace face : BlockFace.values()) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
 				breakTree(tree.getRelative(face), level);
-			}, (long) plugin.getEnchantmentManager().getBonusAmount("treefeller", level));
+			}, (long) plugin.getEnchManager().getBonusAmount("treefeller", level));
 		}
 	}
 

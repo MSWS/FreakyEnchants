@@ -34,23 +34,23 @@ public class ToxicPointCheck implements Listener {
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("toxicpoint")))
+		if (!hand.containsEnchantment(plugin.getEnchant("toxicpoint")))
 			return;
 		String name = plugin.config.contains("ToxicPoint.Affects." + event.getEntity().getType())
 				? event.getEntity().getType() + ""
 				: "Generic";
 		if (!plugin.config.getBoolean("ToxicPoint.Affects." + name))
 			return;
-		if (!plugin.getEnchantmentManager().checkProbability("toxicpoint",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("toxicpoint"))))
+		if (!plugin.getEnchManager().checkProbability("toxicpoint",
+				hand.getEnchantmentLevel(plugin.getEnchant("toxicpoint"))))
 			return;
 		LivingEntity target = (LivingEntity) event.getEntity();
 		PotionEffect effect = new PotionEffect(
 				PotionEffectType.getByName(plugin.config.getString("ToxicPoint.EffectType")),
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("toxicpoint"))
+				hand.getEnchantmentLevel(plugin.getEnchant("toxicpoint"))
 						* plugin.config.getInt("ToxicPoint.SecondsPerLevel") / 1000 * 20,
-				plugin.getEnchantmentManager().checkAmplifier("toxicpoint",
-						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("toxicpoint"))));
+				plugin.getEnchManager().checkAmplifier("toxicpoint",
+						hand.getEnchantmentLevel(plugin.getEnchant("toxicpoint"))));
 		target.addPotionEffect(effect);
 		if (ent instanceof Player)
 			MSG.sendStatusMessage((Player) ent, plugin.config.getString("ToxicPoint.SuccessMessage"));

@@ -30,14 +30,13 @@ public class DoubleJumpCheck implements Listener {
 		ItemStack armor = player.getEquipment().getBoots();
 		if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
 			return;
-		if (!armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("doublejump"))
-				|| player.getLocation().getY() % 1 != 0)
+		if (!armor.containsEnchantment(plugin.getEnchant("doublejump")) || player.getLocation().getY() % 1 != 0)
 			return;
 		if (!player.getLocation().clone().getBlock().getRelative(BlockFace.DOWN).getType().isSolid())
 			return;
 
-		double cool = plugin.getEnchantmentManager().getBonusAmount("doublejump",
-				armor.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("doublejump")));
+		double cool = plugin.getEnchManager().getBonusAmount("doublejump",
+				armor.getEnchantmentLevel(plugin.getEnchant("doublejump")));
 
 		if (System.currentTimeMillis() - PlayerManager.getDouble(player, "doublejump") < cool)
 			return;
@@ -54,7 +53,7 @@ public class DoubleJumpCheck implements Listener {
 		if (player.getEquipment() == null || player.getEquipment().getBoots() == null)
 			return;
 		ItemStack armor = player.getEquipment().getBoots();
-		if (!armor.containsEnchantment(plugin.getEnchantmentManager().enchants.get("doublejump")))
+		if (!armor.containsEnchantment(plugin.getEnchant("doublejump")))
 			return;
 		event.setCancelled(true);
 		player.setFlying(false);
@@ -64,7 +63,6 @@ public class DoubleJumpCheck implements Listener {
 		player.setVelocity(player.getVelocity()
 				.add(player.getLocation().getDirection().multiply(plugin.config.getDouble("DoubleJump.Strength")))
 				.setY(1 - (player.getLocation().getPitch() / 90)));
-		MSG.sendTimedHotbar(player, "DoubleJump",
-				armor.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("doublejump")));
+		MSG.sendTimedHotbar(player, "DoubleJump", armor.getEnchantmentLevel(plugin.getEnchant("doublejump")));
 	}
 }

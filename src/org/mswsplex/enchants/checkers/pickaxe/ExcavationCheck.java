@@ -40,20 +40,20 @@ public class ExcavationCheck implements Listener {
 		if (hand == null || hand.getType() == Material.AIR) {
 			return;
 		}
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("excavation"))) {
+		if (!hand.containsEnchantment(plugin.getEnchant("excavation"))) {
 			return;
 		}
-		int lv = (int) plugin.getEnchantmentManager().getBonusAmount("excavation",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("excavation")));
+		int lv = (int) plugin.getEnchManager().getBonusAmount("excavation",
+				hand.getEnchantmentLevel(plugin.getEnchant("excavation")));
 
 		WorldGuardPlugin wg = null;
 		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
 			wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 		}
 
-		boolean autosmelt = hand.containsEnchantment(this.plugin.getEnchantmentManager().enchants.get("autosmelt"));
+		boolean autosmelt = hand.containsEnchantment(this.plugin.getEnchant("autosmelt"));
 
-		boolean autograb = hand.containsEnchantment(this.plugin.getEnchantmentManager().enchants.get("autograb"));
+		boolean autograb = hand.containsEnchantment(this.plugin.getEnchant("autograb"));
 		Location loc = event.getBlock().getLocation();
 		Cuboid cube = new Cuboid(player.getWorld(), loc.getBlockX() - lv / 2, loc.getBlockY() - lv / 2,
 				loc.getBlockZ() - lv / 2, loc.getBlockX() + lv / 2, loc.getBlockY() + lv / 2, loc.getBlockZ() + lv / 2);

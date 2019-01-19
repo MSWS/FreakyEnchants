@@ -54,14 +54,12 @@ public class StunCheck implements Listener {
 			return;
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchantmentManager().enchants.get("stun")))
+		if (!hand.containsEnchantment(plugin.getEnchant("stun")))
 			return;
-		if (!plugin.getEnchantmentManager().checkProbability("stun",
-				hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("stun"))))
+		if (!plugin.getEnchManager().checkProbability("stun", hand.getEnchantmentLevel(plugin.getEnchant("stun"))))
 			return;
-		proj.setMetadata("stunArrow",
-				new FixedMetadataValue(plugin, plugin.getEnchantmentManager().getBonusAmount("stun",
-						hand.getEnchantmentLevel(plugin.getEnchantmentManager().enchants.get("stun")))));
+		proj.setMetadata("stunArrow", new FixedMetadataValue(plugin,
+				plugin.getEnchManager().getBonusAmount("stun", hand.getEnchantmentLevel(plugin.getEnchant("stun")))));
 	}
 
 	@EventHandler
