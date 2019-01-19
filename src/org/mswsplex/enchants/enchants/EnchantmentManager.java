@@ -10,6 +10,7 @@ import java.util.Random;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.mswsplex.enchants.enchants.armor.Alarmer;
 import org.mswsplex.enchants.enchants.armor.Burning;
 import org.mswsplex.enchants.enchants.armor.DoubleJump;
 import org.mswsplex.enchants.enchants.armor.FrostWalker;
@@ -86,6 +87,8 @@ public class EnchantmentManager {
 		enchants.put("doublejump", new DoubleJump(99));
 		enchants.put("chainreaction", new ChainReaction(100));
 		enchants.put("oreseeking", new OreSeeking(101));
+		enchants.put("alarmer", new Alarmer(102));
+
 		try {
 			try {
 				Field f = Enchantment.class.getDeclaredField("acceptingNew");

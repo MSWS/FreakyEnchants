@@ -3,17 +3,16 @@ package org.mswsplex.enchants.enchants.armor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
-import org.mswsplex.enchants.utils.Utils;
 
-public class Hearty extends Enchantment {
+public class Alarmer extends Enchantment {
 
-	public Hearty(int id) {
+	public Alarmer(int id) {
 		super(id);
 	}
 
 	@Override
 	public boolean canEnchantItem(ItemStack item) {
-		return Utils.isArmor(item.getType());
+		return item.getType().toString().contains("HELMET");
 	}
 
 	@Override
@@ -23,7 +22,7 @@ public class Hearty extends Enchantment {
 
 	@Override
 	public EnchantmentTarget getItemTarget() {
-		return EnchantmentTarget.ARMOR;
+		return EnchantmentTarget.ARMOR_HEAD;
 	}
 
 	@Override
@@ -33,7 +32,7 @@ public class Hearty extends Enchantment {
 
 	@Override
 	public String getName() {
-		return "Hearty";
+		return "Alarmer";
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mswsplex.enchants.bstats.MetricsLite;
+import org.mswsplex.enchants.checkers.armor.AlarmerChecker;
 import org.mswsplex.enchants.checkers.armor.ArmorChecker;
 import org.mswsplex.enchants.checkers.armor.BurningCheck;
 import org.mswsplex.enchants.checkers.armor.DoubleJumpCheck;
@@ -157,6 +158,7 @@ public class FreakyEnchants extends JavaPlugin {
 		new DoubleJumpCheck(this);
 		new ChainReactionCheck(this);
 		new OreSeekingCheck(this);
+		new AlarmerChecker(this);
 	}
 
 	public Enchantment getEnchant(String id) {
