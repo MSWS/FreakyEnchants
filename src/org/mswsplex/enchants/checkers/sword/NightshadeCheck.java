@@ -1,4 +1,4 @@
-package org.mswsplex.enchants.checkers.axe;
+package org.mswsplex.enchants.checkers.sword;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

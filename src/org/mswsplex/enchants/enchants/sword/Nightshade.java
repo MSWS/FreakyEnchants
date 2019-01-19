@@ -1,4 +1,4 @@
-package org.mswsplex.enchants.enchants.axe;
+package org.mswsplex.enchants.enchants.sword;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -12,7 +12,7 @@ public class Nightshade extends Enchantment {
 
 	@Override
 	public boolean canEnchantItem(ItemStack item) {
-		return item.getType().toString().contains("AXE");
+		return item.getType().toString().contains("AXE") || item.getType().toString().contains("SWORD");
 	}
 
 	@Override
