@@ -1,12 +1,14 @@
 package org.mswsplex.enchants.checkers.armor;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.MetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Sounds;
@@ -41,6 +43,9 @@ public class AlarmerChecker {
 								continue;
 						} else if (!(ent instanceof Player))
 							continue;
+						if (ent instanceof Player && (isVanished((Player) ent))
+								|| ((Player) ent).getGameMode() == GameMode.CREATIVE)
+							continue;
 						target.playSound(ent.getLocation(),
 								Sounds.valueOf(plugin.config.getString("Alarmer.Sound")).bukkitSound(),
 								(float) plugin.config.getDouble("Alarmer.Volume"),
@@ -49,5 +54,13 @@ public class AlarmerChecker {
 				}
 			}
 		};
+	}
+
+	private boolean isVanished(Player player) {
+		for (MetadataValue meta : player.getMetadata("vanished")) {
+			if (meta.asBoolean())
+				return true;
+		}
+		return false;
 	}
 }
