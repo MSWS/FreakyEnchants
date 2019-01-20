@@ -165,6 +165,14 @@ public class FreakyEnchants extends JavaPlugin {
 		return eManager.enchants.get(id.toLowerCase());
 	}
 
+	public PlayerManager getPlayerManager() {
+		return new PlayerManager();
+	}
+
+	public Utils getUtils() {
+		return new Utils();
+	}
+
 	public void refreshNPCs() {
 		deleteNPCs();
 		loadNPCs();
