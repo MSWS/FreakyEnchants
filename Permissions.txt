@@ -17,6 +17,8 @@ freakyenchants.token.shop - Access to /token shop (Basically /enchanter)
 freakyenchants.redeem - Access to the /redeem GUI
 freakyenchants.redeem.delete - Access to delete own tokens with Q
 
+freakyenchants.autoupdater
+
 Suggested Default Perms:
 
 freakyenchants.enchanter

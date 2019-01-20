@@ -5,6 +5,10 @@ Token:
   Set: '&7Successfully set &e%target%&7 to have &b%total% &7token%s%.'
   Get: '&e%target% &7has &b%total%&7 token%s%&7.'
   Insufficient: '&cYou have insufficient funds. (&4%total% &cof &a%cost%&c).'
+Outdated:
+  Console: '&4[WARNING] &cFreakyEnchants is outdated. (Current version: &e%ver%&c Online Version: &e%oVer%&c)'
+  InGame: '&d&lFreakyEnchants&7 is out of date. &c(Current version: &e%ver%&c Online Version: &e%oVer%&c)'
+  Error: '&4[WARNING] Unable to grab online version for FreakyEnchants.'
 NPC:
   Spawned: '&7Successfully created new NPC.'
   Deleted: '&7Successfully &cdeleted&7 the closest NPC.'

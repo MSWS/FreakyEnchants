@@ -1,5 +1,5 @@
 #If you modify anything in this config, all comments and notations will be removed.
-#You can view an online version of this at https://github.com/MSWS/CustomEnchants/blob/master/config.yml
+#You can view an online version of this at https://github.com/MSWS/FreakyEnchants/blob/master/config.yml
 
 #############################
 #                           #
@@ -20,9 +20,13 @@ NPC:
   Name: '&a&lEnchanter' #The name that will be visible above the NPC's head
   AllowRightClick: true
   AllowLeftClick: true
+  
+AutoUpdater:
+  OnEnable: true #If true, FreakyEnchants will log in console when enabled if a new version is available
+  OnJoin: true #If true, players with permission freakyenchants.autoupdater will be notified about new versions
 
 Economy:
-#What sort of economy/currency should be used? TOKEN is CustomEnchant's custom currency
+#What sort of economy/currency should be used? TOKEN is FreakyEnchant's custom currency
 #Set to vault if you want to use with Essentials or other Vault compatible plugins
 #XP is the player's experience level, note that this won't work if they're offline
   Type: TOKEN #Options: TOKEN, VAULT, XP

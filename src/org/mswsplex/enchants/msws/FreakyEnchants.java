@@ -55,6 +55,7 @@ import org.mswsplex.enchants.enchants.EnchantmentManager;
 import org.mswsplex.enchants.listeners.NPCListener;
 import org.mswsplex.enchants.listeners.RedeemGUIListener;
 import org.mswsplex.enchants.listeners.ShopListener;
+import org.mswsplex.enchants.listeners.UpdateJoinListener;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.papi.PAPIHook;
 import org.mswsplex.enchants.utils.MSG;
@@ -71,6 +72,8 @@ public class FreakyEnchants extends JavaPlugin {
 
 	private EnchantmentManager eManager;
 	private Economy eco = null;
+
+	private String onlineVer = "unknown";
 
 	public void onEnable() {
 		if (!configYml.exists())
@@ -93,6 +96,15 @@ public class FreakyEnchants extends JavaPlugin {
 
 		eManager = new EnchantmentManager(this);
 
+		onlineVer = Utils.getSpigotVersion(64154);
+
+		if (onlineVer == null) {
+			MSG.log(lang.getString("Outdated.Error"));
+		} else if (MSG.outdated(getDescription().getVersion(), onlineVer)) {
+			MSG.log(lang.getString("Outdated.Console").replace("%ver%", getDescription().getVersion()).replace("%oVer%",
+					onlineVer));
+		}
+
 		if (setupEconomy()) {
 			MSG.log("Successfully linked with Vault.");
 		} else {
@@ -112,6 +124,7 @@ public class FreakyEnchants extends JavaPlugin {
 		new EnchanterCommand(this);
 		new RedeemCommand(this);
 		new GiveEnchantCommand(this);
+		new UpdateJoinListener(this);
 
 		new ShopListener(this);
 		new NPCListener(this);
@@ -261,5 +274,9 @@ public class FreakyEnchants extends JavaPlugin {
 
 	public Economy getEconomy() {
 		return this.eco;
+	}
+
+	public String getOnlineVer() {
+		return onlineVer;
 	}
 }

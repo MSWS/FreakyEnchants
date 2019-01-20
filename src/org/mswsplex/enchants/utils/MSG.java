@@ -336,4 +336,27 @@ public class MSG {
 		}, 0, 1);
 		runnables.put(player.getName() + format, id);
 	}
+
+	/**
+	 * @returns if oldVer is < newVer, both versions can only have numbers and .'s
+	 *          Outputs: 5.5, 10.3 | true 2.3.1, 3.1.4.6 | true 1.2, 1.1 | false
+	 **/
+	public static Boolean outdated(String oldVer, String newVer) {
+		oldVer = oldVer.replace(".", "");
+		newVer = newVer.replace(".", "");
+		Double oldV = null, newV = null;
+		try {
+			oldV = Double.valueOf(oldVer);
+			newV = Double.valueOf(newVer);
+		} catch (Exception e) {
+			MSG.log("&cError! &7Versions incompatible.");
+			return false;
+		}
+		if (oldVer.length() > newVer.length()) {
+			newV = newV * (Math.pow(10, oldVer.length() - newVer.length()));
+		} else if (oldVer.length() < newVer.length()) {
+			oldV = oldV * (Math.pow(10, newVer.length() - oldVer.length()));
+		}
+		return oldV < newV;
+	}
 }
