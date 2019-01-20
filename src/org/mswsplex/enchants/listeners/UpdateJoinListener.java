@@ -20,7 +20,7 @@ public class UpdateJoinListener implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		if (!player.hasPermission("freakyenchants.autoupdater"))
+		if (!player.hasPermission("freakyenchants.autoupdater")||!plugin.config.getBoolean("Updater.OnJoin"))
 			return;
 		String online = plugin.getOnlineVer();
 		if (online == null) {

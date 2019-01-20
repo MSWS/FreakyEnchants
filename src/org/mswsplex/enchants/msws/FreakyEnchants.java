@@ -96,13 +96,15 @@ public class FreakyEnchants extends JavaPlugin {
 
 		eManager = new EnchantmentManager(this);
 
-		onlineVer = Utils.getSpigotVersion(64154);
+		if (config.getBoolean("Updater.OnEnable")) {
+			onlineVer = Utils.getSpigotVersion(64154);
 
-		if (onlineVer == null) {
-			MSG.log(lang.getString("Outdated.Error"));
-		} else if (MSG.outdated(getDescription().getVersion(), onlineVer)) {
-			MSG.log(lang.getString("Outdated.Console").replace("%ver%", getDescription().getVersion()).replace("%oVer%",
-					onlineVer));
+			if (onlineVer == null) {
+				MSG.log(lang.getString("Outdated.Error"));
+			} else if (MSG.outdated(getDescription().getVersion(), onlineVer)) {
+				MSG.log(lang.getString("Outdated.Console").replace("%ver%", getDescription().getVersion())
+						.replace("%oVer%", onlineVer));
+			}
 		}
 
 		if (setupEconomy()) {
