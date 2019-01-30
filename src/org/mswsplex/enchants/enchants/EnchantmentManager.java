@@ -123,14 +123,38 @@ public class EnchantmentManager {
 		}
 	}
 
+	/**
+	 * Returns the id of a specified enchantment
+	 * 
+	 * @param ench
+	 * @return null if not found
+	 */
 	public String getId(Enchantment ench) {
 		for (Entry<String, Enchantment> e : enchants.entrySet()) {
 			if (ench.getName().equals(e.getValue().getName()))
 				return e.getKey();
 		}
-		return "";
+		return null;
 	}
 
+	/**
+	 * Returns a list of all enchantment IDs
+	 * 
+	 * @return
+	 */
+	public List<String> getEnchantmentIDs() {
+		return new ArrayList<>(enchants.keySet());
+	}
+
+	/**
+	 * Returns the highest defined number in the config Use this for probability,
+	 * attributes, etc. 0 if undefined
+	 * 
+	 * @param ench
+	 * @param id
+	 * @param lvl
+	 * @return
+	 */
 	public double getDouble(String ench, String id, int lvl) {
 		ench = enchants.get(ench.toLowerCase()).getName().replace(" ", "");
 		if (!plugin.config.contains(ench) || plugin.config.getConfigurationSection(ench) == null)
@@ -144,27 +168,32 @@ public class EnchantmentManager {
 		return plugin.config.getDouble(ench + "." + id + "." + big);
 	}
 
+	/**
+	 * @see getDouble(String, "BonusAmount", int);
+	 * @param ench
+	 * @param lvl
+	 * @return
+	 */
 	public double getBonusAmount(String ench, int lvl) {
 		return getDouble(ench, "BonusAmount", lvl);
 	}
 
+	/**
+	 * @see getDouble(String, "Probability", lvl);
+	 * @param ench
+	 * @param lvl
+	 * @return Returns true if a random number is <= the probability
+	 */
 	public boolean checkProbability(String ench, int lvl) {
-		ench = enchants.get(ench.toLowerCase()).getName().replace(" ", "");
-		if (!plugin.config.contains(ench) || plugin.config.getConfigurationSection(ench) == null)
-			return true;
-		int big = 0;
-		for (String level : plugin.config.getConfigurationSection(ench + ".Probability").getKeys(false)) {
-			int l = Integer.parseInt(level);
-			if (lvl >= l && l >= big)
-				big = l;
-		}
-		return new Random().nextDouble() * 100 <= plugin.config.getDouble(ench + ".Probability." + big);
+		return new Random().nextDouble() * 100 <= getDouble(ench, "Probability", lvl);
 	}
 
-	public int checkAmplifier(Enchantment ench, int lvl) {
-		return checkAmplifier(ench.getName(), lvl);
-	}
-
+	/**
+	 * @see getDouble(String, "Amplifier", lvl);
+	 * @param ench
+	 * @param lvl
+	 * @return
+	 */
 	public int checkAmplifier(String ench, int lvl) {
 		ench = enchants.get(ench.toLowerCase()).getName().replace(" ", "");
 		if (!plugin.config.contains(ench) || plugin.config.getConfigurationSection(ench) == null)
@@ -175,9 +204,16 @@ public class EnchantmentManager {
 			if (lvl >= l && l >= big)
 				big = l;
 		}
-		return plugin.config.getInt(ench + ".Amplifier." + big);
+		return (int) getDouble(ench, "Amplifier", lvl);
 	}
 
+	/**
+	 * Adds an enchantment to an item
+	 * 
+	 * @param item
+	 * @param level
+	 * @param enchant
+	 */
 	public void addEnchant(ItemStack item, int level, Enchantment enchant) {
 		ItemMeta meta = item.getItemMeta();
 		List<String> lore = meta.getLore();

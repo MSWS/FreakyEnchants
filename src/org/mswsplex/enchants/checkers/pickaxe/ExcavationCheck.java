@@ -13,7 +13,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Cuboid;
 import org.mswsplex.enchants.utils.Sounds;
@@ -108,7 +107,7 @@ public class ExcavationCheck implements Listener {
 			}
 		}, 0, plugin.config.getInt("Excavation.IteratePer"));
 		if (autograb && player.getInventory().firstEmpty() == -1)
-			PlayerManager.emptyInventory(player);
+			Utils.emptyInventory(player);
 		event.setCancelled(true);
 	}
 

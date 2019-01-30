@@ -31,7 +31,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 
 public class Utils {
@@ -237,6 +237,8 @@ public class Utils {
 	 * @return Parsed ItemStack
 	 */
 	public static ItemStack parseItem(ConfigurationSection section, String path, OfflinePlayer player) {
+		CPlayer cp = plugin.getCPlayer(player);
+
 		ConfigurationSection gui = section.getConfigurationSection(path);
 		ItemStack item = new ItemStack(Material.valueOf(gui.getString("Icon")));
 		List<String> lore = new ArrayList<String>();
@@ -246,8 +248,8 @@ public class Utils {
 		if (plugin.getEnchManager().enchants.containsKey(enchName)) {
 			item.setAmount(plugin.getEnchant(enchName).getStartLevel() + 1);
 		}
-		if (PlayerManager.getInfo(player, enchName) != null)
-			item.setAmount((int) Math.round(PlayerManager.getDouble(player, enchName)));
+		if (cp.hasTempData(enchName))
+			item.setAmount(cp.getTempInteger(enchName));
 
 		if (gui.contains("Data"))
 			item.setDurability((short) gui.getInt("Data"));
@@ -258,11 +260,10 @@ public class Utils {
 		}
 		ItemMeta meta = item.getItemMeta();
 		if (gui.contains("Name"))
-			meta.setDisplayName(MSG
-					.color("&r" + gui.getString("Name").replace("%balance%", PlayerManager.getBalance(player) + "")));
+			meta.setDisplayName(MSG.color("&r" + gui.getString("Name").replace("%balance%", cp.getBalance() + "")));
 		if (gui.contains("Lore")) {
 			for (String temp : gui.getStringList("Lore"))
-				lore.add(MSG.color("&r" + temp.replace("%balance%", PlayerManager.getBalance(player) + "")));
+				lore.add(MSG.color("&r" + temp.replace("%balance%", cp.getBalance() + "")));
 		}
 		if (gui.getBoolean("Unbreakable")) {
 			meta.spigot().setUnbreakable(true);
@@ -310,20 +311,17 @@ public class Utils {
 
 	@SuppressWarnings("unchecked")
 	public static Inventory getRedeemGUI(Player player) {
-		List<String> tokens = (List<String>) PlayerManager.getInfo(player, "enchantmentTokens");
+		CPlayer cp = plugin.getCPlayer(player);
+		List<String> tokens = (List<String>) cp.getSaveData("enchantmentTokens");
 		if (tokens == null)
 			tokens = new ArrayList<String>();
 		Collections.sort(tokens);
 		int maxSize = 54;
 		int size = (int) Math.min(Math.max((Math.ceil(tokens.size() / 9.0) * 9), 9), maxSize);
-		int page = (int) Math.round(PlayerManager.getDouble(player, "page"));
+		int page = cp.getTempInteger("page");
 		Inventory inv = Bukkit.createInventory(null, size, "Token Redeemer");
 		if (tokens.size() == 0) {
 			for (int i = 0; i < inv.getSize(); i++) {
-//				ItemStack item = new ItemStack(Material.BARRIER);
-//				ItemMeta meta = item.getItemMeta();
-//				meta.setDisplayName(MSG.color("&c&lNo Entities"));
-//				item.setItemMeta(meta);
 				inv.setItem(i, parseItem(plugin.config, "NoTokens", player));
 			}
 			return inv;
@@ -817,5 +815,20 @@ public class Utils {
 		loc.getWorld().playSound(loc, Sounds.valueOf(config.getString(path + ".Name")).bukkitSound(),
 				config.contains(path + ".Volume") ? (float) config.getDouble(path + ".Volume") : 1,
 				config.contains(path + ".Pitch") ? (float) config.getDouble(path + ".Pitch") : 1);
+	}
+
+	@SuppressWarnings("deprecation")
+	public static void emptyInventory(Player player) {
+		if (plugin.lang.getBoolean("InventoryFull.Title.Enabled")) {
+			player.sendTitle(MSG.color(plugin.lang.getString("InventoryFull.Title.Toplayer")),
+					MSG.color(plugin.lang.getString("InventoryFull.Title.Bottom")));
+
+		}
+		if (plugin.lang.getBoolean("InventoryFull.ActionBarMessage.Enabled")) {
+			HotbarMessenger.sendHotBarMessage(player,
+					MSG.color(plugin.lang.getString("InventoryFull.ActionBarMessage.Message")));
+		}
+		Utils.playSound(plugin.lang, "InventoryFull.Sound", player);
+		MSG.tell(player, plugin.lang.getString("InventoryFull.ChatMessage"));
 	}
 }

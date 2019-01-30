@@ -13,7 +13,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
-import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Utils;
@@ -47,21 +47,17 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			if (args.length < 3) {
-				MSG.tell(sender, "");
+				MSG.tell(sender, MSG.getString("Token.Missing", "You must specify a number"));
 				return true;
 			}
 			target = Bukkit.getOfflinePlayer(args[1]);
-			if (target == null) {
-				MSG.tell(sender, "Unknown Player");
-				return true;
-			}
+			CPlayer ct = plugin.getCPlayer(target);
 			amo = Double.parseDouble(args[2]);
-			PlayerManager.setBalance(target, PlayerManager.getBalance(target) + amo);
+			ct.setBalance(ct.getBalance() + amo);
 			MSG.tell(sender,
 					MSG.getString("Token.Give", "gave %target% %amo% token%s%, they now have %total%")
-							.replace("%target%", sender.getName()).replace("%amo%", amo + "")
-							.replace("%total%", PlayerManager.getBalance(target) + "")
-							.replace("%s%", PlayerManager.getBalance(target) == 1 ? "" : "s"));
+							.replace("%target%", target.getName()).replace("%amo%", amo + "")
+							.replace("%total%", ct.getBalance() + "").replace("%s%", ct.getBalance() == 1 ? "" : "s"));
 			break;
 		case "set":
 			if (!sender.hasPermission("freakyenchants.token.set")) {
@@ -69,27 +65,26 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 				return true;
 			}
 			if (args.length < 3) {
-				MSG.tell(sender, "");
+				MSG.tell(sender, MSG.getString("Token.Missing", "You must specify a number"));
 				return true;
 			}
-			target = Bukkit.getPlayer(args[1]);
-			if (target == null) {
-				MSG.tell(sender, "Unknown Player");
-				return true;
-			}
+			target = Bukkit.getOfflinePlayer(args[1]);
+			ct = plugin.getCPlayer(target);
 			amo = Double.parseDouble(args[2]);
-			PlayerManager.setBalance(target, amo);
+			ct.setBalance(amo);
 			MSG.tell(sender,
 					MSG.getString("Token.Set", "set %target% %amo% to have %total%")
-							.replace("%target%", sender.getName()).replace("%amo%", amo + "")
-							.replace("%total%", PlayerManager.getBalance(target) + "")
-							.replace("%s%", PlayerManager.getBalance(target) == 1 ? "" : "s"));
+							.replace("%target%", target.getName()).replace("%amo%", amo + "")
+							.replace("%total%", ct.getBalance() + "").replace("%s%", ct.getBalance() == 1 ? "" : "s"));
 			break;
 		case "shop":
 			if (sender instanceof Player) {
-				PlayerManager.setInfo((Player) sender, "openInventory", "MainMenu");
+				plugin.getCPlayer((Player) sender).setTempData("openInventory", "MainMenu");
 				((Player) sender).openInventory(Utils.getGui((Player) sender, "MainMenu", 0));
 				((Player) sender).playSound(((Player) sender).getLocation(), Sound.ANVIL_USE, 1, 2);
+			} else {
+				MSG.tell(sender, "You must be a player");
+				return true;
 			}
 			break;
 		case "get":
@@ -100,15 +95,11 @@ public class TokenCommand implements CommandExecutor, TabCompleter {
 			if (sender instanceof Player)
 				target = (Player) sender;
 			if (args.length > 1 && sender.hasPermission("freakyenchants.token.get.others"))
-				target = Bukkit.getPlayer(args[1]);
-			if (target == null) {
-				MSG.tell(sender, "Unknown Player");
-				return true;
-			}
-			MSG.tell(sender,
-					MSG.getString("Token.Get", "%target% has %total%").replace("%target%", target.getName())
-							.replace("%total%", PlayerManager.getBalance(target) + "")
-							.replace("%s%", PlayerManager.getBalance(target) == 1 ? "" : "s"));
+				target = Bukkit.getOfflinePlayer(args[1]);
+			CPlayer cp = plugin.getCPlayer(target);
+
+			MSG.tell(sender, MSG.getString("Token.Get", "%target% has %total%").replace("%target%", target.getName())
+					.replace("%total%", cp.getBalance() + "").replace("%s%", cp.getBalance() == 1 ? "" : "s"));
 			break;
 		}
 		return true;

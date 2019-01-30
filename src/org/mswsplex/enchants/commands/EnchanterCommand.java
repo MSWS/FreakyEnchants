@@ -8,15 +8,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
-import org.mswsplex.enchants.utils.NBTEditor;
 import org.mswsplex.enchants.utils.Utils;
 
 public class EnchanterCommand implements CommandExecutor, TabCompleter {
@@ -31,37 +28,25 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (!(sender instanceof Player)) {
+			MSG.tell(sender, "You must be a player");
+			return true;
+		}
 		Player player = (Player) sender;
+		CPlayer cp = plugin.getCPlayer(player);
 		if (args.length == 0) {
-			PlayerManager.setInfo(player, "openInventory", "MainMenu");
+			cp.setTempData("openInventory", "MainMenu");
 			player.openInventory(Utils.getGui(player, "MainMenu", 0));
 			Utils.playSound(plugin.config, "Sounds.OpenEnchantmentInventory", player);
 			return true;
 		}
-		Entity ent;
 		switch (args[0].toLowerCase()) {
 		case "create":
 			if (!sender.hasPermission("freakyenchants.enchanter.create")) {
 				MSG.noPerm(sender);
 				return true;
 			}
-			ent = player.getLocation().getWorld().spawnEntity(player.getLocation(),
-					EntityType.valueOf(plugin.config.getString("NPC.Type")));
-			NBTEditor.setEntityTag(ent, 1, "NoAI");
-			NBTEditor.setEntityTag(ent, 1, "Silent");
-			ArmorStand stand = (ArmorStand) player.getLocation().getWorld().spawnEntity(
-					player.getLocation().clone().add(0, Utils.getEntityHeight(ent.getType()) - 2, 0),
-					EntityType.ARMOR_STAND);
-			stand.setVisible(false);
-			stand.setCustomName(MSG.color(plugin.config.getString("NPC.Name")));
-			stand.setCustomNameVisible(true);
-			stand.setGravity(false);
-			int pos = 0;
-			while (plugin.data.contains("NPC." + pos))
-				pos++;
-			plugin.data.set("NPC." + pos, player.getLocation());
-			ent.setMetadata("isNPC", new FixedMetadataValue(plugin, pos));
-			ent.setMetadata("holoID", new FixedMetadataValue(plugin, stand.getUniqueId() + ""));
+			plugin.createSavedNPC(player.getLocation());
 			MSG.tell(player, MSG.getString("NPC.Spawned", "NPC Spawned"));
 			break;
 		case "remove":

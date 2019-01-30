@@ -14,6 +14,8 @@ StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
 HelpLength: 10 #Unused
 
+ConfigVersion: '1.0.3' #I mean you CAN change this but it'll probably break a ton of internal stuff.
+
 #NPC Settings
 NPC:
   Type: VILLAGER #The EntityType that the entity will be
@@ -28,7 +30,7 @@ Updater:
 Economy:
 #What sort of economy/currency should be used? TOKEN is FreakyEnchant's custom currency
 #Set to vault if you want to use with Essentials or other Vault compatible plugins
-#XP is the player's experience level, note that this won't work if they're offline
+#XP is the player's experience level
   Type: TOKEN #Options: TOKEN, VAULT, XP
   Precision: 2
   

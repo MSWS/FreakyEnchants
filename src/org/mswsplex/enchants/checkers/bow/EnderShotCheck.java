@@ -10,7 +10,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Utils;
@@ -44,14 +44,15 @@ public class EnderShotCheck implements Listener {
 		if (proj == null || proj.getShooter() == null || !(proj.getShooter() instanceof Player))
 			return;
 		Player player = (Player) proj.getShooter();
+		CPlayer cp = plugin.getCPlayer(player);
 		ItemStack hand = player.getItemInHand();
 		if (!hand.containsEnchantment(plugin.getEnchant("endershot")))
 			return;
-		if (System.currentTimeMillis() - PlayerManager.getDouble(player, "endershot") > plugin.getEnchManager()
+		if (System.currentTimeMillis() - cp.getSaveDouble("endershot") > plugin.getEnchManager()
 				.getBonusAmount("endershot", hand.getEnchantmentLevel(plugin.getEnchant("endershot")))
-				|| PlayerManager.getDouble(player, "endershot") == 0) {
+				|| !cp.hasSaveData("endershot")) {
 			proj.setMetadata("enderArrow", new FixedMetadataValue(plugin, true));
-			PlayerManager.setInfo(player, "endershot", (double) System.currentTimeMillis());
+			cp.setSaveData("endershot", (double) System.currentTimeMillis());
 			MSG.sendTimedHotbar(player, "EnderShot", hand.getEnchantmentLevel(plugin.getEnchant("endershot")));
 		}
 	}

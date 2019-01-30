@@ -7,7 +7,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Utils;
 
@@ -24,6 +24,7 @@ public class PAPIHook extends PlaceholderExpansion {
 	public String onRequest(OfflinePlayer player, String args) {
 		if (player == null)
 			return "";
+		CPlayer cp = plugin.getCPlayer(player);
 		if (args.startsWith("allow_")) {
 			if (!player.isOnline())
 				return null;
@@ -43,7 +44,7 @@ public class PAPIHook extends PlaceholderExpansion {
 			String e = args.substring("cost_".length(), args.indexOf("_", "cost_".length()));
 			return plugin.enchantCosts.getDouble(e + "." + args.substring("cost_".length() + e.length() + 1)) + "";
 		}
-		double bal = PlayerManager.getBalance(player);
+		double bal = cp.getBalance();
 		switch (args) {
 		case "balance_round":
 			return Math.round(bal) + "";

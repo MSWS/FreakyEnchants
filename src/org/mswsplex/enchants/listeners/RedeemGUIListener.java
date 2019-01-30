@@ -15,7 +15,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
-import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Utils;
@@ -28,19 +28,21 @@ public class RedeemGUIListener implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, this.plugin);
 	}
 
+	@SuppressWarnings("unchecked")
 	@EventHandler
 	public void onClick(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
+		CPlayer cp = plugin.getCPlayer(player);
 		ItemStack item = event.getCurrentItem();
 		if (item == null || item.getType() == Material.AIR)
 			return;
-		String inv = PlayerManager.getString(player, "openInventory");
+		String inv = cp.getTempString("openInventory");
 		if (inv == null || !inv.equals("RedeemMenu"))
 			return;
 		event.setCancelled(true);
 
-		shop: if (PlayerManager.getInfo(player, "enchantToApply") != null) {
-			Enchantment apply = plugin.getEnchManager().enchants.get(PlayerManager.getString(player, "enchantToApply"));
+		shop: if (cp.getTempData("enchantToApply") != null) {
+			Enchantment apply = plugin.getEnchManager().enchants.get(cp.getTempString("enchantToApply"));
 			if (!event.getClickedInventory().getName().equals("container.inventory"))
 				break shop;
 
@@ -49,41 +51,40 @@ public class RedeemGUIListener implements Listener {
 						.replace("%enchant%", apply.getName()));
 				break shop;
 			}
-			plugin.getEnchManager().addEnchant(item, PlayerManager.getDouble(player, "amplifier").intValue(), apply);
+			plugin.getEnchManager().addEnchant(item, (int) cp.getTempDouble("amplifier"), apply);
 
 			Utils.playSound(plugin.config, "Sounds.EnchantmentAdded", player);
 
 			MSG.tell(player,
 					MSG.getString("Enchant.Added", "Added %enchat% %level%").replace("%enchant%", apply.getName())
-							.replace("%level%", MSG.toRoman(PlayerManager.getDouble(player, "amplifier").intValue())));
+							.replace("%level%", MSG.toRoman(cp.getTempInteger("amplifier"))));
 
-			List<String> tokens = PlayerManager.getStringList(player, "enchantmentTokens");
+			List<String> tokens = (List<String>) cp.getSaveData("enchantmentTokens");
 			Iterator<String> tokenIt = tokens.iterator();
 			while (tokenIt.hasNext()) {
 				String line = tokenIt.next();
-				if (line.contains(PlayerManager.getString(player, "enchantToApply") + " "
-						+ PlayerManager.getDouble(player, "amplifier").intValue())) {
+				if (line.contains(cp.getTempString("enchantToApply") + " " + cp.getTempInteger("amplifier"))) {
 					tokenIt.remove();
 					break;
 				}
 			}
-			PlayerManager.setInfo(player, "enchantmentTokens", tokens);
-			PlayerManager.removeInfo(player, "enchantToApply");
-			PlayerManager.removeInfo(player, "amplifier");
+			cp.setTempData("enchantmentTokens", tokens);
+			cp.removeTempData("enchantToApply");
+			cp.removeTempData("amplifier");
 
 			player.openInventory(Utils.getRedeemGUI(player));
-			PlayerManager.setInfo(player, "openInventory", "RedeemMenu");
+			cp.setTempData("openInventory", "RedeemMenu");
 		}
 
 		if (event.getRawSlot() == event.getInventory().getSize() - 1 && event.getInventory().getSize() == 54) {
-			PlayerManager.setInfo(player, "page", PlayerManager.getDouble(player, "page") + 1);
+			cp.setTempData("page", cp.getTempInteger("page") + 1);
 			player.openInventory(Utils.getRedeemGUI(player));
-			PlayerManager.setInfo(player, "openInventory", "RedeemMenu");
+			cp.setTempData("openInventory", "RedeemMenu");
 		}
 		if (event.getRawSlot() == event.getInventory().getSize() - 9 && event.getInventory().getSize() == 54) {
-			PlayerManager.setInfo(player, "page", PlayerManager.getDouble(player, "page") - 1);
+			cp.setTempData("page", cp.getTempInteger("page") - 1);
 			player.openInventory(Utils.getRedeemGUI(player));
-			PlayerManager.setInfo(player, "openInventory", "RedeemMenu");
+			cp.setTempData("openInventory", "RedeemMenu");
 		}
 
 		if (!item.hasItemMeta() || !item.getItemMeta().hasLore()
@@ -113,7 +114,7 @@ public class RedeemGUIListener implements Listener {
 		int level = Utils.romanToDecimal(e.split(" ")[e.split(" ").length - 1]);
 
 		if (event.getClick() == ClickType.DROP && player.hasPermission("freakyenchants.redeem.delete")) {
-			List<String> tokens = PlayerManager.getStringList(player, "enchantmentTokens");
+			List<String> tokens = (List<String>) cp.getSaveData("enchantmentTokens");
 			Iterator<String> tokenIt = tokens.iterator();
 			while (tokenIt.hasNext()) {
 				String line = tokenIt.next();
@@ -122,30 +123,31 @@ public class RedeemGUIListener implements Listener {
 					break;
 				}
 			}
-			PlayerManager.setInfo(player, "enchantmentTokens", tokens);
+			cp.setTempData("enchantmentTokens", tokens);
 			Utils.playSound(plugin.config, "Sounds.TokenDeleted", player);
 			player.openInventory(Utils.getRedeemGUI(player));
-			PlayerManager.setInfo(player, "openInventory", "RedeemMenu");
+			cp.setTempData("openInventory", "RedeemMenu");
 		} else {
 			MSG.tell(player,
 					MSG.getString("Enchant.Click", "click item in inventory you want to enchant with %enchant% %level%")
 							.replace("%enchant%", ench.getName()).replace("%level%", MSG.toRoman(level)));
 
 			Utils.playSound(plugin.config, "Sounds.SelectedEnchantment", player);
-			PlayerManager.setInfo(player, "enchantToApply", id);
-			PlayerManager.setInfo(player, "amplifier", item.getAmount());
+			cp.setTempData("enchantToApply", id);
+			cp.setTempData("amplifier", item.getAmount());
 		}
 	}
 
 	@EventHandler
 	public void onClose(InventoryCloseEvent event) {
 		Player player = (Player) event.getPlayer();
-		String inv = PlayerManager.getString(player, "openInventory");
+		CPlayer cp = plugin.getCPlayer(player);
+		String inv = cp.getTempString("openInventory");
 		if (inv == null || !inv.equals("RedeemMenu"))
 			return;
 		Utils.playSound(plugin.config, "Sounds.CloseRedeemInventory", player);
-		PlayerManager.removeInfo(player, "openInventory");
-		PlayerManager.removeInfo(player, "enchantToApply");
-		PlayerManager.removeInfo(player, "amplifier");
+		cp.removeTempData("openInventory");
+		cp.removeTempData("enchantToApply");
+		cp.removeTempData("amplifier");
 	}
 }

@@ -14,7 +14,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.managers.TimeManager;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Cuboid;
@@ -34,19 +34,20 @@ public class OreSeekingCheck implements Listener {
 		if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR)
 			return;
 		Player player = event.getPlayer();
+		CPlayer cp = plugin.getCPlayer(player);
 		ItemStack hand = player.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
 		Enchantment ench = plugin.getEnchant("oreseeking");
 		if (!hand.containsEnchantment(ench))
 			return;
-		if (System.currentTimeMillis() - PlayerManager.getDouble(player, "oreseeking") < plugin.getEnchManager()
-				.getBonusAmount("oreseeking", hand.getEnchantmentLevel(ench))
-				&& PlayerManager.getDouble(player, "oreseeking") != 0) {
-			MSG.tell(player, plugin.config.getString("OreSeeking.Delay").replace("%time%",
-					TimeManager.getTime(
-							plugin.getEnchManager().getBonusAmount("oreseeking", hand.getEnchantmentLevel(ench))
-									- (System.currentTimeMillis() - PlayerManager.getDouble(player, "oreseeking")))));
+		if (System.currentTimeMillis() - cp.getSaveDouble("oreseeking") < plugin.getEnchManager()
+				.getBonusAmount("oreseeking", hand.getEnchantmentLevel(ench)) && cp.hasSaveData("oreseeking")) {
+			MSG.tell(player,
+					plugin.config.getString("OreSeeking.Delay").replace("%time%",
+							TimeManager.getTime(
+									plugin.getEnchManager().getBonusAmount("oreseeking", hand.getEnchantmentLevel(ench))
+											- (System.currentTimeMillis() - cp.getSaveDouble("oreseeking")))));
 			return;
 		}
 		List<String> materials = plugin.config.getStringList("OreSeeking.IncludeOres");
@@ -80,7 +81,7 @@ public class OreSeekingCheck implements Listener {
 					plugin.config.getString("OreSeeking.Found").replace("%type%", MSG.camelCase(closest.getType() + ""))
 							.replace("%distance%", MSG.parseDecimal(Math.sqrt(dist), 1) + ""));
 		}
-		PlayerManager.setInfo(player, "oreseeking", (double) System.currentTimeMillis());
+		cp.setSaveData("oreseeking", (double) System.currentTimeMillis());
 		MSG.sendTimedHotbar(player, "OreSeeking", hand.getEnchantmentLevel(ench));
 	}
 }

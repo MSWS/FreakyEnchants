@@ -19,7 +19,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
-import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Sounds;
 import org.mswsplex.enchants.utils.Utils;
@@ -53,7 +52,7 @@ public class BarrageCheck implements Listener {
 			return;
 		double pullTime, minTime = 950;
 		if (ent instanceof Player) {
-			pullTime = System.currentTimeMillis() - PlayerManager.getDouble((Player) ent, "pulledBarrage");
+			pullTime = System.currentTimeMillis() - plugin.getCPlayer(((Player) ent)).getSaveDouble("pulledBarrage");
 		} else {
 			pullTime = minTime;
 		}
@@ -104,6 +103,6 @@ public class BarrageCheck implements Listener {
 		if (hand.getType() != Material.BOW
 				|| (!player.getInventory().contains(Material.ARROW) && player.getGameMode() != GameMode.CREATIVE))
 			return;
-		PlayerManager.setInfo(player, "pulledBarrage", System.currentTimeMillis());
+		plugin.getCPlayer(player).setSaveData("pulledBarrage", System.currentTimeMillis());
 	}
 }

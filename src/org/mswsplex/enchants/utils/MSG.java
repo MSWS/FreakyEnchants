@@ -11,7 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.managers.TimeManager;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 
@@ -302,6 +302,7 @@ public class MSG {
 	public static void sendTimedHotbar(Player player, String format, int level) {
 		if (runnables.containsKey(player.getName() + format))
 			return;
+		CPlayer cp = plugin.getCPlayer(player);
 
 		int id = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			if (!player.isOnline()) {
@@ -310,8 +311,13 @@ public class MSG {
 				return;
 			}
 			double total = plugin.getEnchManager().getBonusAmount(format.toLowerCase(), level);
-			double timeLeft = total
-					- (System.currentTimeMillis() - PlayerManager.getDouble(player, format.toLowerCase() + ""));
+			double timeLeft;
+
+			if (cp.hasTempData(format.toLowerCase())) {
+				timeLeft = total - (System.currentTimeMillis() - cp.getTempDouble(format.toLowerCase() + ""));
+			} else {
+				timeLeft = total - (System.currentTimeMillis() - cp.getSaveDouble(format.toLowerCase() + ""));
+			}
 
 			if (timeLeft <= 0) {
 				MSG.tell(player, plugin.config.getString(format + ".Cooldown.Chat.Message"));

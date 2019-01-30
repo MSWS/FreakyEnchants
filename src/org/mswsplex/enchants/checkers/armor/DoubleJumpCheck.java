@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.inventory.ItemStack;
-import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Utils;
@@ -25,6 +25,8 @@ public class DoubleJumpCheck implements Listener {
 	@EventHandler
 	public void onMove(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
+		CPlayer cp = plugin.getCPlayer(player);
+
 		if (player.getEquipment() == null || player.getEquipment().getBoots() == null)
 			return;
 		ItemStack armor = player.getEquipment().getBoots();
@@ -38,7 +40,7 @@ public class DoubleJumpCheck implements Listener {
 		double cool = plugin.getEnchManager().getBonusAmount("doublejump",
 				armor.getEnchantmentLevel(plugin.getEnchant("doublejump")));
 
-		if (System.currentTimeMillis() - PlayerManager.getDouble(player, "doublejump") < cool)
+		if (System.currentTimeMillis() - cp.getTempDouble("doublejump") < cool)
 			return;
 		player.setAllowFlight(true);
 	}
@@ -48,6 +50,7 @@ public class DoubleJumpCheck implements Listener {
 		if (!event.isFlying())
 			return;
 		Player player = event.getPlayer();
+		CPlayer cp = plugin.getCPlayer(player);
 		if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
 			return;
 		if (player.getEquipment() == null || player.getEquipment().getBoots() == null)
@@ -59,7 +62,7 @@ public class DoubleJumpCheck implements Listener {
 		player.setFlying(false);
 		player.setAllowFlight(false);
 		Utils.playSound(plugin.config, "DoubleJump.JumpSound", player.getLocation());
-		PlayerManager.setInfo(player, "doublejump", (double) System.currentTimeMillis());
+		cp.setTempData("doublejump", (double) System.currentTimeMillis());
 		player.setVelocity(player.getVelocity()
 				.add(player.getLocation().getDirection().multiply(plugin.config.getDouble("DoubleJump.Strength")))
 				.setY(1 - (player.getLocation().getPitch() / 90)));

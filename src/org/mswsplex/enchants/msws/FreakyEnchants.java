@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -55,9 +56,12 @@ import org.mswsplex.enchants.commands.RedeemCommand;
 import org.mswsplex.enchants.commands.TokenCommand;
 import org.mswsplex.enchants.enchants.EnchantmentManager;
 import org.mswsplex.enchants.listeners.NPCListener;
+import org.mswsplex.enchants.listeners.OnLeaveListener;
 import org.mswsplex.enchants.listeners.RedeemGUIListener;
 import org.mswsplex.enchants.listeners.ShopListener;
 import org.mswsplex.enchants.listeners.UpdateJoinListener;
+import org.mswsplex.enchants.listeners.XPJoinListener;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.papi.PAPIHook;
 import org.mswsplex.enchants.utils.MSG;
@@ -73,6 +77,8 @@ public class FreakyEnchants extends JavaPlugin {
 			enchantCostsYml = new File(getDataFolder(), "costs.yml");
 
 	private EnchantmentManager eManager;
+	private PlayerManager pManager;
+
 	private Economy eco = null;
 
 	private String onlineVer = "unknown";
@@ -94,9 +100,9 @@ public class FreakyEnchants extends JavaPlugin {
 
 		MSG.plugin = this;
 		Utils.plugin = this;
-		PlayerManager.plugin = this;
 
 		eManager = new EnchantmentManager(this);
+		pManager = new PlayerManager(this);
 
 		if (config.getBoolean("Updater.OnEnable")) {
 			onlineVer = Utils.getSpigotVersion(64154);
@@ -123,12 +129,31 @@ public class FreakyEnchants extends JavaPlugin {
 			MSG.log("Successfully linked with PlaceholderAPI.");
 		}
 
+		String msg = "";
+		if (!config.contains("ConfigVersion")) {
+			msg = "[WARNING] Your config version is out of date. Latest possible version: 1.0.2. Resetting your config is highly recommended.";
+		} else {
+			if (config.getString("ConfigVersion").equals(getDescription().getVersion())) {
+				msg = "Your config is up to date and should be compatible with this version.";
+			} else {
+				switch (config.getString("ConfigVersion")) {
+				default:
+					msg = "Your config version is severely out of date and it is highly recommended you reset it.";
+					break;
+				}
+			}
+		}
+
+		MSG.log(msg);
+
 		new AddEnchantmentCommand(this);
 		new TokenCommand(this);
 		new EnchanterCommand(this);
 		new RedeemCommand(this);
 		new GiveEnchantCommand(this);
 		new UpdateJoinListener(this);
+		new XPJoinListener(this);
+		new OnLeaveListener(this);
 
 		new ShopListener(this);
 		new NPCListener(this);
@@ -141,6 +166,8 @@ public class FreakyEnchants extends JavaPlugin {
 	}
 
 	public void onDisable() {
+		for (OfflinePlayer p : pManager.getLoadedPlayers())
+			pManager.removePlayer(p);
 		saveData();
 	}
 
@@ -180,23 +207,58 @@ public class FreakyEnchants extends JavaPlugin {
 		new RecallCheck(this);
 	}
 
+	/**
+	 * Returns a custom enchantment by id See
+	 * {@link https://github.com/MSWS/FreakyEnchants/wiki/Enchantments} for
+	 * enchantment ids
+	 * 
+	 * @param id Should be lower-cased, no special characters, no spaces, no dashes
+	 * @return Enchantment, null if not found
+	 */
 	public Enchantment getEnchant(String id) {
 		return eManager.enchants.get(id.toLowerCase());
 	}
 
+	/**
+	 * Returns the PlayerManager. Use this for player data
+	 * 
+	 * @return
+	 */
 	public PlayerManager getPlayerManager() {
-		return new PlayerManager();
+		return this.pManager;
 	}
 
+	/**
+	 * Returns CPlayer
+	 * 
+	 * @see CPlayer
+	 * @param player
+	 * @return If player data is not loaded, new playerdata will be loaded
+	 */
+	public CPlayer getCPlayer(OfflinePlayer player) {
+		return pManager.getPlayer(player);
+	}
+
+	/**
+	 * Returns utils class
+	 * 
+	 * @return
+	 */
 	public Utils getUtils() {
 		return new Utils();
 	}
 
+	/**
+	 * Deletes and reloads all NPCs
+	 */
 	public void refreshNPCs() {
 		deleteNPCs();
 		loadNPCs();
 	}
 
+	/**
+	 * Deletes all loaded NPC's Does not delete them from the data file
+	 */
 	public void deleteNPCs() {
 		for (World w : Bukkit.getWorlds()) {
 			for (Entity ent : w.getEntities()) {
@@ -208,6 +270,9 @@ public class FreakyEnchants extends JavaPlugin {
 		}
 	}
 
+	/**
+	 * Loads in all NPC's Note this will not remove currently loaded NPC's
+	 */
 	public void loadNPCs() {
 		ConfigurationSection npcs = data.getConfigurationSection("NPC");
 		if (npcs != null) {
@@ -227,6 +292,30 @@ public class FreakyEnchants extends JavaPlugin {
 				ent.setMetadata("holoID", new FixedMetadataValue(this, stand.getUniqueId() + ""));
 			}
 		}
+	}
+
+	/**
+	 * CREATES and SAVES TO FILE an NPC Do NOT use this to respawn an NPC as this
+	 * will duplicate NPCs
+	 * 
+	 * @param loc
+	 */
+	public void createSavedNPC(Location loc) {
+		Entity ent = loc.getWorld().spawnEntity(loc, EntityType.valueOf(config.getString("NPC.Type")));
+		NBTEditor.setEntityTag(ent, 1, "NoAI");
+		NBTEditor.setEntityTag(ent, 1, "Silent");
+		ArmorStand stand = (ArmorStand) loc.getWorld()
+				.spawnEntity(loc.clone().add(0, Utils.getEntityHeight(ent.getType()) - 2, 0), EntityType.ARMOR_STAND);
+		stand.setVisible(false);
+		stand.setCustomName(MSG.color(config.getString("NPC.Name")));
+		stand.setCustomNameVisible(true);
+		stand.setGravity(false);
+		int pos = 0;
+		while (data.contains("NPC." + pos))
+			pos++;
+		data.set("NPC." + pos, loc);
+		ent.setMetadata("isNPC", new FixedMetadataValue(this, pos));
+		ent.setMetadata("holoID", new FixedMetadataValue(this, stand.getUniqueId() + ""));
 	}
 
 	public void saveData() {

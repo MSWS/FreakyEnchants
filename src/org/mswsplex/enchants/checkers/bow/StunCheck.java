@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.mswsplex.enchants.managers.PlayerManager;
+import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Utils;
@@ -37,7 +37,8 @@ public class StunCheck implements Listener {
 			return;
 		double duration = event.getDamager().getMetadata("stunArrow").get(0).asDouble();
 		if (event.getEntity() instanceof Player) {
-			PlayerManager.setInfo((Player) ent, "restrictMovement", System.currentTimeMillis() + duration);
+			plugin.getCPlayer((Player) event.getEntity()).setTempData("restrictMovement",
+					System.currentTimeMillis() + duration);
 		} else {
 			ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) duration / 1000 * 20, 6));
 		}
@@ -65,9 +66,10 @@ public class StunCheck implements Listener {
 	@EventHandler
 	public void onMove(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		if (PlayerManager.getInfo(player, "restrictMovement") == null)
+		CPlayer cp = plugin.getCPlayer(player);
+		if (!cp.hasTempData("restrictMovement"))
 			return;
-		if (PlayerManager.getDouble(player, "restrictMovement") < System.currentTimeMillis())
+		if (cp.getTempDouble("restrictMovement") < System.currentTimeMillis())
 			return;
 		if (event.getTo().getX() != event.getFrom().getX() || event.getTo().getZ() != event.getFrom().getZ())
 			event.setTo(event.getFrom());

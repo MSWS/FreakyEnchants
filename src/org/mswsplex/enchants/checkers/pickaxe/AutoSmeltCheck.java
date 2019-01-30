@@ -9,7 +9,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.mswsplex.enchants.managers.PlayerManager;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Utils;
 
@@ -42,7 +41,7 @@ public class AutoSmeltCheck implements Listener {
 				player.getInventory().addItem(replace);
 			}
 			if (player.getInventory().firstEmpty() == -1)
-				PlayerManager.emptyInventory(player);
+				Utils.emptyInventory(player);
 			return;
 		}
 		for (ItemStack item : event.getBlock().getDrops()) {
