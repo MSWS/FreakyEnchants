@@ -112,7 +112,7 @@ public class FreakyEnchants extends JavaPlugin {
 		if (setupEconomy()) {
 			MSG.log("Successfully linked with Vault.");
 		} else {
-			MSG.log("Vault not found, using Tokens as currency.");
+			MSG.log("Vault not found, disabling vault-reliant economy.");
 		}
 
 		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard"))
