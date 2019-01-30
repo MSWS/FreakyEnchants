@@ -21,3 +21,4 @@ allow_[enchantment] - Returns whether or not an enchantment is allowed where the
 allowworld_[world]_enchantment] - Returns whether or not a specific enchantment is allowed in the specified world (%fe_allowworld_world_excavation%)
 
 enchants - Returns a list of all enchantments separated by ,'s (%fe_enchants%)
+currency - Returns the currency type set in the config.yml

@@ -1,6 +1,8 @@
 package org.mswsplex.enchants.msws;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,7 +24,9 @@ import org.mswsplex.enchants.checkers.armor.ArmorChecker;
 import org.mswsplex.enchants.checkers.armor.BurningCheck;
 import org.mswsplex.enchants.checkers.armor.DoubleJumpCheck;
 import org.mswsplex.enchants.checkers.armor.FrostWalkerCheck;
+import org.mswsplex.enchants.checkers.armor.NetherWalkerCheck;
 import org.mswsplex.enchants.checkers.armor.SelfDestructCheck;
+import org.mswsplex.enchants.checkers.armor.SoftTouchCheck;
 import org.mswsplex.enchants.checkers.armor.SummonerCheck;
 import org.mswsplex.enchants.checkers.axe.ChuckerCheck;
 import org.mswsplex.enchants.checkers.axe.RecallCheck;
@@ -115,18 +119,40 @@ public class FreakyEnchants extends JavaPlugin {
 			}
 		}
 
+		List<String> links = new ArrayList<>();
+
 		if (setupEconomy()) {
-			MSG.log("Successfully linked with Vault.");
+			links.add("Vault");
 		} else {
 			MSG.log("Vault not found, disabling vault-reliant economy.");
 		}
 
-		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard"))
-			MSG.log("Successfully linked with WorldGuard.");
+		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
+			links.add("WorldGuard");
+		}
 
 		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 			new PAPIHook(this).register();
-			MSG.log("Successfully linked with PlaceholderAPI.");
+			links.add("PlaceholderAPI");
+		}
+
+		if (links.size() == 0) {
+			MSG.log("No dependencies detected,");
+		} else if (links.size() == 1) {
+			MSG.log("Successfully linked with " + links.get(0));
+		} else if (links.size() == 2) {
+			MSG.log("Successfully linked with " + links.get(0) + " and " + links.get(1));
+		} else {
+			String linkMsg = "";
+			for (int i = 0; i < links.size(); i++) {
+				if (i == links.size() - 2) {
+					linkMsg += links.get(i) + ", and ";
+				} else {
+					linkMsg += links.get(i) + ", ";
+				}
+			}
+			linkMsg = linkMsg.substring(0, linkMsg.length() - 2);
+			MSG.log("Successfully linked with " + linkMsg + ".");
 		}
 
 		String msg = "";
@@ -137,6 +163,9 @@ public class FreakyEnchants extends JavaPlugin {
 				msg = "Your config is up to date and should be compatible with this version.";
 			} else {
 				switch (config.getString("ConfigVersion")) {
+				case "1.0.3":
+					msg = "[WARNING] Your config is slightly out of date. It is recommended you reset it.|[WARNING] However, it could work fine without resetting.";
+					break;
 				default:
 					msg = "Your config version is severely out of date and it is highly recommended you reset it.";
 					break;
@@ -144,7 +173,9 @@ public class FreakyEnchants extends JavaPlugin {
 			}
 		}
 
-		MSG.log(msg);
+		for (String l : msg.split("\\|"))
+			MSG.log(l);
+		MSG.log("(You can view the latest default config at &ahttp://bit.ly/FreakyConfig&7)");
 
 		new AddEnchantmentCommand(this);
 		new TokenCommand(this);
@@ -205,6 +236,9 @@ public class FreakyEnchants extends JavaPlugin {
 		new AlarmerChecker(this);
 		new ChuckerCheck(this);
 		new RecallCheck(this);
+		new SoftTouchCheck(this);
+		new NetherWalkerCheck(this);
+
 	}
 
 	/**

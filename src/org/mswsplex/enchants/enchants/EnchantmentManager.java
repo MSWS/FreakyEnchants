@@ -16,7 +16,9 @@ import org.mswsplex.enchants.enchants.armor.DoubleJump;
 import org.mswsplex.enchants.enchants.armor.FrostWalker;
 import org.mswsplex.enchants.enchants.armor.Hearty;
 import org.mswsplex.enchants.enchants.armor.HeatShield;
+import org.mswsplex.enchants.enchants.armor.NetherWalker;
 import org.mswsplex.enchants.enchants.armor.SelfDestruct;
+import org.mswsplex.enchants.enchants.armor.SoftTouch;
 import org.mswsplex.enchants.enchants.armor.Speed;
 import org.mswsplex.enchants.enchants.armor.Spring;
 import org.mswsplex.enchants.enchants.armor.Summoner;
@@ -92,6 +94,8 @@ public class EnchantmentManager {
 		enchants.put("alarmer", new Alarmer(102));
 		enchants.put("chucker", new Chucker(103));
 		enchants.put("recall", new Recall(104));
+		enchants.put("softtouch", new SoftTouch(105));
+		enchants.put("netherwalker", new NetherWalker(106));
 
 		try {
 			try {

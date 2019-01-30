@@ -60,6 +60,8 @@ public class PAPIHook extends PlaceholderExpansion {
 				res += e.getValue().getName() + ", ";
 			}
 			return res.substring(0, res.length() - 2);
+		case "currency":
+			return plugin.config.getString("Currency.Type");
 		}
 		return null;
 	}

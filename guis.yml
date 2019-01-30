@@ -69,7 +69,7 @@ MainMenu:
     Name: '&e&lArmor Enchantments'
     Slot: 16
     NextInventory: ArmorEnchants
-    Amount: 10
+    Amount: 11
     Lore:
     - '&b&lEnchantments'
     - '&7 - Hearty'
@@ -82,6 +82,7 @@ MainMenu:
     - '&7 - FrostWalker'
     - '&7 - DoubleJump'
     - '&7 - Alarmer'
+    - '&7 - SoftTouch'
   balance:
     Icon: BOOK
     Name: '&a&l%balance% Tokens'
@@ -302,17 +303,17 @@ BowEnchants:
     Data: 1
 ArmorEnchants:
   Title: Armor Enchantments
-  Size: 54
+  Size: 45
   hearty:
     Icon: GOLDEN_APPLE
     Name: '&c&lHearty %level%'
-    Slot: 15
+    Slot: 19
     Lore:
     - '&7Increases your max health'
   spring:
     Icon: RABBIT_FOOT
     Name: '&a&lSpring %level%'
-    Slot: 42
+    Slot: 10
     Lore:
     - '&7Gives a jump boost when worn'
     - ''
@@ -320,41 +321,49 @@ ArmorEnchants:
   heatshield:
     Icon: WATER_BUCKET
     Name: '&6&lHeat Shield %level%'
-    Slot: 11
+    Slot: 12
     Lore:
     - '&7Grants immunity to fire'
   summoner:
     Icon: IRON_BLOCK
     Name: '&d&lSummoner %level%'
-    Slot: 25
+    Slot: 28
     Lore:
     - '&7Has a small chance to summon'
     - '&7protectors when melee damaged'
   selfdestruct:
     Icon: TNT
     Name: '&c&lSelf Destruct %level%'
-    Slot: 19
+    Slot: 23
     Lore:
     - '&7Creates an &cexplosion &7when killed'
   burning:
     Icon: BLAZE_POWDER
     Name: '&6&lBurning %level%'
-    Slot: 28
+    Slot: 21
     Lore:
     - '&7Has a small chance to set'
     - '&7mobs on &6fire&7 on melee damage'
+  netherwalker:
+    Icon: LAVA_BUCKET
+    Slot: 25
+    Name: '&4&lNetherWalker %level%'
+    Lore:
+    - '&7Ability to walk on lava'
+    - ''
+    - '&c&lBoots Only'
   speed:
     Icon: SUGAR
     Name: '&a&lSpeed %level%'
-    Slot: 34
+    Slot: 14
     Lore:
     - '&7Gain permanent speed.'
     - ''
     - '&c&lBoots Only'
   doublejump:
-    Icon: FEATHER
+    Icon: SLIME_BLOCK
     Name: '&d&lDoubleJump %level%'
-    Slot: 38
+    Slot: 30
     Lore:
     - '&7Gain an extra boost by'
     - '&7double tapping space'
@@ -363,20 +372,29 @@ ArmorEnchants:
   frostwalker:
     Icon: ICE
     Name: '&b&lFrostWalker %level%'
-    Slot: 31
+    Slot: 32
     Lore:
-    - '&7Be able to walk on water'
+    - '&7Ability to walk on water'
     - ''
     - '&c&lBoots Only'
   alarmer:
     Icon: NOTE_BLOCK
     Name: '&2&lAlarmer %level%'
-    Slot: 22
+    Slot: 34
     Lore:
     - '&7Be notified of nearby'
     - '&7mobs and players'
     - ''
     - '&c&lHelmet Only'
+  softtouch:
+    Icon: FEATHER
+    Slot: 16
+    Name: '&e&lSoftTouch %level%'
+    Lore:
+    - '&7Crops won''t be damaged'
+    - '&7when you step on them'
+    - ''
+    - '&c&lBoots Only'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''

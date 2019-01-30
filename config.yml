@@ -14,7 +14,7 @@ StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
 HelpLength: 10 #Unused
 
-ConfigVersion: '1.0.3' #I mean you CAN change this but it'll probably break a ton of internal stuff.
+ConfigVersion: '1.0.4' #I recommend not changing this. This will notify you if your config is outdated.
 
 #NPC Settings
 NPC:
@@ -401,13 +401,13 @@ TreeFeller:
     Pitch: 1
     Volume: 2
 FrostWalker:
-  BonusAmount:
+  BonusAmount: #Range of effect
     1: 3
     2: 4
     3: 5
     4: 6
     5: 7
-  Lifetime: 200 #How long the ice will stay in ticks
+  Lifetime: 200 #How long the blocks will stay in ticks
   BlockTypes:
   - 'WOOL:11'
   - 'WOOL:9'
@@ -415,6 +415,21 @@ FrostWalker:
   - 'PACKED_ICE'
   - 'ICE'
   - 'STATIONARY_WATER'
+NetherWalker:
+  BonusAmount: #Range of effect
+    1: 2
+    2: 3
+    3: 4
+    4: 5
+    5: 6
+  Lifetime: 50 #How long the blocks will stay in ticks
+  BlockTypes:
+  - 'STAINED_CLAY:14'
+  - 'STAINED_CLAY:1'
+  - 'WOOL:1'
+  - 'STAINED_CLAY:4'
+  - 'WOOL:4'
+  - 'LAVA'
 Tripper:
   BonusAmount: #Amount for vertical KB
     1: .25
