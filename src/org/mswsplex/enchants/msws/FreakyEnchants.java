@@ -23,6 +23,8 @@ import org.mswsplex.enchants.checkers.armor.DoubleJumpCheck;
 import org.mswsplex.enchants.checkers.armor.FrostWalkerCheck;
 import org.mswsplex.enchants.checkers.armor.SelfDestructCheck;
 import org.mswsplex.enchants.checkers.armor.SummonerCheck;
+import org.mswsplex.enchants.checkers.axe.ChuckerCheck;
+import org.mswsplex.enchants.checkers.axe.RecallCheck;
 import org.mswsplex.enchants.checkers.axe.TreeFellerCheck;
 import org.mswsplex.enchants.checkers.bow.BarrageCheck;
 import org.mswsplex.enchants.checkers.bow.EnderShotCheck;
@@ -174,6 +176,8 @@ public class FreakyEnchants extends JavaPlugin {
 		new ChainReactionCheck(this);
 		new OreSeekingCheck(this);
 		new AlarmerChecker(this);
+		new ChuckerCheck(this);
+		new RecallCheck(this);
 	}
 
 	public Enchantment getEnchant(String id) {

@@ -39,7 +39,7 @@ MainMenu:
     Slot: 34
     NextInventory: AxeEnchants
     HideAttributes: true
-    Amount: 7
+    Amount: 8
     Lore:
     - '&b&lEnchantments'
     - '&7 - Stormbreaker'
@@ -48,6 +48,8 @@ MainMenu:
     - '&7 - Wither Point'
     - '&7 - Toxic Point'
     - '&7 - Tree Feller'
+    - '&7 - Chucker'
+    - '&7 - Recall'
   bow:
     Icon: BOW
     Name: '&e&lBow Enchantments'
@@ -196,19 +198,19 @@ AxeEnchants:
   stormbreaker:
     Icon: BLAZE_ROD
     Name: '&e&lStormbreaker %level%'
-    Slot: 10
+    Slot: 28
     Lore:
     - '&7Has a small chance of &esmiting&7 your opponent.'
   nightshade:
     Icon: COAL
     Name: '&7&lNightshade %level%'
-    Slot: 13
+    Slot: 14
     Lore:
     - '&7Has a small chance of dealing a Blindness Effect.'
   severed:
     Icon: SKULL_ITEM
     Data: 3
-    Slot: 16
+    Slot: 10
     Owner: MSWS
     Name: '&c&lSevered %level%'
     Lore:
@@ -218,22 +220,37 @@ AxeEnchants:
     Icon: SKULL_ITEM
     Data: 1
     Name: '&7&lWither Point %level%'
-    Slot: 28
+    Slot: 12
     Lore:
     - '&7Has a small chance of dealing a Wither Effect.'
   toxicpoint:
     Icon: POTION
     Data: 8196
     Name: '&5&lToxic Point %level%'
-    Slot: 34
+    Slot: 16
     Lore:
     - '&7Has a small chance of dealing a &5Poison Effect&7.'
   treefeller:
     Icon: LOG
     Name: '&d&lTree Feller %level%'
-    Slot: 31
+    Slot: 34
     Lore:
     - '&7Automatically harvest treees'
+  chucker:
+    Icon: SNOW_BALL
+    Name: '&b&lChucker %level%'
+    Slot: 30
+    Lore:
+    - '&7Throw your axe around,'
+    - '&7deals damage if it hits'
+  recall:
+    Icon: STRING
+    Slot: 32
+    Name: '&b&lRecall %level%'
+    Lore:
+    - '&7Automatically teleports your'
+    - '&7weapon back to you if you miss'
+    - '&7with Chucker'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''

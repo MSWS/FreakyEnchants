@@ -20,6 +20,8 @@ import org.mswsplex.enchants.enchants.armor.SelfDestruct;
 import org.mswsplex.enchants.enchants.armor.Speed;
 import org.mswsplex.enchants.enchants.armor.Spring;
 import org.mswsplex.enchants.enchants.armor.Summoner;
+import org.mswsplex.enchants.enchants.axe.Chucker;
+import org.mswsplex.enchants.enchants.axe.Recall;
 import org.mswsplex.enchants.enchants.axe.TreeFeller;
 import org.mswsplex.enchants.enchants.bow.Barrage;
 import org.mswsplex.enchants.enchants.bow.EnderShot;
@@ -88,6 +90,8 @@ public class EnchantmentManager {
 		enchants.put("chainreaction", new ChainReaction(100));
 		enchants.put("oreseeking", new OreSeeking(101));
 		enchants.put("alarmer", new Alarmer(102));
+		enchants.put("chucker", new Chucker(103));
+		enchants.put("recall", new Recall(104));
 
 		try {
 			try {
@@ -173,19 +177,6 @@ public class EnchantmentManager {
 		}
 		return plugin.config.getInt(ench + ".Amplifier." + big);
 	}
-
-//	public double getBonusAmount(String ench, int lvl) {
-//		ench = enchants.get(ench.toLowerCase()).getName().replace(" ", "");
-//		if (!plugin.config.contains(ench) || plugin.config.getConfigurationSection(ench) == null)
-//			return 0.0;
-//		int big = 0;
-//		for (String level : plugin.config.getConfigurationSection(ench + ".BonusAmount").getKeys(false)) {
-//			int l = Integer.parseInt(level);
-//			if (lvl >= l && l >= big)
-//				big = l;
-//		}
-//		return plugin.config.getDouble(ench + ".BonusAmount." + big);
-//	}
 
 	public void addEnchant(ItemStack item, int level, Enchantment enchant) {
 		ItemMeta meta = item.getItemMeta();

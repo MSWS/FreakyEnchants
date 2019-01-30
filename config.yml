@@ -512,3 +512,30 @@ Alarmer:
     3: 10
     4: 15
     5: 20
+Chucker:
+  IgnoreCreative: false
+  ThrowSound:
+    Enabled: true
+    Name: 'PISTON_EXTEND'
+    Pitch: 1
+    Volume: 1.5
+  HitSound:
+    Name: 'BLAZE_HIT'
+  Particle:
+    Enabled: true
+    Type: 'FLAME'
+  DamageAmount:
+    1: 2
+    2: 4
+    3: 5
+    4: 7
+    5: 8
+  ThrowStrength:
+    1: 1
+    2: 1.5
+    3: 2
+    4: 3
+    5: 3.5
+Recall:
+  RecallSound:
+    Name: 'ENDERMAN_TELEPORT'
