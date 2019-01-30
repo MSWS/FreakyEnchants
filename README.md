@@ -1,6 +1,6 @@
 # FreakyEnchantments
 Features:
-  * Over 25+ custom enchantments
+  * Over 35+ custom enchantments
   * NPC Support
   * Enchantments work with regular entities
   * Extremely customizable enchantments, messages, prices, and GUIs
