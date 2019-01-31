@@ -27,6 +27,10 @@ Updater:
   OnEnable: true #If true, FreakyEnchants will log in console when enabled if a new version is available
   OnJoin: true #If true, players with permission freakyenchants.autoupdater will be notified about new versions
 
+Changelog: #If true, FreakyEnchants will grab the changelog from Github and display them in console/game
+  OnEnable: true
+  OnJoin: true
+
 Economy:
 #What sort of economy/currency should be used? TOKEN is FreakyEnchant's custom currency
 #Set to vault if you want to use with Essentials or other Vault compatible plugins

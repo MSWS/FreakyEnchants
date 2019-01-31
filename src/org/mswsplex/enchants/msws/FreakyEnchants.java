@@ -1,6 +1,10 @@
 package org.mswsplex.enchants.msws;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +91,8 @@ public class FreakyEnchants extends JavaPlugin {
 
 	private String onlineVer = "unknown";
 
+	List<String> changelog;
+
 	public void onEnable() {
 		if (!configYml.exists())
 			saveResource("config.yml", true);
@@ -108,6 +114,8 @@ public class FreakyEnchants extends JavaPlugin {
 		eManager = new EnchantmentManager(this);
 		pManager = new PlayerManager(this);
 
+		changelog = new ArrayList<>();
+
 		if (config.getBoolean("Updater.OnEnable")) {
 			onlineVer = Utils.getSpigotVersion(64154);
 
@@ -116,6 +124,21 @@ public class FreakyEnchants extends JavaPlugin {
 			} else if (MSG.outdated(getDescription().getVersion(), onlineVer)) {
 				MSG.log(lang.getString("Outdated.Console").replace("%ver%", getDescription().getVersion())
 						.replace("%oVer%", onlineVer));
+
+				if (config.getBoolean("Changelog.OnEnable"))
+					try {
+						URL u = new URL("https://raw.githubusercontent.com/MSWS/FreakyEnchants/master/changelog.txt");
+						URLConnection conn = u.openConnection();
+						BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+						String inputLine;
+						while ((inputLine = in.readLine()) != null) {
+							MSG.log(inputLine);
+							changelog.add(inputLine);
+						}
+						in.close();
+					} catch (Exception e) {
+						MSG.log("Unable to grab latest changelog.");
+					}
 			}
 		}
 
@@ -410,5 +433,9 @@ public class FreakyEnchants extends JavaPlugin {
 
 	public String getOnlineVer() {
 		return onlineVer;
+	}
+
+	public List<String> getChangelog() {
+		return changelog;
 	}
 }

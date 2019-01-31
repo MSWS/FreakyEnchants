@@ -20,7 +20,7 @@ public class UpdateJoinListener implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		if (!player.hasPermission("freakyenchants.autoupdater")||!plugin.config.getBoolean("Updater.OnJoin"))
+		if (!player.hasPermission("freakyenchants.autoupdater") || !plugin.config.getBoolean("Updater.OnJoin"))
 			return;
 		String online = plugin.getOnlineVer();
 		if (online == null) {
@@ -31,6 +31,14 @@ public class UpdateJoinListener implements Listener {
 			MSG.tell(player, MSG.getString("Outdated.InGame", "FreakyEnchants is outdated %ver%/%oVer%")
 					.replace("%ver%", plugin.getDescription().getVersion()).replace("%oVer%", online));
 		}
+
+		if (!player.hasPermission("freakyenchants.changelog") || !plugin.config.getBoolean("Changelog.OnJoin"))
+			return;
+
+		plugin.getChangelog().forEach((line) -> {
+			MSG.tell(player, line);
+		});
+
 	}
 
 }
