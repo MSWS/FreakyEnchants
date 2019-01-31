@@ -556,38 +556,3 @@ Chucker:
 Recall:
   RecallSound:
     Name: 'ENDERMAN_TELEPORT'
-HookShot:
-  Cooldown:
-    Actionbar:
-      Enabled: true
-      Message: '&7(HookShot) %bar% &7%time%'
-      CompleteMessage:  "&e&l\u2739\u2726\u2733 &e&lHookShot Refreshed &e&l\u2733\u2726\u2739"
-      Bar:
-        Length: 20
-        ProgChar: "&c\u258D"
-        LeftChar: "&4\u258D"
-    Sound:
-      Enabled: true
-      Name: NOTE_PLING
-      Pitch: 2
-      Volume: 2
-    Chat:
-      #Message: '&5&l[&eHookShot &erefreshed&5&l]'
-  TeleportSound:
-    Enabled: true
-    Name: ENDERMAN_TELEPORT
-    Pitch: 1
-    Volume: 2
-  DeleteArrow: true
-  PowerAmount:
-    1: 1
-    2: 1.5
-    3: 2
-    4: 2.5
-    5: 3
-  BonusAmount: #Cooldown duration (in milliseconds)
-    1: 20000
-    2: 18000
-    3: 15000
-    4: 12000
-    5: 10000
