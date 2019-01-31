@@ -10,14 +10,14 @@ MainMenu:
     Amount: 8
     Lore:
     - '&b&lEnchantments'
-    - '&7 - Wither Point'
-    - '&7 - Toxic Point'
-    - '&7 - Revive'
-    - '&7 - Rage'
-    - '&7 - Freeze'
-    - '&7 - Tripper'
-    - '&7 - Chain Reaction'
     - '&7 - Nightshade'
+    - '&7 - Tripper'
+    - '&7 - Wither Point'
+    - '&7 - &aRevive'
+    - '&7 - &cRage'
+    - '&7 - &bFreeze'
+    - '&7 - &dChain Reaction'
+    - '&7 - &5Toxic Point'
   pick:
     Icon: DIAMOND_PICKAXE
     Name: '&e&lPickaxe Enchantments'
@@ -27,12 +27,12 @@ MainMenu:
     Amount: 6
     Lore:
     - '&b&lEnchantments'
-    - '&7 - Explosion'
-    - '&7 - Excavation'
-    - '&7 - AutoGrab'
-    - '&7 - AutoSmelt'
-    - '&7 - ExtraXP'
-    - '&7 - OreSearcher'
+    - '&7 - &fAutoSmelt'
+    - '&7 - &aExtraXP'
+    - '&7 - &eExcavation'
+    - '&7 - &cExplosion'
+    - '&7 - &3AutoGrab'
+    - '&7 - &dOreSeeking'
   axe:
     Icon: DIAMOND_AXE
     Name: '&e&lAxe Enchantments'
@@ -42,14 +42,14 @@ MainMenu:
     Amount: 8
     Lore:
     - '&b&lEnchantments'
-    - '&7 - Stormbreaker'
     - '&7 - Nightshade'
-    - '&7 - Severed'
     - '&7 - Wither Point'
-    - '&7 - Toxic Point'
-    - '&7 - Tree Feller'
-    - '&7 - Chucker'
-    - '&7 - Recall'
+    - '&7 - &eStormbreaker'
+    - '&7 - &bChucker'
+    - '&7 - &bRecall'
+    - '&7 - &cSevered'
+    - '&7 - &5Toxic Point'
+    - '&7 - &dTree Feller'
   bow:
     Icon: BOW
     Name: '&e&lBow Enchantments'
@@ -58,31 +58,27 @@ MainMenu:
     Amount: 6
     Lore:
     - '&b&lEnchantments'
-    - '&7 - Explosive'
-    - '&7 - Stun'
-    - '&7 - Barrage'
-    - '&7 - Ender Shot'
     - '&7 - Wither Shot'
-    - '&7 - Toxic Shot'
+    - '&7 - &eStun'
+    - '&7 - &cExplosive'
+    - '&7 - &dBarrage'
+    - '&7 - &5Ender Shot'
+    - '&7 - &5Toxic Shot'
   armor:
     Icon: DIAMOND_CHESTPLATE
     Name: '&e&lArmor Enchantments'
     Slot: 16
     NextInventory: ArmorEnchants
-    Amount: 11
+    Amount: 12
     Lore:
     - '&b&lEnchantments'
-    - '&7 - Hearty'
-    - '&7 - Spring'
-    - '&7 - Heat Shield'
-    - '&7 - Summoner'
-    - '&7 - Self Destruct'
-    - '&7 - Burning'
-    - '&7 - Speed'
-    - '&7 - FrostWalker'
-    - '&7 - DoubleJump'
-    - '&7 - Alarmer'
-    - '&7 - SoftTouch'
+    - '&7 - &bFrostWalker'
+    - '&7 - &eSoftTouch'
+    - '&7 - &2Alarmer'
+    - '&7 - &dSummoner'
+    - '&7 - &dDoubleJump'
+    - ''
+    - '&7&oand &e&o7 &7&omore...'
   balance:
     Icon: BOOK
     Name: '&a&l%balance% Tokens'

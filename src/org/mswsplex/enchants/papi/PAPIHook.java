@@ -61,7 +61,7 @@ public class PAPIHook extends PlaceholderExpansion {
 			}
 			return res.substring(0, res.length() - 2);
 		case "currency":
-			return plugin.config.getString("Currency.Type");
+			return plugin.config.getString("Economy.Type");
 		}
 		return null;
 	}

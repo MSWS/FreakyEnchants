@@ -157,7 +157,7 @@ public class FreakyEnchants extends JavaPlugin {
 
 		String msg = "";
 		if (!config.contains("ConfigVersion")) {
-			msg = "[WARNING] Your config version is out of date. Latest possible version: 1.0.2. Resetting your config is highly recommended.";
+			msg = "&4[WARNING] &cYour config version is out of date. Resetting your config is highly recommended.";
 		} else {
 			if (config.getString("ConfigVersion").equals(getDescription().getVersion())) {
 				msg = "Your config is up to date and should be compatible with this version.";
@@ -238,7 +238,6 @@ public class FreakyEnchants extends JavaPlugin {
 		new RecallCheck(this);
 		new SoftTouchCheck(this);
 		new NetherWalkerCheck(this);
-
 	}
 
 	/**

@@ -103,6 +103,6 @@ public class BarrageCheck implements Listener {
 		if (hand.getType() != Material.BOW
 				|| (!player.getInventory().contains(Material.ARROW) && player.getGameMode() != GameMode.CREATIVE))
 			return;
-		plugin.getCPlayer(player).setSaveData("pulledBarrage", System.currentTimeMillis());
+		plugin.getCPlayer(player).setSaveData("pulledBarrage", (double) System.currentTimeMillis());
 	}
 }
