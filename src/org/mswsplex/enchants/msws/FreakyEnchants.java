@@ -163,6 +163,9 @@ public class FreakyEnchants extends JavaPlugin {
 				msg = "Your config is up to date and should be compatible with this version.";
 			} else {
 				switch (config.getString("ConfigVersion")) {
+				case "1.0.4":
+					msg = "[NOTE] Your config is slightly out of date.|[NOTE] There are no extreme differences, resetting is up to you.";
+					break;
 				case "1.0.3":
 					msg = "[WARNING] Your config is slightly out of date. It is recommended you reset it.|[WARNING] However, it could work fine without resetting.";
 					break;
@@ -175,7 +178,8 @@ public class FreakyEnchants extends JavaPlugin {
 
 		for (String l : msg.split("\\|"))
 			MSG.log(l);
-		MSG.log("(You can view the latest default config at &ahttp://bit.ly/FreakyConfig&7)");
+		MSG.log("You can view the latest default config at &ahttp://bit.ly/FreakyConfig");
+		MSG.log("It is recommended you keep up to date due to new versions constantly being released.");
 
 		new AddEnchantmentCommand(this);
 		new TokenCommand(this);
