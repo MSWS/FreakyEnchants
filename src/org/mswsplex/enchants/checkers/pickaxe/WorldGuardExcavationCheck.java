@@ -15,13 +15,16 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.Cuboid;
+import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Sounds;
 import org.mswsplex.enchants.utils.Utils;
 
-public class ExcavationCheck implements Listener {
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+
+public class WorldGuardExcavationCheck implements Listener {
 	private FreakyEnchants plugin;
 
-	public ExcavationCheck(FreakyEnchants plugin) {
+	public WorldGuardExcavationCheck(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
@@ -42,14 +45,24 @@ public class ExcavationCheck implements Listener {
 		int lv = (int) plugin.getEnchManager().getBonusAmount("excavation",
 				hand.getEnchantmentLevel(plugin.getEnchant("excavation")));
 
-		boolean autosmelt = hand.containsEnchantment(plugin.getEnchant("autosmelt"));
-		boolean autograb = hand.containsEnchantment(plugin.getEnchant("autograb"));
+		WorldGuardPlugin wg = null;
+		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
+			wg = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
+		}
 
+		boolean autosmelt = hand.containsEnchantment(this.plugin.getEnchant("autosmelt"));
+
+		boolean autograb = hand.containsEnchantment(this.plugin.getEnchant("autograb"));
 		Location loc = event.getBlock().getLocation();
 		Cuboid cube = new Cuboid(player.getWorld(), loc.getBlockX() - lv / 2, loc.getBlockY() - lv / 2,
 				loc.getBlockZ() - lv / 2, loc.getBlockX() + lv / 2, loc.getBlockY() + lv / 2, loc.getBlockZ() + lv / 2);
+		final WorldGuardPlugin fwg = wg;
 		int[] pos = { 0 };
 		int[] id = new int[1];
+
+		if (wg == null)
+			MSG.log("[WARNING] WorldGuard was not found. Reload the server to remove this error message.");
+
 		id[0] = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			if (pos[0] >= cube.getBlocks().size()) {
 				Bukkit.getScheduler().cancelTask(id[0]);
@@ -58,6 +71,10 @@ public class ExcavationCheck implements Listener {
 			for (int i = 0; i < plugin.config.getInt("Excavation.MaxBlocks") && pos[0] < cube.getBlocks().size(); i++) {
 				Block b = cube.getBlocks().get(pos[0]);
 				if (b.isLiquid() || b.getType() == Material.AIR) {
+					pos[0]++;
+					continue;
+				}
+				if (fwg != null && !fwg.canBuild(player, b)) {
 					pos[0]++;
 					continue;
 				}

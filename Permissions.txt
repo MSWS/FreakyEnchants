@@ -14,6 +14,9 @@ freakyenchants.token.get
 freakyenchants.token.get.others - Access to see other player's balances
 freakyenchants.token.shop - Access to /token shop (Basically /enchanter)
 
+freakyenchants.command - Access to /freakyenchants
+freakyenchants.command.version - Access to /freakyenchants version
+
 freakyenchants.redeem - Access to the /redeem GUI
 freakyenchants.redeem.delete - Access to delete own tokens with Q
 

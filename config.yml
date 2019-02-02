@@ -14,7 +14,7 @@ StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
 HelpLength: 10 #Unused
 
-ConfigVersion: '1.1' #I recommend not changing this. This will notify you if your config is outdated.
+ConfigVersion: '1.1.1' #I recommend not changing this. This will notify you if your config is outdated.
 
 #NPC Settings
 NPC:
@@ -37,13 +37,6 @@ Economy:
 #XP is the player's experience level
   Type: TOKEN #Options: TOKEN, VAULT, XP
   Precision: 2
-  
-#What blocks will autosmelt affect?
-#For example, IRON_ORE will be changed into IRON_INGOT
-AutoSmeltDrops:
-  IRON_ORE: IRON_INGOT
-  GOLD_ORE: GOLD_INGOT
-  COBBLESTONE: STONE
 
 #What world(s) will certain enchantments be disabled in?
 DisabledWorlds:
@@ -142,6 +135,12 @@ TokenDeleteLine: '&c&l[Q] To Delete'
 #  5: 20 #The level V enchantment will have a %20 chance of activating
 # Levels III - IV will have a %10 percent as it is the closest lowest specificed chance 
 
+#What blocks will autosmelt affect?
+#For example, IRON_ORE will be changed into IRON_INGOT
+AutoSmeltDrops:
+  IRON_ORE: IRON_INGOT
+  GOLD_ORE: GOLD_INGOT
+  COBBLESTONE: STONE
 WitherPoint:
   Affects:
     Generic: true #If unspecified, should WitherPoint affect it?

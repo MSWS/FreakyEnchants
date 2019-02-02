@@ -1,5 +1,9 @@
 NoPermission: '&cYou do not have permission to do this.'
 UnknownCommand: '&cUnknown command.'
+Reloaded: '&aFreakyEnchants successfully reloaded.'
+Currency:
+  Unknown: '&cUnknown currency type (xp, vault, or token).'
+  Set: '&7Set active currency type to &e%type%&7.'
 Token:
   Give: '&7Successfully gave &e%target% &a%amo% &7token%s%, they now have &b%total%&7.'
   Set: '&7Successfully set &e%target%&7 to have &b%total% &7token%s%.'
@@ -7,9 +11,13 @@ Token:
   Insufficient: '&cYou have insufficient funds. (&4%total% &cof &a%cost%&c).'
   Missing: '&cYou must specify a number.'
 Outdated:
-  Console: '&4[WARNING] &cFreakyEnchants is outdated. (Current version: &e%ver%&c Online Version: &e%oVer%&c)'
-  InGame: '&d&lFreakyEnchants&7 is out of date. &c(Current version: &e%ver%&c Online Version: &e%oVer%&c)'
+  Console: '&4[WARNING] &dFreakyEnchants &cis outdated. (Current version: &e%ver%&c
+    Online Version: &e%oVer%&c)'
+  InGame: '&d&lFreakyEnchants&7 is &cout of date. &c(Current version: &e%ver%&c Online
+    Version: &e%oVer%&c)'
   Error: '&4[WARNING] Unable to grab online version for FreakyEnchants.'
+Updated:
+  InGame: '&dFreakyEnchants %ver% &7is &aup to date &7(&aonline version: &2%oVer%&7).'
 NPC:
   Spawned: '&7Successfully created new NPC.'
   Deleted: '&7Successfully &cdeleted&7 the closest NPC.'
@@ -55,3 +63,11 @@ Help:
   addenchant:
   - '&e<> &fOptional &e[] &fRequired'
   - '&e/addenchant [Enchantment|All] <Level> &f- Enchants the item in your hand'
+  default:
+  - '&e<> &fOptional &e[] &fRequired'
+  - '&e/freakyenchants help &f- Displays this help message'
+  - '&e/freakyenchants version &f- Checks online version'
+  - '&e/freakyenchants changelog &f- Prints out online changelog'
+  - '&e/freakyenchants setcurrency <Type> &f- Sets FE''s currency type'
+  - '&e/freakyenchants reload &f- Reloads FE''s config, lang, cost, and gui files.'
+  - '&e/freakyenchants reset &f- Resets FE''s config, lang, cost, and gui files.'

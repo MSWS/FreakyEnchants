@@ -47,6 +47,7 @@ import org.mswsplex.enchants.checkers.pickaxe.ExcavationCheck;
 import org.mswsplex.enchants.checkers.pickaxe.ExplosionCheck;
 import org.mswsplex.enchants.checkers.pickaxe.ExtraXPCheck;
 import org.mswsplex.enchants.checkers.pickaxe.OreSeekingCheck;
+import org.mswsplex.enchants.checkers.pickaxe.WorldGuardExcavationCheck;
 import org.mswsplex.enchants.checkers.sword.ChainReactionCheck;
 import org.mswsplex.enchants.checkers.sword.FreezeCheck;
 import org.mswsplex.enchants.checkers.sword.NightshadeCheck;
@@ -59,6 +60,7 @@ import org.mswsplex.enchants.checkers.sword.TripperCheck;
 import org.mswsplex.enchants.checkers.sword.WitherPointCheck;
 import org.mswsplex.enchants.commands.AddEnchantmentCommand;
 import org.mswsplex.enchants.commands.EnchanterCommand;
+import org.mswsplex.enchants.commands.FreakyEnchantsCommand;
 import org.mswsplex.enchants.commands.GiveEnchantCommand;
 import org.mswsplex.enchants.commands.RedeemCommand;
 import org.mswsplex.enchants.commands.TokenCommand;
@@ -116,8 +118,22 @@ public class FreakyEnchants extends JavaPlugin {
 
 		changelog = new ArrayList<>();
 
+		try {
+			URL u = new URL("https://raw.githubusercontent.com/MSWS/FreakyEnchants/master/changelog.txt");
+			URLConnection conn = u.openConnection();
+			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String inputLine;
+			while ((inputLine = in.readLine()) != null) {
+				changelog.add(inputLine);
+			}
+			in.close();
+		} catch (Exception e) {
+			MSG.log("Unable to grab latest changelog.");
+		}
+
+		onlineVer = Utils.getSpigotVersion(64154);
+
 		if (config.getBoolean("Updater.OnEnable")) {
-			onlineVer = Utils.getSpigotVersion(64154);
 
 			if (onlineVer == null) {
 				MSG.log(lang.getString("Outdated.Error"));
@@ -126,19 +142,8 @@ public class FreakyEnchants extends JavaPlugin {
 						.replace("%oVer%", onlineVer));
 
 				if (config.getBoolean("Changelog.OnEnable"))
-					try {
-						URL u = new URL("https://raw.githubusercontent.com/MSWS/FreakyEnchants/master/changelog.txt");
-						URLConnection conn = u.openConnection();
-						BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-						String inputLine;
-						while ((inputLine = in.readLine()) != null) {
-							MSG.log(inputLine);
-							changelog.add(inputLine);
-						}
-						in.close();
-					} catch (Exception e) {
-						MSG.log("Unable to grab latest changelog.");
-					}
+					for (String res : changelog)
+						MSG.log(res);
 			}
 		}
 
@@ -160,7 +165,7 @@ public class FreakyEnchants extends JavaPlugin {
 		}
 
 		if (links.size() == 0) {
-			MSG.log("No dependencies detected,");
+			MSG.log("No dependencies detected.");
 		} else if (links.size() == 1) {
 			MSG.log("Successfully linked with " + links.get(0));
 		} else if (links.size() == 2) {
@@ -213,6 +218,7 @@ public class FreakyEnchants extends JavaPlugin {
 		new UpdateJoinListener(this);
 		new XPJoinListener(this);
 		new OnLeaveListener(this);
+		new FreakyEnchantsCommand(this);
 
 		new ShopListener(this);
 		new NPCListener(this);
@@ -234,7 +240,11 @@ public class FreakyEnchants extends JavaPlugin {
 		new ArmorChecker(this);
 
 		new ExplosionCheck(this);
-		new ExcavationCheck(this);
+		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) { // Load proper class
+			new WorldGuardExcavationCheck(this);
+		} else {
+			new ExcavationCheck(this);
+		}
 		new AutoSmeltCheck(this);
 		new WitherPointCheck(this);
 		new ToxicPointCheck(this);
