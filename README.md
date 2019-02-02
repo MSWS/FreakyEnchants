@@ -1,5 +1,5 @@
 # FreakyEnchantments
-<img alt="undefined" src="https://img.shields.io/spiget/download-size/64154.svg?colorB=aa0000&label=File%20Size&style=flat-square"><img alt="undefined" src="https://img.shields.io/github/languages/code-size/msws/FreakyEnchants.svg?style=flat-square"><img alt="undefined" src="https://img.shields.io/spiget/downloads/64154.svg?colorB=33ff33&label=Downloads&style=flat-square">
+![File Size](https://img.shields.io/spiget/download-size/64154.svg?colorB=aa0000&label=File%20Size&style=flat-square) ![Code Size](https://img.shields.io/github/languages/code-size/msws/FreakyEnchants.svg?label=Code%20Size&style=flat-square) ![Downloads](https://img.shields.io/spiget/downloads/64154.svg?colorB=33ff33&label=Downloads&style=flat-square)
 
 Features:
   * Over 35+ custom enchantments
