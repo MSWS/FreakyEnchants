@@ -34,7 +34,7 @@ public class TripperCheck implements Listener {
 		Enchantment ench = plugin.getEnchant("tripper");
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(ench))
+		if (!plugin.getEnchManager().containsEnchantment(hand, ench))
 			return;
 		Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
 			Vector vel = new Vector(0, Math.abs(Math.abs(ent.getVelocity().getX()))

@@ -37,7 +37,7 @@ public class ExplosiveCheck implements Listener {
 			return;
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchant("explosive")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "explosive"))
 			return;
 		proj.setMetadata("explosiveArrow", new FixedMetadataValue(plugin, true));
 	}

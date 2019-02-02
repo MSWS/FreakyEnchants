@@ -86,6 +86,11 @@ public class EnchanterCommand implements CommandExecutor, TabCompleter {
 			plugin.saveConfig();
 			plugin.refreshNPCs();
 			break;
+		case "test":
+			for (String ench : plugin.getEnchManager().getEnchantmentIDs()) {
+				MSG.announce(ench);
+			}
+			break;
 		}
 		plugin.saveData();
 		return true;

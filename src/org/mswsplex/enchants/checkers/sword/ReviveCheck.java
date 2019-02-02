@@ -35,7 +35,7 @@ public class ReviveCheck implements Listener {
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("revive")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "revive"))
 			return;
 		LivingEntity living = (LivingEntity) ent;
 		if (!plugin.getEnchManager().checkProbability("revive", hand.getEnchantmentLevel(plugin.getEnchant("revive"))))

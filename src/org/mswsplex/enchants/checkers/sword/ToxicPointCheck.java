@@ -34,7 +34,7 @@ public class ToxicPointCheck implements Listener {
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("toxicpoint")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "toxicpoint"))
 			return;
 		String name = plugin.config.contains("ToxicPoint.Affects." + event.getEntity().getType())
 				? event.getEntity().getType() + ""

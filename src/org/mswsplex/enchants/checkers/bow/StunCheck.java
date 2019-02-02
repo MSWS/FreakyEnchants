@@ -55,7 +55,7 @@ public class StunCheck implements Listener {
 			return;
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchant("stun")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "stun"))
 			return;
 		if (!plugin.getEnchManager().checkProbability("stun", hand.getEnchantmentLevel(plugin.getEnchant("stun"))))
 			return;

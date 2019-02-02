@@ -1,6 +1,7 @@
 package org.mswsplex.enchants.checkers.armor;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
@@ -35,13 +36,15 @@ public class ArmorChecker {
 							continue;
 						}
 						for (ItemStack armor : equipment.getArmorContents()) {
-							if (armor.containsEnchantment(plugin.getEnchant("hearty"))
+							if (armor == null || armor.getType() == Material.AIR)
+								continue;
+							if (plugin.getEnchManager().containsEnchantment(armor, "hearty")
 									&& Utils.allowEnchant(w, "hearty")) {
 								maxHealth += plugin.getEnchManager().getBonusAmount("hearty",
 										armor.getEnchantmentLevel(plugin.getEnchant("hearty")));
 							}
 							for (String eName : new String[] { "Spring", "Speed", "HeatShield" }) {
-								if (armor.containsEnchantment(plugin.getEnchant(eName.toLowerCase()))
+								if (plugin.getEnchManager().containsEnchantment(armor, eName.toLowerCase())
 										&& Utils.allowEnchant(w, eName.toLowerCase()))
 									ent.addPotionEffect(new PotionEffect(
 											PotionEffectType.getByName(plugin.config.getString(eName + ".EffectType")),

@@ -23,14 +23,14 @@ public class SelfDestructCheck implements Listener {
 
 	@EventHandler(ignoreCancelled = true)
 	public void onEntityDeath(EntityDeathEvent event) {
-		final Enchantment ench = plugin.getEnchant("selfdestruct");
+		Enchantment ench = plugin.getEnchant("selfdestruct");
 		LivingEntity ent = event.getEntity();
 		if (!Utils.allowEnchant(ent.getWorld(), "selfdestruct"))
 			return;
 		EntityEquipment e = ent.getEquipment();
 		if (e.getChestplate() == null || e.getChestplate().getType() == Material.AIR)
 			return;
-		if (!e.getChestplate().containsEnchantment(ench))
+		if (!plugin.getEnchManager().containsEnchantment(e.getChestplate(), "selfdestruct"))
 			return;
 		ent.getWorld().createExplosion(ent.getLocation().getX(), ent.getLocation().getY(), ent.getLocation().getZ(),
 				(float) plugin.getEnchManager().getBonusAmount("selfdestruct",

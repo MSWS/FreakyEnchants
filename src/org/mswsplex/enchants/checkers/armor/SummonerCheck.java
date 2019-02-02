@@ -40,7 +40,7 @@ public class SummonerCheck implements Listener {
 		for (ItemStack hand : ((LivingEntity) ent).getEquipment().getArmorContents()) {
 			if (hand == null || hand.getType() == Material.AIR)
 				continue;
-			if (!hand.containsEnchantment(plugin.getEnchant("summoner")))
+			if (!plugin.getEnchManager().containsEnchantment(hand, "summoner"))
 				continue;
 			if (!plugin.getEnchManager().checkProbability("summoner",
 					hand.getEnchantmentLevel(plugin.getEnchant("summoner"))))

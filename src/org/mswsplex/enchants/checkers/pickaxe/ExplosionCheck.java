@@ -28,7 +28,7 @@ public class ExplosionCheck implements Listener {
 		ItemStack hand = player.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("explosion")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "explosion"))
 			return;
 		event.getBlock().getWorld().createExplosion(event.getBlock().getLocation(),
 				hand.getEnchantmentLevel(plugin.getEnchant("explosion")));

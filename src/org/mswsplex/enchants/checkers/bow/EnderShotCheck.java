@@ -46,7 +46,7 @@ public class EnderShotCheck implements Listener {
 		Player player = (Player) proj.getShooter();
 		CPlayer cp = plugin.getCPlayer(player);
 		ItemStack hand = player.getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchant("endershot")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "endershot"))
 			return;
 		if (System.currentTimeMillis() - cp.getSaveDouble("endershot") > plugin.getEnchManager()
 				.getBonusAmount("endershot", hand.getEnchantmentLevel(plugin.getEnchant("endershot")))

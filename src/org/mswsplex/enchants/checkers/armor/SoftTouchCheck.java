@@ -24,7 +24,7 @@ public class SoftTouchCheck implements Listener {
 		if (player.getEquipment() == null || player.getEquipment().getBoots() == null)
 			return;
 		ItemStack armor = player.getEquipment().getBoots();
-		if (!armor.containsEnchantment(plugin.getEnchant("softtouch")))
+		if (!plugin.getEnchManager().containsEnchantment(armor, "softtouch"))
 			return;
 		if (event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType() == Material.SOIL) {
 			event.setCancelled(true);

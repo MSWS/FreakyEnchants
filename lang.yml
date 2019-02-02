@@ -16,6 +16,7 @@ NPC:
   Error: '&cNo nearby NPCs&7.'
 Enchant:
   Added: '&7Successfully added &e%enchant% %level%&7 to item.'
+  Removed: '&7Successfully removed &e%enchant%&7 from item.'
   Invalid: '&cUnable to add &e%enchant%&c to that item.'
   Click: '&b%enchant% %level%&7 selected, click on the item that you want to enchant.'
   Air: '&7Hold the item you want to enchant in your hand.'

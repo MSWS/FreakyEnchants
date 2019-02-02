@@ -14,7 +14,7 @@ StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
 HelpLength: 10 #Unused
 
-ConfigVersion: '1.0.5' #I recommend not changing this. This will notify you if your config is outdated.
+ConfigVersion: '1.1' #I recommend not changing this. This will notify you if your config is outdated.
 
 #NPC Settings
 NPC:

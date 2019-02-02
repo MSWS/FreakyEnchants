@@ -35,7 +35,7 @@ public class WitherPointCheck implements Listener {
 		ItemStack hand = living.getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("witherpoint")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "witherpoint"))
 			return;
 		String name = plugin.config.contains("WitherPoint.Affects." + event.getEntity().getType())
 				? event.getEntity().getType() + ""

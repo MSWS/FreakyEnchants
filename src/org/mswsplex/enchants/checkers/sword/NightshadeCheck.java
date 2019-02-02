@@ -34,7 +34,7 @@ public class NightshadeCheck implements Listener {
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("nightshade")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "nightshade"))
 			return;
 		String name = plugin.config.contains("Nightshade.Affects." + event.getEntity().getType())
 				? event.getEntity().getType() + ""

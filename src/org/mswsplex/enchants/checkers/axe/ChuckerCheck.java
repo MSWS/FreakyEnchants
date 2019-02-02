@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -22,7 +23,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.mswsplex.enchants.msws.FreakyEnchants;
-import org.mswsplex.enchants.utils.ParticleEffect;
 import org.mswsplex.enchants.utils.Utils;
 
 public class ChuckerCheck implements Listener {
@@ -47,9 +47,10 @@ public class ChuckerCheck implements Listener {
 		if (!Utils.allowEnchant(player.getWorld(), "chucker"))
 			return;
 		ItemStack hand = player.getItemInHand();
+
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("chucker")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "chucker"))
 			return;
 		if (player.getGameMode() == GameMode.CREATIVE && plugin.config.getBoolean("Chucker.IgnoreCreative"))
 			return;
@@ -69,6 +70,7 @@ public class ChuckerCheck implements Listener {
 		player.setItemInHand(new ItemStack(Material.AIR));
 
 		thrown.add(item);
+		event.setCancelled(true);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
@@ -113,8 +115,12 @@ public class ChuckerCheck implements Listener {
 					}
 
 					if (plugin.config.getBoolean("Chucker.Particle.Enabled")) {
-						ParticleEffect.valueOf(plugin.config.getString("Chucker.Particle.Type"))
-								.display(item.getVelocity(), 1, item.getLocation(), 5000);
+						// ParticleEffect.valueOf(plugin.config.getString("Chucker.Particle.Type"))
+						// .display(item.getVelocity(), 1, item.getLocation(), 5000);
+
+						for (Player p : item.getWorld().getPlayers()) {
+							p.spigot().playEffect(item.getLocation(), Effect.FLAME, 0, 0, 0, 0, 0, 0, 1, 5000);
+						}
 					}
 				}
 			}

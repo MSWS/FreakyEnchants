@@ -51,7 +51,7 @@ public class ToxicShotCheck implements Listener {
 			return;
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchant("toxicshot")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "toxicshot"))
 			return;
 		if (!plugin.getEnchManager().checkProbability("toxicshot",
 				hand.getEnchantmentLevel(plugin.getEnchant("toxicshot"))))

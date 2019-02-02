@@ -29,7 +29,7 @@ public class AutoSmeltCheck implements Listener {
 		ItemStack hand = player.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("autosmelt")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "autosmelt"))
 			return;
 
 		if (hand.containsEnchantment(plugin.getEnchant("autograb"))) {

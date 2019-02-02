@@ -48,7 +48,7 @@ public class BarrageCheck implements Listener {
 			return;
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchant("barrage")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "barrage"))
 			return;
 		double pullTime, minTime = 950;
 		if (ent instanceof Player) {

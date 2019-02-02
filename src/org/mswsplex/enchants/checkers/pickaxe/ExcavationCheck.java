@@ -39,9 +39,8 @@ public class ExcavationCheck implements Listener {
 		if (hand == null || hand.getType() == Material.AIR) {
 			return;
 		}
-		if (!hand.containsEnchantment(plugin.getEnchant("excavation"))) {
+		if (!plugin.getEnchManager().containsEnchantment(hand, "excavation"))
 			return;
-		}
 		int lv = (int) plugin.getEnchManager().getBonusAmount("excavation",
 				hand.getEnchantmentLevel(plugin.getEnchant("excavation")));
 

@@ -53,9 +53,15 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 				} else {
 					plugin.getEnchManager().addEnchant(player.getItemInHand(), level, ench);
 				}
-				MSG.tell(player,
-						MSG.getString("Enchant.Added", "added %enchant% %level%").replace("%enchant%", ench.getName())
-								.replace("%level%", MSG.toRoman(player.getItemInHand().getEnchantmentLevel(ench))));
+				if (level == 0) {
+					MSG.tell(player, MSG.getString("Enchant.Removed", "removed %enchant% %level%").replace("%enchant%",
+							ench.getName()));
+				} else {
+					MSG.tell(player,
+							MSG.getString("Enchant.Added", "added %enchant% %level%")
+									.replace("%enchant%", ench.getName())
+									.replace("%level%", MSG.toRoman(player.getItemInHand().getEnchantmentLevel(ench))));
+				}
 			}
 		} else if (!plugin.getEnchManager().enchants.containsKey(args[0].toLowerCase())) {
 			MSG.tell(sender, MSG.getString("Enchant.Unknown", "unknown enchantment"));
@@ -71,9 +77,14 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 			} else {
 				plugin.getEnchManager().addEnchant(player.getItemInHand(), level, ench);
 			}
-			MSG.tell(player,
-					MSG.getString("Enchant.Added", "added %enchant% %level%").replace("%enchant%", ench.getName())
-							.replace("%level%", MSG.toRoman(player.getItemInHand().getEnchantmentLevel(ench))));
+			if (level == 0) {
+				MSG.tell(player, MSG.getString("Enchant.Removed", "removed %enchant% %level%").replace("%enchant%",
+						ench.getName()));
+			} else {
+				MSG.tell(player,
+						MSG.getString("Enchant.Added", "added %enchant% %level%").replace("%enchant%", ench.getName())
+								.replace("%level%", MSG.toRoman(player.getItemInHand().getEnchantmentLevel(ench))));
+			}
 		}
 		return true;
 	}

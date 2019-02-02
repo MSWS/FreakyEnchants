@@ -36,11 +36,14 @@ public class FrostWalkerCheck implements Listener {
 			return;
 
 		ItemStack armor = player.getEquipment().getBoots();
-		if (!armor.containsEnchantment(plugin.getEnchant("frostwalker")) || player.getLocation().getY() % 1 != 0
+
+		if (!plugin.getEnchManager().containsEnchantment(armor, "frostwalker") || player.getLocation().getY() % 1 != 0
 				|| player.isFlying())
 			return;
+		
 		if (event.getTo().getBlock().equals(event.getFrom().getBlock()))
 			return;
+		
 		float radius = (float) plugin.getEnchManager().getBonusAmount("frostwalker",
 				armor.getEnchantmentLevel(plugin.getEnchant("frostwalker")));
 		Location loc = player.getLocation();

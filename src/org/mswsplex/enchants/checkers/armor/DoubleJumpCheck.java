@@ -32,7 +32,7 @@ public class DoubleJumpCheck implements Listener {
 		ItemStack armor = player.getEquipment().getBoots();
 		if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
 			return;
-		if (!armor.containsEnchantment(plugin.getEnchant("doublejump")) || player.getLocation().getY() % 1 != 0)
+		if (!plugin.getEnchManager().containsEnchantment(armor, "doublejump") || player.getLocation().getY() % 1 != 0)
 			return;
 		if (!player.getLocation().clone().getBlock().getRelative(BlockFace.DOWN).getType().isSolid())
 			return;
@@ -56,7 +56,7 @@ public class DoubleJumpCheck implements Listener {
 		if (player.getEquipment() == null || player.getEquipment().getBoots() == null)
 			return;
 		ItemStack armor = player.getEquipment().getBoots();
-		if (!armor.containsEnchantment(plugin.getEnchant("doublejump")))
+		if (!plugin.getEnchManager().containsEnchantment(armor, "doublejump"))
 			return;
 		event.setCancelled(true);
 		player.setFlying(false);

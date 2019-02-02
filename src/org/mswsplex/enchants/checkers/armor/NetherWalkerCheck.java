@@ -36,7 +36,7 @@ public class NetherWalkerCheck implements Listener {
 			return;
 
 		ItemStack armor = player.getEquipment().getBoots();
-		if (!armor.containsEnchantment(plugin.getEnchant("netherwalker")) || player.getLocation().getY() % 1 != 0
+		if (plugin.getEnchManager().containsEnchantment(armor, "netherwalker") || player.getLocation().getY() % 1 != 0
 				|| player.isFlying())
 			return;
 		if (event.getTo().getBlock().equals(event.getFrom().getBlock()))

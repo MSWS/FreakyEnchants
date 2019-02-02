@@ -31,7 +31,8 @@ public class AlarmerChecker {
 				Enchantment ench = plugin.getEnchant("alarmer");
 				for (Player target : Bukkit.getOnlinePlayers()) {
 					ItemStack helmet = target.getEquipment().getHelmet();
-					if (helmet == null || helmet.getType() == Material.AIR || !helmet.containsEnchantment(ench))
+					if (helmet == null || helmet.getType() == Material.AIR
+							|| !plugin.getEnchManager().containsEnchantment(helmet, ench))
 						continue;
 					double radius = plugin.getEnchManager().getDouble("alarmer", "Range",
 							helmet.getEnchantmentLevel(ench));

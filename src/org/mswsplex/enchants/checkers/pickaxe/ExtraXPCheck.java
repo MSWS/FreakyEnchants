@@ -29,7 +29,7 @@ public class ExtraXPCheck implements Listener {
 		ItemStack hand = player.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("extraxp")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "extraxp"))
 			return;
 		if (!event.getBlock().getType().isSolid() && plugin.getConfig().getBoolean("ExtraXP.MustBeSolid"))
 			return;

@@ -51,7 +51,7 @@ public class WitherShotCheck implements Listener {
 			return;
 		LivingEntity ent = (LivingEntity) proj.getShooter();
 		ItemStack hand = ent.getEquipment().getItemInHand();
-		if (!hand.containsEnchantment(plugin.getEnchant("withershot")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "withershot"))
 			return;
 		if (!plugin.getEnchManager().checkProbability("withershot",
 				hand.getEnchantmentLevel(plugin.getEnchant("withershot"))))

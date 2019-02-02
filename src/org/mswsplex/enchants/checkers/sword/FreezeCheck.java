@@ -34,7 +34,7 @@ public class FreezeCheck implements Listener {
 		ItemStack hand = ((LivingEntity) ent).getEquipment().getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("freeze")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "freeze"))
 			return;
 		String name = plugin.config.contains("Freeze.Affects." + event.getEntity().getType())
 				? event.getEntity().getType() + ""

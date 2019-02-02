@@ -37,7 +37,7 @@ public class RecallCheck implements Listener {
 							continue;
 						}
 
-						if (!item.getItemStack().containsEnchantment(plugin.getEnchant("recall"))) {
+						if (!plugin.getEnchManager().containsEnchantment(item.getItemStack(), "recall")) {
 							item.removeMetadata("chuckThrower", plugin);
 							continue;
 						}

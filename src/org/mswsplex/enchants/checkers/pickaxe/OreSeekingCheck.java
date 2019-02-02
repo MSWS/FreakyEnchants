@@ -39,7 +39,7 @@ public class OreSeekingCheck implements Listener {
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
 		Enchantment ench = plugin.getEnchant("oreseeking");
-		if (!hand.containsEnchantment(ench))
+		if (!plugin.getEnchManager().containsEnchantment(hand, ench))
 			return;
 		if (System.currentTimeMillis() - cp.getSaveDouble("oreseeking") < plugin.getEnchManager()
 				.getBonusAmount("oreseeking", hand.getEnchantmentLevel(ench)) && cp.hasSaveData("oreseeking")) {

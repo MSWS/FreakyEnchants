@@ -39,7 +39,7 @@ public class RageCheck implements Listener {
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
 		Enchantment ench = plugin.getEnchant("rage");
-		if (!hand.containsEnchantment(ench))
+		if (!plugin.getEnchManager().containsEnchantment(hand, ench))
 			return;
 		if (rage.containsKey(ent)) {
 			event.setDamage(event.getDamage()

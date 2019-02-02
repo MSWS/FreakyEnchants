@@ -186,6 +186,7 @@ public class FreakyEnchants extends JavaPlugin {
 				msg = "Your config is up to date and should be compatible with this version.";
 			} else {
 				switch (config.getString("ConfigVersion")) {
+				case "1.0.5":
 				case "1.0.4":
 					msg = "[NOTE] Your config is slightly out of date.|[NOTE] There are no extreme differences, resetting is up to you.";
 					break;

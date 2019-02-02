@@ -33,7 +33,7 @@ public class SeveredCheck implements Listener {
 		ItemStack hand = killer.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("severed")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "severed"))
 			return;
 		if (!plugin.getEnchManager().checkProbability("severed",
 				hand.getEnchantmentLevel(plugin.getEnchant("severed"))))

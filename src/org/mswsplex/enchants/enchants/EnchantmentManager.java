@@ -55,47 +55,49 @@ public class EnchantmentManager {
 
 	private FreakyEnchants plugin;
 
+	private final int offset = 70; // Enchantment ID's are painful to manage
+
 	public EnchantmentManager(FreakyEnchants plugin) {
 		this.plugin = plugin;
 		enchants = new HashMap<>();
 
-		enchants.put("explosion", new Explosion(70));
-		enchants.put("excavation", new Excavation(71));
-		enchants.put("autosmelt", new AutoSmelt(72));
-		enchants.put("witherpoint", new WitherPoint(73));
-		enchants.put("toxicpoint", new ToxicPoint(74));
-		enchants.put("revive", new Revive(75));
-		enchants.put("freeze", new Freeze(76));
-		enchants.put("stormbreaker", new Stormbreaker(77));
-		enchants.put("nightshade", new Nightshade(78));
-		enchants.put("severed", new Severed(79));
-		enchants.put("hearty", new Hearty(80));
-		enchants.put("spring", new Spring(81));
-		enchants.put("heatshield", new HeatShield(82));
-		enchants.put("summoner", new Summoner(83));
-		enchants.put("explosive", new Explosive(84));
-		enchants.put("stun", new Stun(85));
-		enchants.put("withershot", new WitherShot(86));
-		enchants.put("toxicshot", new ToxicShot(87));
-		enchants.put("rage", new Rage(88));
-		enchants.put("autograb", new AutoGrab(89));
-		enchants.put("barrage", new Barrage(90));
-		enchants.put("extraxp", new ExtraXP(91));
-		enchants.put("selfdestruct", new SelfDestruct(92));
-		enchants.put("endershot", new EnderShot(93));
-		enchants.put("burning", new Burning(94));
-		enchants.put("speed", new Speed(95));
-		enchants.put("treefeller", new TreeFeller(96));
-		enchants.put("frostwalker", new FrostWalker(97));
-		enchants.put("tripper", new Tripper(98));
-		enchants.put("doublejump", new DoubleJump(99));
-		enchants.put("chainreaction", new ChainReaction(100));
-		enchants.put("oreseeking", new OreSeeking(101));
-		enchants.put("alarmer", new Alarmer(102));
-		enchants.put("chucker", new Chucker(103));
-		enchants.put("recall", new Recall(104));
-		enchants.put("softtouch", new SoftTouch(105));
-		enchants.put("netherwalker", new NetherWalker(106));
+		enchants.put("explosion", new Explosion(70 + offset));
+		enchants.put("excavation", new Excavation(71 + offset));
+		enchants.put("autosmelt", new AutoSmelt(72 + offset));
+		enchants.put("witherpoint", new WitherPoint(73 + offset));
+		enchants.put("toxicpoint", new ToxicPoint(74 + offset));
+		enchants.put("revive", new Revive(75 + offset));
+		enchants.put("freeze", new Freeze(76 + offset));
+		enchants.put("stormbreaker", new Stormbreaker(77 + offset));
+		enchants.put("nightshade", new Nightshade(78 + offset));
+		enchants.put("severed", new Severed(79 + offset));
+		enchants.put("hearty", new Hearty(80 + offset));
+		enchants.put("spring", new Spring(81 + offset));
+		enchants.put("heatshield", new HeatShield(82 + offset));
+		enchants.put("summoner", new Summoner(83 + offset));
+		enchants.put("explosive", new Explosive(84 + offset));
+		enchants.put("stun", new Stun(85 + offset));
+		enchants.put("withershot", new WitherShot(86 + offset));
+		enchants.put("toxicshot", new ToxicShot(87 + offset));
+		enchants.put("rage", new Rage(88 + offset));
+		enchants.put("autograb", new AutoGrab(89 + offset));
+		enchants.put("barrage", new Barrage(90 + offset));
+		enchants.put("extraxp", new ExtraXP(91 + offset));
+		enchants.put("selfdestruct", new SelfDestruct(92 + offset));
+		enchants.put("endershot", new EnderShot(93 + offset));
+		enchants.put("burning", new Burning(94 + offset));
+		enchants.put("speed", new Speed(95 + offset));
+		enchants.put("treefeller", new TreeFeller(96 + offset));
+		enchants.put("frostwalker", new FrostWalker(97 + offset));
+		enchants.put("tripper", new Tripper(98 + offset));
+		enchants.put("doublejump", new DoubleJump(99 + offset));
+		enchants.put("chainreaction", new ChainReaction(100 + offset));
+		enchants.put("oreseeking", new OreSeeking(101 + offset));
+		enchants.put("alarmer", new Alarmer(102 + offset));
+		enchants.put("chucker", new Chucker(103 + offset));
+		enchants.put("recall", new Recall(104 + offset));
+		enchants.put("softtouch", new SoftTouch(105 + offset));
+		enchants.put("netherwalker", new NetherWalker(106 + offset));
 
 		try {
 			try {
@@ -110,9 +112,8 @@ public class EnchantmentManager {
 				try {
 					Enchantment.registerEnchantment(r.getValue());
 				} catch (IllegalArgumentException e) {
-					if (Enchantment.getByName(r.getValue().getName()) == null) {
+					if (Enchantment.getByName(r.getValue().getName()) == null)
 						MSG.log("[WARNING] Failed to register enchantment " + r.getValue().getName());
-					}
 				}
 				if (!plugin.enchantCosts.contains(r.getKey())) {
 					save = true;
@@ -240,5 +241,13 @@ public class EnchantmentManager {
 		meta = item.getItemMeta();
 		meta.setLore(lore);
 		item.setItemMeta(meta);
+	}
+
+	public boolean containsEnchantment(ItemStack item, Enchantment ench) {
+		return item.getEnchantments().keySet().contains(ench);
+	}
+
+	public boolean containsEnchantment(ItemStack item, String ench) {
+		return containsEnchantment(item, plugin.getEnchant(ench));
 	}
 }

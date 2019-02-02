@@ -30,7 +30,7 @@ public class TreeFellerCheck implements Listener {
 		ItemStack hand = player.getItemInHand();
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
-		if (!hand.containsEnchantment(plugin.getEnchant("treefeller")))
+		if (!plugin.getEnchManager().containsEnchantment(hand, "treefeller"))
 			return;
 		if (event.getBlock().getType() != Material.LOG && event.getBlock().getType() != Material.LOG_2)
 			return;

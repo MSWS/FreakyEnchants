@@ -36,7 +36,7 @@ public class ChainReactionCheck implements Listener {
 		if (hand == null || hand.getType() == Material.AIR)
 			return;
 		Enchantment ench = plugin.getEnchant("chainreaction");
-		if (!hand.containsEnchantment(ench))
+		if (!plugin.getEnchManager().containsEnchantment(hand, ench))
 			return;
 		double rad = plugin.getEnchManager().getDouble("chainreaction", "Radius", hand.getEnchantmentLevel(ench));
 		List<LivingEntity> ents = iterateNearby(event.getEntity(), ent, rad, null);
