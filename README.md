@@ -1,5 +1,5 @@
 # FreakyEnchantments
-'<img alt="undefined" src="https://img.shields.io/spiget/download-size/64154.svg?colorB=aa0000&label=File%20Size&style=flat-square">
+<img alt="undefined" src="https://img.shields.io/spiget/download-size/64154.svg?colorB=aa0000&label=File%20Size&style=flat-square">
 Features:
   * Over 35+ custom enchantments
   * NPC Support
