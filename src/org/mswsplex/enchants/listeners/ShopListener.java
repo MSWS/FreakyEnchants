@@ -70,6 +70,14 @@ public class ShopListener implements Listener {
 		}
 		if (id.isEmpty())
 			return;
+		if (section.contains(id + ".Commands")) {
+			section.getStringList(id + ".Commands").forEach((command) -> {
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+						command.replace("%player%", player.getName()).replace("%uuid%", player.getUniqueId() + "")
+								.replace("%world%", player.getWorld().getName())
+								.replace("%balance%", cp.getBalance() + ""));
+			});
+		}
 		if (section.contains(id + ".NextInventory")) {
 			player.openInventory(Utils.getGui(player, section.getString(id + ".NextInventory"), 0));
 			cp.setTempData("openInventory", section.getString(id + ".NextInventory"));

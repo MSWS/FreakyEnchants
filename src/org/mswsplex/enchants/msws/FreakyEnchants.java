@@ -186,12 +186,15 @@ public class FreakyEnchants extends JavaPlugin {
 
 		String msg = "";
 		if (!config.contains("ConfigVersion")) {
-			msg = "&4[WARNING] &cYour config version is out of date. Resetting your config is highly recommended.";
+			msg = "Your config version is severely out of date and it is highly recommended you reset it.";
 		} else {
 			if (config.getString("ConfigVersion").equals(getDescription().getVersion())) {
 				msg = "Your config is up to date and should be compatible with this version.";
 			} else {
 				switch (config.getString("ConfigVersion")) {
+				case "1.1.2":
+					msg = "Your config is out of date, however there aren't any differences.";
+					break;
 				case "1.1":
 				case "1.1.1":
 					msg = "Your config is out of date and certain enchantments may be broken. It is recommended you reset it.";

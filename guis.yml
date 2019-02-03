@@ -83,6 +83,8 @@ MainMenu:
   balance:
     Icon: BOOK
     Name: '&a&l%balance% Tokens'
+    Commands:
+    - 'say %player% has %balance% tokens' #Placeholders: %player%, %balance%, %uuid%, %world%
     Slot: 31
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE

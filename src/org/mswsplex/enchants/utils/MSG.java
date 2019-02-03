@@ -254,6 +254,7 @@ public class MSG {
 			decimal += "0";
 		return decimal;
 	}
+
 	/**
 	 * Returns a string for shortened decimal
 	 * 
