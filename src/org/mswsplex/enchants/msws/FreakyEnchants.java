@@ -36,6 +36,7 @@ import org.mswsplex.enchants.checkers.axe.ChuckerCheck;
 import org.mswsplex.enchants.checkers.axe.RecallCheck;
 import org.mswsplex.enchants.checkers.axe.TreeFellerCheck;
 import org.mswsplex.enchants.checkers.bow.BarrageCheck;
+import org.mswsplex.enchants.checkers.bow.ElectricCheck;
 import org.mswsplex.enchants.checkers.bow.EnderShotCheck;
 import org.mswsplex.enchants.checkers.bow.ExplosiveCheck;
 import org.mswsplex.enchants.checkers.bow.StunCheck;
@@ -191,12 +192,9 @@ public class FreakyEnchants extends JavaPlugin {
 				msg = "Your config is up to date and should be compatible with this version.";
 			} else {
 				switch (config.getString("ConfigVersion")) {
-				case "1.0.5":
-				case "1.0.4":
-					msg = "[NOTE] Your config is slightly out of date.|[NOTE] There are no extreme differences, resetting is up to you.";
-					break;
-				case "1.0.3":
-					msg = "[WARNING] Your config is slightly out of date. It is recommended you reset it.|[WARNING] However, it could work fine without resetting.";
+				case "1.1":
+				case "1.1.1":
+					msg = "Your config is out of date and certain enchantments may be broken. It is recommended you reset it.";
 					break;
 				default:
 					msg = "Your config version is severely out of date and it is highly recommended you reset it.";
@@ -276,6 +274,7 @@ public class FreakyEnchants extends JavaPlugin {
 		new RecallCheck(this);
 		new SoftTouchCheck(this);
 		new NetherWalkerCheck(this);
+		new ElectricCheck(this);
 	}
 
 	/**

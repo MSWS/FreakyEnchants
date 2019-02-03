@@ -55,11 +55,12 @@ MainMenu:
     Name: '&e&lBow Enchantments'
     Slot: 13
     NextInventory: BowEnchants
-    Amount: 6
+    Amount: 7
     Lore:
     - '&b&lEnchantments'
     - '&7 - Wither Shot'
     - '&7 - &eStun'
+    - '&7 - &eElectric'
     - '&7 - &cExplosive'
     - '&7 - &dBarrage'
     - '&7 - &5Ender Shot'
@@ -254,23 +255,23 @@ AxeEnchants:
     Data: 9
 BowEnchants:
   Title: Bow Enchantments
-  Size: 45
+  Size: 36
   explosive:
     Icon: TNT
     Name: '&c&lExplosive %level%'
-    Slot: 31
+    Slot: 20
     Lore:
     - '&7Arrows will explode on impact'
   stun:
     Icon: SLIME_BALL
     Name: '&e&lStun %level%'
-    Slot: 13
+    Slot: 12
     Lore:
     - '&7Has a small chance to stun an enemy for a short time.'
   barrage:
     Icon: ARROW
     Name: '&d&lBarrage %level%'
-    Slot: 16
+    Slot: 14
     Lore:
     - '&7Shoot many arrows at once.'
   withershot:
@@ -284,15 +285,24 @@ BowEnchants:
     Icon: POTION
     Data: 8196
     Name: '&5&lToxic Shot %level%'
-    Slot: 28
+    Slot: 16
     Lore:
     - '&7Has a small chance of dealing a &5Poison Effect&7.'
   endershot:
     Icon: ENDER_PEARL
     Name: '&5&lEnderShot %level%'
-    Slot: 34
+    Slot: 22
     Lore:
     - '&7Teleport where your arrow lands (with cooldown)'
+  electric:
+    Icon: NETHER_STAR
+    Name: '&e&lElectric %level%'
+    Slot: 24
+    Lore:
+    - '&7Summons Lightning where you arrow lands'
+    - '&7(with cooldown)'
+    - ''
+    - '&7&oLeft-Click to use'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''

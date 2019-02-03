@@ -89,22 +89,20 @@ public class FreakyEnchantsCommand implements CommandExecutor, TabCompleter {
 			MSG.tell(sender, "&aFreakyEnchants files successfully reset.");
 			break;
 		}
-
 		return true;
 	}
 
 	private void refreshFiles() {
 		plugin.configYml = new File(plugin.getDataFolder(), "config.yml");
-		plugin.config = YamlConfiguration.loadConfiguration(plugin.configYml);
-
 		plugin.guiYml = new File(plugin.getDataFolder(), "guis.yml");
-		plugin.gui = YamlConfiguration.loadConfiguration(plugin.guiYml);
-
 		plugin.enchantCostsYml = new File(plugin.getDataFolder(), "costs.yml");
-		plugin.enchantCosts = YamlConfiguration.loadConfiguration(plugin.enchantCostsYml);
-
 		plugin.langYml = new File(plugin.getDataFolder(), "lang.yml");
+
+		plugin.config = YamlConfiguration.loadConfiguration(plugin.configYml);
+		plugin.gui = YamlConfiguration.loadConfiguration(plugin.guiYml);
+		plugin.enchantCosts = YamlConfiguration.loadConfiguration(plugin.enchantCostsYml);
 		plugin.lang = YamlConfiguration.loadConfiguration(plugin.langYml);
+
 	}
 
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {

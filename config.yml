@@ -14,7 +14,7 @@ StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
 HelpLength: 10 #Unused
 
-ConfigVersion: '1.1.1' #I recommend not changing this. This will notify you if your config is outdated.
+ConfigVersion: '1.1.2' #I recommend not changing this. This will notify you if your config is outdated.
 
 #NPC Settings
 NPC:
@@ -559,3 +559,31 @@ Chucker:
 Recall:
   RecallSound:
     Name: 'ENDERMAN_TELEPORT'
+Electric:
+  DeleteArrow: false
+  PrepareSound:
+    Name: 'PISTON_EXTEND'
+    Pitch: 2
+  Cooldown:
+    Actionbar:
+      Enabled: true
+      Message: '&7(Electric) %bar% &7%time%'
+      CompleteMessage: "&e&l\u2739\u2726\u2733 &e&lElectric Arrow Refreshed &e&l\u2733\u2726\u2739"
+      Bar:
+        Length: 20
+        ProgChar: "&c\u258D"
+        LeftChar: "&4\u258D"
+    Sound:
+      Enabled: true
+      Name: NOTE_PLING
+      Pitch: 2
+      Volume: 2
+    Chat:
+      Message: "&e&l\u2739\u2726\u2733 &e&lElectric Arrow Refreshed &e&l\u2733\u2726\u2739"
+  Prepared: '&e&lElectirc Arrow Loaded'
+  BonusAmount:
+    '1': 60000
+    '2': 50000
+    '3': 40000
+    '4': 30000
+    '5': 20000

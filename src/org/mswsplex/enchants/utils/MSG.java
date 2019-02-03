@@ -235,19 +235,25 @@ public class MSG {
 	 * Returns a string for shortened decimal
 	 * 
 	 * @param decimal Decimal to shorten
-	 * @param length  Amount of characters after the .
+	 * @param length  Amount of characters after the ., will add on 0's to meet
+	 *                minimum
 	 * @return Input: "5978.154123" (Length of 3) Output: "5978.154"
 	 */
 	public static String parseDecimal(String decimal, int length) {
 		if (decimal.contains(".")) {
+			if (decimal.split("\\.").length == 1)
+				decimal += "0";
 			if (decimal.split("\\.")[1].length() > 2) {
 				decimal = decimal.split("\\.")[0] + "."
 						+ decimal.split("\\.")[1].substring(0, Math.min(decimal.split("\\.")[1].length(), length));
 			}
+		} else {
+			decimal += ".0";
 		}
+		while (decimal.split("\\.")[1].length() < length)
+			decimal += "0";
 		return decimal;
 	}
-
 	/**
 	 * Returns a string for shortened decimal
 	 * 

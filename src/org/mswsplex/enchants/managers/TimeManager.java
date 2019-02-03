@@ -1,5 +1,7 @@
 package org.mswsplex.enchants.managers;
 
+import org.mswsplex.enchants.utils.MSG;
+
 public class TimeManager {
 	public static String getTime(Double mils) {
 		boolean isNegative = mils < 0;
@@ -18,7 +20,6 @@ public class TimeManager {
 				mil = mil / length[i];
 				if (mil == 1) {
 					suff = sNames[i];
-					// suff = suff.substring(0, suff.length() - 1);
 				}
 				break;
 			}
@@ -28,13 +29,12 @@ public class TimeManager {
 			name = (int) Math.round(mil) + "";
 		}
 		if (name.contains(".")) {
-			if (name.split("\\.")[1].length() > 2) {
-				name = name.split("\\.")[0] + "."
-						+ name.split("\\.")[1].substring(0, Math.min(name.split("\\.")[1].length(), 2));
-			}
+			if (name.split("\\.")[1].length() > 2)
+				name = MSG.parseDecimal(name, 2);
 		}
 		if (isNegative)
 			name = "-" + name;
+
 		return name + " " + suff;
 	}
 

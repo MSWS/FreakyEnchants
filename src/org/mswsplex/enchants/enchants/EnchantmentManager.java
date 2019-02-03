@@ -26,6 +26,7 @@ import org.mswsplex.enchants.enchants.axe.Chucker;
 import org.mswsplex.enchants.enchants.axe.Recall;
 import org.mswsplex.enchants.enchants.axe.TreeFeller;
 import org.mswsplex.enchants.enchants.bow.Barrage;
+import org.mswsplex.enchants.enchants.bow.Electric;
 import org.mswsplex.enchants.enchants.bow.EnderShot;
 import org.mswsplex.enchants.enchants.bow.Explosive;
 import org.mswsplex.enchants.enchants.bow.Stun;
@@ -98,6 +99,7 @@ public class EnchantmentManager {
 		enchants.put("recall", new Recall(104 + offset));
 		enchants.put("softtouch", new SoftTouch(105 + offset));
 		enchants.put("netherwalker", new NetherWalker(106 + offset));
+		enchants.put("electric", new Electric(107 + offset));
 
 		try {
 			try {
