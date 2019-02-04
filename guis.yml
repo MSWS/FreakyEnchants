@@ -24,7 +24,7 @@ MainMenu:
     Slot: 28
     NextInventory: PickaxeEnchants
     HideAttributes: true
-    Amount: 6
+    Amount: 7
     Lore:
     - '&b&lEnchantments'
     - '&7 - &fAutoSmelt'
@@ -33,6 +33,7 @@ MainMenu:
     - '&7 - &cExplosion'
     - '&7 - &3AutoGrab'
     - '&7 - &dOreSeeking'
+    - '&7 - &dAntiGravity'
   axe:
     Icon: DIAMOND_AXE
     Name: '&e&lAxe Enchantments'
@@ -84,7 +85,7 @@ MainMenu:
     Icon: BOOK
     Name: '&a&l%balance% Tokens'
     Commands:
-    - 'say %player% has %balance% tokens' #Placeholders: %player%, %balance%, %uuid%, %world%
+    - say %player% has %balance% tokens
     Slot: 31
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
@@ -150,7 +151,7 @@ SwordEnchants:
     Data: 14
 PickaxeEnchants:
   Title: Pickaxe Enchantments
-  Size: 45
+  Size: 36
   explosion:
     Icon: TNT
     Name: '&c&lExplosion %level%'
@@ -161,33 +162,39 @@ PickaxeEnchants:
     Icon: DIAMOND_SPADE
     Name: '&e&lExcavation %level%'
     HideAttributes: true
-    Slot: 13
+    Slot: 12
     Lore:
     - '&7Breaks blocks in a certain radius.'
   autograb:
     Icon: HOPPER
     Name: '&3&lAutoGrab %level%'
-    Slot: 16
+    Slot: 14
     Lore:
     - '&7Automatically teleports items into your inventory.'
   autosmelt:
     Icon: IRON_INGOT
     Name: '&f&lAutoSmelt %level%'
-    Slot: 28
+    Slot: 16
     Lore:
     - '&7Automatically smelts certain ores and blocks.'
   extraxp:
     Icon: EXP_BOTTLE
     Name: '&a&lExtra XP'
-    Slot: 31
+    Slot: 20
     Lore:
     - '&7Has a small chance of giving you &eExperience Points&7.'
   oreseeking:
     Icon: DIAMOND_ORE
     Name: '&d&lOre Seeking %level%'
-    Slot: 34
+    Slot: 22
     Lore:
     - '&7Locates nearby ores when you Right-Click'
+  antigravity:
+    Icon: GRAVEL
+    Name: '&d&lAntiGravity %level%'
+    Slot: 24
+    Lore:
+    - '&7Prevent gravel and sand from falling'
   BACKGROUND_ITEM:
     Icon: STAINED_GLASS_PANE
     Name: ''

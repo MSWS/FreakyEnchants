@@ -1,6 +1,4 @@
-1.1.4 (2/3/19)
-- Fixed freakyenchants.command.setcurrency not working
-- Fixed a few issues with potion effect//armor enchantments
-+ Added /addenchant applicable
-+ Added /fe testapi for testing reasons
-* [Internal] Project is now Maven dependent
+1.1.5 (2/3/19)
++ Added testapi, reload, and reset permissions (freakyenchants.command.[command])
++ Added default costs for electric
++ Added AntiGravity enchantment

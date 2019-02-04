@@ -4,9 +4,9 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
-public class OreSeeking extends Enchantment {
+public class OreSeeker extends Enchantment {
 
-	public OreSeeking(int id) {
+	public OreSeeker(int id) {
 		super(id);
 	}
 

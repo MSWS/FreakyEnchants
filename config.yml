@@ -14,7 +14,7 @@ StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
 HelpLength: 10 #Unused
 
-ConfigVersion: '1.1.4' #I recommend not changing this. This will notify you if your config is outdated.
+ConfigVersion: '1.1.5' #I recommend not changing this. This will notify you if your config is outdated.
 
 #NPC Settings
 NPC:
@@ -581,9 +581,19 @@ Electric:
     Chat:
       Message: "&e&l\u2739\u2726\u2733 &e&lElectric Arrow Refreshed &e&l\u2733\u2726\u2739"
   Prepared: '&e&lElectirc Arrow Loaded'
-  BonusAmount:
+  BonusAmount: #Cooldown
     '1': 60000
     '2': 50000
     '3': 40000
     '4': 30000
     '5': 20000
+Frustration:
+  ApplyTo: #Which blocks should this prevent from falling
+  - 'GRAVEL'
+  - 'SAND'
+  Duration: #How long blocks will be prevented from falling
+    1: 5000
+    2: 10000
+    3: 15000
+    4: 20000
+    5: 30000

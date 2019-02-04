@@ -47,6 +47,7 @@ import org.mswsplex.enchants.checkers.pickaxe.AutoSmeltCheck;
 import org.mswsplex.enchants.checkers.pickaxe.ExcavationCheck;
 import org.mswsplex.enchants.checkers.pickaxe.ExplosionCheck;
 import org.mswsplex.enchants.checkers.pickaxe.ExtraXPCheck;
+import org.mswsplex.enchants.checkers.pickaxe.AntiGravityCheck;
 import org.mswsplex.enchants.checkers.pickaxe.OreSeekingCheck;
 import org.mswsplex.enchants.checkers.pickaxe.WorldGuardExcavationCheck;
 import org.mswsplex.enchants.checkers.sword.ChainReactionCheck;
@@ -135,73 +136,40 @@ public class FreakyEnchants extends JavaPlugin {
 		onlineVer = Utils.getSpigotVersion(64154);
 
 		if (config.getBoolean("Updater.OnEnable")) {
-
 			if (onlineVer == null) {
 				MSG.log(lang.getString("Outdated.Error"));
 			} else if (MSG.outdated(getDescription().getVersion(), onlineVer)) {
 				MSG.log(lang.getString("Outdated.Console").replace("%ver%", getDescription().getVersion())
 						.replace("%oVer%", onlineVer));
-
 				if (config.getBoolean("Changelog.OnEnable"))
 					for (String res : changelog)
 						MSG.log(res);
 			}
 		}
 
-		List<String> links = new ArrayList<>();
-
-		if (setupEconomy()) {
-			links.add("Vault");
-		} else {
-			MSG.log("Vault not found, disabling vault-reliant economy.");
-		}
-
-		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
-			links.add("WorldGuard");
-		}
-
-		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-			new PAPIHook(this).register();
-			links.add("PlaceholderAPI");
-		}
-
-		if (links.size() == 0) {
-			MSG.log("No dependencies detected.");
-		} else if (links.size() == 1) {
-			MSG.log("Successfully linked with " + links.get(0));
-		} else if (links.size() == 2) {
-			MSG.log("Successfully linked with " + links.get(0) + " and " + links.get(1));
-		} else {
-			String linkMsg = "";
-			for (int i = 0; i < links.size(); i++) {
-				if (i == links.size() - 2) {
-					linkMsg += links.get(i) + ", and ";
-				} else {
-					linkMsg += links.get(i) + ", ";
-				}
-			}
-			linkMsg = linkMsg.substring(0, linkMsg.length() - 2);
-			MSG.log("Successfully linked with " + linkMsg + ".");
-		}
+		grabDependencies();
 
 		String msg = "";
 		if (!config.contains("ConfigVersion")) {
 			msg = "Your config version is severely out of date and it is highly recommended you reset it.";
 		} else {
 			if (config.getString("ConfigVersion").equals(getDescription().getVersion())) {
-				msg = "Your config is up to date and should be compatible with this version.";
+				msg = "Your config is up to date.";
 			} else {
 				switch (config.getString("ConfigVersion")) {
+				case "1.1.4":
+					msg = "&cYour config is out of date, the Antigravity section will have to be added. (Or simply reset)";
+					break;
 				case "1.1.2":
 				case "1.1.3":
-					msg = "Your config is out of date, however there aren't any differences.";
+					msg = "&cYour config is out of date, however there aren't any differences.";
 					break;
 				case "1.1":
 				case "1.1.1":
-					msg = "Your config is out of date and certain enchantments may be broken. It is recommended you reset it.";
+					msg = "&cYour config is out of date and certain enchantments may be broken. It is recommended you reset it.";
 					break;
 				default:
-					msg = "Your config version is severely out of date and it is highly recommended you reset it.";
+					msg = "&4Your config version is severely out of date and it is highly recommended you reset it.";
 					break;
 				}
 			}
@@ -233,12 +201,13 @@ public class FreakyEnchants extends JavaPlugin {
 	}
 
 	public void onDisable() {
+		// Save all player data
 		for (OfflinePlayer p : pManager.getLoadedPlayers())
 			pManager.removePlayer(p);
 		saveData();
 	}
 
-	public void registerEnchantChecks() {
+	private void registerEnchantChecks() {
 		new ArmorChecker(this);
 
 		new ExplosionCheck(this);
@@ -279,6 +248,45 @@ public class FreakyEnchants extends JavaPlugin {
 		new SoftTouchCheck(this);
 		new NetherWalkerCheck(this);
 		new ElectricCheck(this);
+		new AntiGravityCheck(this);
+	}
+
+	private void grabDependencies() {
+		List<String> links = new ArrayList<>();
+
+		if (setupEconomy()) {
+			links.add("Vault");
+		} else {
+			MSG.log("Vault not found, disabling vault-reliant economy.");
+		}
+
+		if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
+			links.add("WorldGuard");
+		}
+
+		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+			new PAPIHook(this).register();
+			links.add("PlaceholderAPI");
+		}
+
+		if (links.size() == 0) {
+			MSG.log("No dependencies detected.");
+		} else if (links.size() == 1) {
+			MSG.log("Successfully linked with " + links.get(0));
+		} else if (links.size() == 2) {
+			MSG.log("Successfully linked with " + links.get(0) + " and " + links.get(1));
+		} else {
+			String linkMsg = "";
+			for (int i = 0; i < links.size(); i++) {
+				if (i == links.size() - 2) {
+					linkMsg += links.get(i) + ", and ";
+				} else {
+					linkMsg += links.get(i) + ", ";
+				}
+			}
+			linkMsg = linkMsg.substring(0, linkMsg.length() - 2);
+			MSG.log("Successfully linked with " + linkMsg + ".");
+		}
 	}
 
 	/**

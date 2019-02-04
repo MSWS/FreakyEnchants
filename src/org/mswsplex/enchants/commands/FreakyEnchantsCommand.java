@@ -94,10 +94,18 @@ public class FreakyEnchantsCommand implements CommandExecutor, TabCompleter {
 					MSG.camelCase(args[1])));
 			break;
 		case "reload":
+			if (!sender.hasPermission("freakyenchants.command.reload")) {
+				MSG.noPerm(sender);
+				return true;
+			}
 			refreshFiles();
 			MSG.tell(sender, MSG.getString("Reloaded", "There was an error reloading FreakyEnchant's files"));
 			break;
 		case "reset":
+			if (!sender.hasPermission("freakyenchants.command.reset")) {
+				MSG.noPerm(sender);
+				return true;
+			}
 			for (String res : new String[] { "config", "guis", "lang", "costs" })
 				plugin.saveResource(res + ".yml", true);
 			refreshFiles();
@@ -105,6 +113,10 @@ public class FreakyEnchantsCommand implements CommandExecutor, TabCompleter {
 			MSG.tell(sender, "&9&lFreaky&1&lEnchants&b files successfully reset.");
 			break;
 		case "testapi":
+			if (!sender.hasPermission("freakyenchants.command.testapi")) {
+				MSG.noPerm(sender);
+				return true;
+			}
 			final int id = 64154;
 			final String url = "https://api.spiget.org/v2/resources/" + id;
 			ItemStack book = new ItemStack(Material.WRITTEN_BOOK);

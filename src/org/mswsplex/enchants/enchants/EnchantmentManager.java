@@ -37,7 +37,8 @@ import org.mswsplex.enchants.enchants.pickaxe.AutoSmelt;
 import org.mswsplex.enchants.enchants.pickaxe.Excavation;
 import org.mswsplex.enchants.enchants.pickaxe.Explosion;
 import org.mswsplex.enchants.enchants.pickaxe.ExtraXP;
-import org.mswsplex.enchants.enchants.pickaxe.OreSeeking;
+import org.mswsplex.enchants.enchants.pickaxe.AntiGravity;
+import org.mswsplex.enchants.enchants.pickaxe.OreSeeker;
 import org.mswsplex.enchants.enchants.sword.ChainReaction;
 import org.mswsplex.enchants.enchants.sword.Freeze;
 import org.mswsplex.enchants.enchants.sword.Nightshade;
@@ -93,13 +94,14 @@ public class EnchantmentManager {
 		enchants.put("tripper", new Tripper(98 + offset));
 		enchants.put("doublejump", new DoubleJump(99 + offset));
 		enchants.put("chainreaction", new ChainReaction(100 + offset));
-		enchants.put("oreseeking", new OreSeeking(101 + offset));
+		enchants.put("oreseeking", new OreSeeker(101 + offset));
 		enchants.put("alarmer", new Alarmer(102 + offset));
 		enchants.put("chucker", new Chucker(103 + offset));
 		enchants.put("recall", new Recall(104 + offset));
 		enchants.put("softtouch", new SoftTouch(105 + offset));
 		enchants.put("netherwalker", new NetherWalker(106 + offset));
 		enchants.put("electric", new Electric(107 + offset));
+		enchants.put("antigravity", new AntiGravity(108 + offset));
 
 		try {
 			try {
