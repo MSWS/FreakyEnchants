@@ -1,4 +1,7 @@
-1.1.5 (2/3/19)
+1.1.6 (2/4/19)
+* Made NPCs non targettable
+
+1.1.5 (2/4/19)
 + Added testapi, reload, and reset permissions (freakyenchants.command.[command])
 + Added default costs for electric
 + Added AntiGravity enchantment

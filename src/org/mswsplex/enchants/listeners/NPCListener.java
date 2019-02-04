@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.msws.FreakyEnchants;
@@ -45,6 +46,12 @@ public class NPCListener implements Listener {
 		player.openInventory(Utils.getGui(player, "MainMenu", 0));
 		Utils.playSound(plugin.config, "Sounds.OpenEnchantmentInventory", player);
 		cp.setTempData("openInventory", "MainMenu");
+	}
+
+	@EventHandler
+	public void onEntityTarget(EntityTargetEvent event) {
+		if (event.getTarget().hasMetadata("isNPC"))
+			event.setCancelled(true);
 	}
 
 	@EventHandler
