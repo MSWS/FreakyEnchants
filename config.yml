@@ -587,7 +587,7 @@ Electric:
     '3': 40000
     '4': 30000
     '5': 20000
-Frustration:
+AntiGravity:
   ApplyTo: #Which blocks should this prevent from falling
   - 'GRAVEL'
   - 'SAND'
