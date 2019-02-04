@@ -50,7 +50,7 @@ public class NPCListener implements Listener {
 
 	@EventHandler
 	public void onEntityTarget(EntityTargetEvent event) {
-		if (event.getTarget().hasMetadata("isNPC"))
+		if (event.getTarget() != null && event.getTarget().hasMetadata("isNPC"))
 			event.setCancelled(true);
 	}
 
