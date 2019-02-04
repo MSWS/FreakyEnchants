@@ -1,15 +1,27 @@
 package org.mswsplex.enchants.commands;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.math.NumberUtils;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
 import org.mswsplex.enchants.msws.FreakyEnchants;
 import org.mswsplex.enchants.utils.MSG;
 import org.mswsplex.enchants.utils.Utils;
@@ -64,6 +76,10 @@ public class FreakyEnchantsCommand implements CommandExecutor, TabCompleter {
 			});
 			break;
 		case "setcurrency":
+			if (!sender.hasPermission("freakyenchants.command.setcurrency")) {
+				MSG.noPerm(sender);
+				return true;
+			}
 			if (args.length < 2) {
 				MSG.sendHelp(sender, "default");
 				return true;
@@ -86,7 +102,59 @@ public class FreakyEnchantsCommand implements CommandExecutor, TabCompleter {
 				plugin.saveResource(res + ".yml", true);
 			refreshFiles();
 
-			MSG.tell(sender, "&aFreakyEnchants files successfully reset.");
+			MSG.tell(sender, "&9&lFreaky&1&lEnchants&b files successfully reset.");
+			break;
+		case "testapi":
+			final int id = 64154;
+			final String url = "https://api.spiget.org/v2/resources/" + id;
+			ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+			BookMeta meta = (BookMeta) book.getItemMeta();
+			List<String> pages = new ArrayList<String>();
+			String query = args.length > 1 && !NumberUtils.isNumber(args[1]) ? args[1] : "";
+			try {
+				URL u = new URL(url);
+				String s = IOUtils.toString(u);
+
+				JSONObject obj = (JSONObject) JSONValue.parseWithException(s);
+
+				if (sender instanceof Player && query.isEmpty()) {
+					pages.add(MSG.color("&9&lFreaky&1&lEnchants\n\n&2&lOnline Version: &a" + plugin.getOnlineVer()
+							+ "\n&4&lCurrent Version: &c" + plugin.getDescription().getVersion() + "\n&6&lDownloads: &8"
+							+ obj.get("downloads") + "\n&5&lEnchantments: &d"
+							+ plugin.getEnchManager().enchants.size()));
+					String log = "";
+					for (String line : plugin.getChangelog())
+						log += line + "\n";
+					pages.add(MSG.color("&4&lChangelog\n&8" + log));
+				}
+
+				for (Object set : obj.keySet()) {
+					if (!query.toLowerCase().contains(set.toString().toLowerCase()) && !query.isEmpty())
+						continue;
+					Object val = obj.get(set);
+					String key = MSG.parseJSON(val);
+					if (key.length() > 300) {
+						MSG.log("Skipping long key " + set + " (size: " + key.length() + ")");
+						continue;
+					}
+					if (!(sender instanceof Player) || !query.isEmpty())
+						MSG.tell(sender, set + ": " + key);
+					else
+						pages.add(MSG.color("&4&l" + MSG.camelCase(set.toString()) + "\n&9" + key));
+				}
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			meta.setPages(pages);
+			meta.setTitle(MSG.color("&9&lFreaky&1&lEnchants"));
+			meta.setAuthor("MSWS");
+			book.setItemMeta(meta);
+			if (sender instanceof Player && !pages.isEmpty())
+				((Player) sender).setItemInHand(book);
 			break;
 		}
 		return true;

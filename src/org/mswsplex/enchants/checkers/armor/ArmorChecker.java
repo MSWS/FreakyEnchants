@@ -48,7 +48,7 @@ public class ArmorChecker {
 										&& Utils.allowEnchant(w, eName.toLowerCase()))
 									ent.addPotionEffect(new PotionEffect(
 											PotionEffectType.getByName(plugin.config.getString(eName + ".EffectType")),
-											20, plugin.getEnchManager().checkAmplifier(eName, armor.getEnchantmentLevel(
+											30, plugin.getEnchManager().checkAmplifier(eName, armor.getEnchantmentLevel(
 													plugin.getEnchManager().enchants.get(eName.toLowerCase())))));
 							}
 						}

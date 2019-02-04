@@ -1,6 +1,6 @@
 NoPermission: '&cYou do not have permission to do this.'
 UnknownCommand: '&cUnknown command.'
-Reloaded: '&aFreakyEnchants successfully reloaded.'
+Reloaded: '&9&lFreaky&1&lEnchants&b successfully reloaded.'
 Currency:
   Unknown: '&cUnknown currency type (xp, vault, or token).'
   Set: '&7Set active currency type to &e%type%&7.'
@@ -63,6 +63,7 @@ Help:
   addenchant:
   - '&e<> &fOptional &e[] &fRequired'
   - '&e/addenchant [Enchantment|All] <Level> &f- Enchants the item in your hand'
+  - '&e/addenchant applicable <Level> &f- Adds all applicable enchantments to your hand'
   default:
   - '&e<> &fOptional &e[] &fRequired'
   - '&e/freakyenchants help &f- Displays this help message'

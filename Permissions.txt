@@ -1,5 +1,6 @@
 freakyenchants.addenchant.[enchantment|all] - Access to /addenchant [enchantment] [level]
 freakyenchants.addenchant.bypasslimit
+freakyenchants.addenchant.applicable - Access to apply all applicable enchantments
 
 freakyenchants.giveenchant
 freakyenchants.giveenchant.[enchantment] - Access to /giveenchant [...]
@@ -28,3 +29,5 @@ Suggested Default Perms:
 freakyenchants.enchanter
 freakyenchants.token.get
 freakyenchants.shop
+freakyenchants.redeem
+freakyenchants.redeem.delete

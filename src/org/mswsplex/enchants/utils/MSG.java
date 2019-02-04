@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.json.simple.JSONObject;
 import org.mswsplex.enchants.managers.CPlayer;
 import org.mswsplex.enchants.managers.TimeManager;
 import org.mswsplex.enchants.msws.FreakyEnchants;
@@ -42,7 +43,7 @@ public class MSG {
 		for (int i = 0; i < string.length(); i++) {
 			if (i > 0)
 				prevChar = string.charAt(i - 1) + "";
-			if (!prevChar.matches("[a-zA-Z]")) {
+			if (!prevChar.matches("[a-zA-Z]") || (string.charAt(i) + "").matches("[A-Z]")) {
 				res = res + ((string.charAt(i) + "").toUpperCase());
 			} else {
 				res = res + ((string.charAt(i) + "").toLowerCase());
@@ -371,5 +372,24 @@ public class MSG {
 			oldV = oldV * (Math.pow(10, newVer.length() - oldVer.length()));
 		}
 		return oldV < newV;
+	}
+
+	public static String parseJSON(Object object) {
+		String result = "";
+		if (object instanceof ArrayList<?>) {
+			for (Object obj : (ArrayList<?>) object)
+				result += parseJSON(obj) + ", ";
+			result = "(" + result.substring(0, Math.max(result.length() - 2, 0)) + ")";
+		} else if (object instanceof JSONObject) {
+			JSONObject obj = (JSONObject) object;
+			for (Object entry : obj.keySet()) {
+				result += entry + ": " + parseJSON(obj.get(entry)) + ", ";
+			}
+			result = result.substring(0, Math.max(result.length() - 2, 0));
+		} else {
+			result = object.toString();
+		}
+
+		return result;
 	}
 }

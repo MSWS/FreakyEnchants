@@ -63,6 +63,33 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 									.replace("%level%", MSG.toRoman(player.getItemInHand().getEnchantmentLevel(ench))));
 				}
 			}
+		} else if (args[0].equalsIgnoreCase("applicable")) {
+			if (!sender.hasPermission("freakyenchants.addenchant.applicable")) {
+				MSG.tell(sender, MSG.getString("NoPermission", "No Permission"));
+				return true;
+			}
+
+			for (Entry<String, Enchantment> e : plugin.getEnchManager().enchants.entrySet()) {
+				Enchantment ench = e.getValue();
+				if (!ench.canEnchantItem(player.getItemInHand()))
+					continue;
+				if (!player.hasPermission("freakyenchants.addenchant.bypasslimit")) {
+					plugin.getEnchManager().addEnchant(player.getItemInHand(), Math.min(level, ench.getMaxLevel()),
+							ench);
+				} else {
+					plugin.getEnchManager().addEnchant(player.getItemInHand(), level, ench);
+				}
+				if (level == 0) {
+					MSG.tell(player, MSG.getString("Enchant.Removed", "removed %enchant% %level%").replace("%enchant%",
+							ench.getName()));
+				} else {
+					MSG.tell(player,
+							MSG.getString("Enchant.Added", "added %enchant% %level%")
+									.replace("%enchant%", ench.getName())
+									.replace("%level%", MSG.toRoman(player.getItemInHand().getEnchantmentLevel(ench))));
+				}
+			}
+
 		} else if (!plugin.getEnchManager().enchants.containsKey(args[0].toLowerCase())) {
 			MSG.tell(sender, MSG.getString("Enchant.Unknown", "unknown enchantment"));
 			return true;
@@ -92,7 +119,9 @@ public class AddEnchantmentCommand implements CommandExecutor, TabCompleter {
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 		List<String> result = new ArrayList<>();
 		if (args.length <= 1) {
-			for (String res : new String[] { "all" }) {
+			for (String res : new String[] { "all", "applicable" }) {
+				if (!sender.hasPermission("freakyenchants.addenchant." + res))
+					continue;
 				if (res.toLowerCase().startsWith(args[0].toLowerCase()))
 					result.add(res);
 			}
