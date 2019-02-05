@@ -36,7 +36,7 @@ public class NetherWalkerCheck implements Listener {
 			return;
 
 		ItemStack armor = player.getEquipment().getBoots();
-		if (plugin.getEnchManager().containsEnchantment(armor, "netherwalker") || player.getLocation().getY() % 1 != 0
+		if (!plugin.getEnchManager().containsEnchantment(armor, "netherwalker") || player.getLocation().getY() % 1 != 0
 				|| player.isFlying())
 			return;
 		if (event.getTo().getBlock().equals(event.getFrom().getBlock()))
@@ -82,7 +82,8 @@ public class NetherWalkerCheck implements Listener {
 						handleBlocks.remove(block);
 					}
 				}
-			}, (plugin.config.getInt("NetherWalker.Lifetime") / progBlocks.length) * i);
+			}, ((int) plugin.getEnchManager().getDouble("netherwalker", "Lifetime",
+					armor.getEnchantmentLevel(plugin.getEnchant("netherwalker"))) / progBlocks.length) * i);
 		}
 	}
 

@@ -14,7 +14,7 @@ StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
 HelpLength: 10 #Unused
 
-ConfigVersion: '1.1.5' #I recommend not changing this. This will notify you if your config is outdated.
+ConfigVersion: '1.1.7' #I recommend not changing this. This will notify you if your config is outdated.
 
 #NPC Settings
 NPC:
@@ -410,7 +410,12 @@ FrostWalker:
     3: 5
     4: 6
     5: 7
-  Lifetime: 200 #How long the blocks will stay in ticks
+  Lifetime: #How long the blocks will stay in ticks
+    1: 100
+    2: 120
+    3: 140
+    4: 150
+    5: 200
   BlockTypes:
   - 'WOOL:11'
   - 'WOOL:9'
@@ -425,7 +430,12 @@ NetherWalker:
     3: 4
     4: 5
     5: 6
-  Lifetime: 50 #How long the blocks will stay in ticks
+  Lifetime: #How long the blocks will stay in ticks
+    1: 50
+    2: 80
+    3: 100
+    4: 120
+    5: 150
   BlockTypes:
   - 'STAINED_CLAY:14'
   - 'STAINED_CLAY:1'

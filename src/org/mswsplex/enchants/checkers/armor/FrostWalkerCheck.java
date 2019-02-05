@@ -86,7 +86,8 @@ public class FrostWalkerCheck implements Listener {
 						handleBlocks.remove(block);
 					}
 				}
-			}, (plugin.config.getInt("FrostWalker.Lifetime") / progBlocks.length) * i);
+			}, ((int) plugin.getEnchManager().getDouble("frostwalker", "Lifetime",
+					armor.getEnchantmentLevel(plugin.getEnchant("frostwalker"))) / progBlocks.length) * i);
 		}
 	}
 
