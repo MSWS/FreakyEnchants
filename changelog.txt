@@ -1,5 +1,6 @@
 1.1.7 (2/4/19)
 * Fixed bug with NetherWalker
+* Fixed bug with Redeem GUI
 
 1.1.6 (2/4/19)
 * Made NPCs non targettable

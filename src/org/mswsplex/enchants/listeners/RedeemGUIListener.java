@@ -51,7 +51,7 @@ public class RedeemGUIListener implements Listener {
 						.replace("%enchant%", apply.getName()));
 				break shop;
 			}
-			plugin.getEnchManager().addEnchant(item, (int) cp.getTempDouble("amplifier"), apply);
+			plugin.getEnchManager().addEnchant(item, (int) cp.getTempInteger("amplifier"), apply);
 
 			Utils.playSound(plugin.config, "Sounds.EnchantmentAdded", player);
 
