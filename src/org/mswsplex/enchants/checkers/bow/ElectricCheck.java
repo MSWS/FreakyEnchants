@@ -85,7 +85,7 @@ public class ElectricCheck implements Listener {
 		if (!cp.hasTempData("electricArrowLoaded") || !(boolean) cp.getTempData("electricArrowLoaded"))
 			return;
 
-		cp.removeTempData("electriArrowLoaded");
+		cp.removeTempData("electricArrowLoaded");
 
 		proj.setMetadata("electricArrow", new FixedMetadataValue(plugin, true));
 		cp.setSaveData("electric", (double) System.currentTimeMillis());

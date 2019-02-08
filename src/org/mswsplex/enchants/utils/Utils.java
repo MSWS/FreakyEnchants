@@ -332,7 +332,8 @@ public class Utils {
 				continue;
 			String enchant = tokens.get(pos);
 			int level = Integer.parseInt(enchant.split(" ")[1]);
-			ItemStack item = new ItemStack(Material.valueOf(enchant.split(" ")[2]), level);
+			ItemStack item = new ItemStack(Material.valueOf(enchant.split(" ")[2]),
+					plugin.config.getBoolean("TokenAmountUsesEnchantmentLevel") ? level : 1);
 			ItemMeta meta = item.getItemMeta();
 			meta.addEnchant(plugin.getEnchant(enchant.split(" ")[0]), level, true);
 			meta.setDisplayName(MSG.color(plugin.config.getString("TokenTitle")));

@@ -14,7 +14,7 @@ StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
 HelpLength: 10 #Unused
 
-ConfigVersion: '1.1.7' #I recommend not changing this. This will notify you if your config is outdated.
+ConfigVersion: '1.1.8' #I recommend not changing this. This will notify you if your config is outdated.
 
 #NPC Settings
 NPC:
@@ -122,6 +122,7 @@ NoTokens:
   - '&7Purchase some with &a/enchanter'
 TokenTitle: '&e&lEnchantment Token'
 TokenDeleteLine: '&c&l[Q] To Delete'
+TokenAmountUsesEnchantmentLevel: true #If true, token amounts will be set to the enchantment's level
 
 #############################
 #                           #

@@ -1,6 +1,7 @@
-1.1.7 (2/4/19)
+1.1.8 (2/6/19)
+* Fixed bug with cooldown for Electric
+* Added option for whether or not redeem gui sets item amounts based on enchantment levels
+
+1.1.7 (2/6/19)
 * Fixed bug with NetherWalker
 * Fixed bug with Redeem GUI
-
-1.1.6 (2/4/19)
-* Made NPCs non targettable
