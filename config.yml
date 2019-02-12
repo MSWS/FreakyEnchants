@@ -14,7 +14,7 @@ StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
 HelpLength: 10 #Unused
 
-ConfigVersion: '1.1.8' #I recommend not changing this. This will notify you if your config is outdated.
+ConfigVersion: '1.1.9' #I recommend not changing this. This will notify you if your config is outdated.
 
 #NPC Settings
 NPC:
@@ -299,7 +299,7 @@ Stun:
     3: 20
   BonusAmount: #How long each level will stun the target in milliseconds
     1: 3000
-  SuccessMessage: "&e&l\u2739\u2726\u2733 &e&lSTUNNEDD &e&l\u2733\u2726\u2739"
+  SuccessMessage: "&e&l\u2739\u2726\u2733 &e&lSTUNNED &e&l\u2733\u2726\u2739"
 WitherShot:
   SecondsPerLevel: 5000
   EffectType: WITHER

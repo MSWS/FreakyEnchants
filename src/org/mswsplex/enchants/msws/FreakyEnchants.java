@@ -157,14 +157,14 @@ public class FreakyEnchants extends JavaPlugin {
 				msg = "Your config is up to date.";
 			} else {
 				switch (config.getString("ConfigVersion")) {
+				case "1.1.8":
+					msg = "&cYour config is out of date, however no new features have been added.";
+					break;
 				case "1.1.7":
 					msg = "&cYour config is out of date, the redeem gui will not use dynamic amounts unless you reset.";
 					break;
 				case "1.1.6":
 					msg = "&cYour config is out of date, FrostWalker and NetherWalker enchantments will not work unless you reset.";
-					break;
-				case "1.1.4":
-					msg = "&cYour config is out of date, the Antigravity section will have to be added. (Or simply reset)";
 					break;
 				default:
 					msg = "&4Your config version is severely out of date and it is highly recommended you reset it.";
