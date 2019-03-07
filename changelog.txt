@@ -1,6 +1,6 @@
+1.1.10 (3/6/19)
+* Added two new enchantments
+* InstaK and Invisible
+
 1.1.9 (2/8/18)
 * Fixed typo in config
-
-1.1.8 (2/7/19)
-* Fixed bug with cooldown for Electric
-* Added option for whether or not redeem gui sets item amounts based on enchantment levels
