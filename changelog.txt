@@ -1,6 +1,5 @@
+1.1.14 (3/16/19)
+* Fixed bug with Excavation
+
 1.1.13 (3/15/19)
 * Added Flight Enchantment
-
-1.1.12 (3/8/19)
-* Fixed bug with ExtraXP
-* Added Repairer enchantment
