@@ -2,7 +2,7 @@
 ![File Size](https://img.shields.io/spiget/download-size/64154.svg?colorB=aa0000&label=File%20Size&style=flat-square) ![Code Size](https://img.shields.io/github/languages/code-size/msws/FreakyEnchants.svg?label=Code%20Size&style=flat-square) ![Downloads](https://img.shields.io/spiget/downloads/64154.svg?colorB=33ff33&label=Downloads&style=flat-square) ![Ratings](https://img.shields.io/spiget/rating/64154.svg?colorB=008800&label=Ratings&style=flat-square) ![Activity](https://img.shields.io/github/commit-activity/y/msws/FreakyEnchants.svg?label=Activity&colorB=FFA500&style=popout-square) ![License](https://img.shields.io/github/license/msws/FreakyEnchants.svg?label=License&style=popout-square) ![Versions](https://img.shields.io/spiget/tested-versions/64154.svg?colorB=800080&label=Versions&style=popout-square)
 
 Features:
-  * Over 35+ custom enchantments
+  * Over 40+ custom enchantments
   * NPC Support
   * Enchantments work with regular entities
   * Extremely customizable enchantments, messages, prices, and GUIs
