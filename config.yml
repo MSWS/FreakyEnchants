@@ -14,7 +14,7 @@ StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
 HelpLength: 10 #Unused
 
-ConfigVersion: '1.1.9' #I recommend not changing this. This will notify you if your config is outdated.
+ConfigVersion: '1.2' #I recommend not changing this. This will notify you if your config is outdated.
 
 #NPC Settings
 NPC:
@@ -196,6 +196,19 @@ ToxicPoint:
   Amplifier:
     1: 0
   SuccessMessage: "&e&l\u2739\u2726\u2733 &5&lPOISONED &e&l\u2733\u2726\u2739"
+InstaK:
+  Affects:
+    Generic: true
+    CREEPER: true
+    PLAYER: false
+  Probability:
+    1: 5
+    2: 10
+    3: 12
+    4: 15
+    5: 20
+  MinHealth: 15
+  SuccessMessage: "&e&l\u2739\u2726\u2733 &5&lKO &e&l\u2733\u2726\u2739"
 Freeze:
   Affects:
     Generic: true
@@ -266,22 +279,45 @@ Hearty:
     3: 4
     4: 5.5
     5: 6
+    
+### The armor below supports XP requirements. CheckEvery is how often the XP will be decreased (in milliseconds)
+#   XPAmo is the amount of XP that will be removed every check
 Spring:
   EffectType: JUMP
   Amplifier:
     1: 0
     2: 1
     3: 2
+  CheckEvery:
+    1: 999999
+  XPAmo:
+    1: 0
 Speed:
   EffectType: SPEED
   Amplifier:
     1: 0
     2: 1
     3: 3
+  CheckEvery:
+    1: 999999
+  XPAmo:
+    1: 0
 HeatShield:
   EffectType: FIRE_RESISTANCE
   Amplifier:
     1: 0
+  CheckEvery:
+    1: 999999
+  XPAmo:
+    1: 0
+Invisible:
+  EffectType: INVISIBILITY
+  Amplifier:
+    1: 0
+  CheckEvery:
+    1: 1000
+  XPAmo:
+    1: 5
 Summoner:
   Probability:
     1: 5
@@ -598,6 +634,34 @@ Electric:
     '3': 40000
     '4': 30000
     '5': 20000
+HookShot:
+  DeleteArrow: false
+  PrepareSound:
+    Name: 'PISTON_EXTEND'
+    Pitch: 1
+  Cooldown:
+    Actionbar:
+      Enabled: true
+      Message: '&7(HookShot) %bar% &7%time%'
+      CompleteMessage: "&e&l\u2739\u2726\u2733 &e&lHook Shot Refreshed &e&l\u2733\u2726\u2739"
+      Bar:
+        Length: 20
+        ProgChar: "&c\u258D"
+        LeftChar: "&4\u258D"
+    Sound:
+      Enabled: true
+      Name: PISTON_RETRACT
+      Pitch: 2
+      Volume: 2
+    Chat:
+      Message: "&e&l\u2739\u2726\u2733 &e&lHook Shot Refreshed &e&l\u2733\u2726\u2739"
+  Prepared: '&7&lHook Shot Loaded'
+  BonusAmount: #Cooldown
+    '1': 120000
+    '2': 100000
+    '3': 80000
+    '4': 50000
+    '5': 25000
 AntiGravity:
   ApplyTo: #Which blocks should this prevent from falling
   - 'GRAVEL'
@@ -608,3 +672,49 @@ AntiGravity:
     3: 15000
     4: 20000
     5: 30000
+Repairer:
+  Probability:
+    1: 1
+    2: 2
+    3: 3
+    4: 5
+    5: 10
+  BonusAmount: #Amount of durability to repair
+    1: 5
+    2: 4
+    3: 3
+    4: 3
+    5: 2
+  SuccessMessage: "&e&l\u2739\u2726\u2733 &6&lRepaired &e&l\u2733\u2726\u2739"
+XPHeal: #Delay is how long it takes for healing to start, Cooldown is how often the player will be healed
+  Delay:
+    1: 10000
+    2: 10000
+    3: 8000
+    4: 6000
+    5: 5000
+  Cooldown:
+    1: 2500
+    2: 2000
+    3: 1500
+    4: 1000
+    5: 500
+  Points:
+    1: .5
+    2: .6
+    3: .75
+    4: .8
+    5: 1
+  XPPerHP: #How many XP points will be used up for each HP
+    1: 20
+    2: 15
+    3: 10
+    4: 5
+Flight:
+  CheckEvery: 1000 #In milliseconds
+  XPPerCheck: #Optional amount of Xp to use up during flight, set to 0 to disable
+    1: 50
+    2: 35
+    3: 20
+    4: 15
+    5: 10
