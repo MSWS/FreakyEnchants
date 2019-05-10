@@ -1,5 +1,5 @@
 1.2.1 (5/9/19)
-* Aded Vanishing Enchantment
+* Added Vanishing Enchantment
 
 1.2 (3/21/19)
 * Added XP support for numerous enchantments
