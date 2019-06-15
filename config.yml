@@ -12,9 +12,7 @@
 #CHAT: Messages will be sent via chat - May get spammy
 StatusMessages: ACTIONBAR #Options: ACTIONBAR, CHAT
 
-HelpLength: 10 #Unused
-
-ConfigVersion: '1.2' #I recommend not changing this. This will notify you if your config is outdated.
+ConfigVersion: '1.2.1' #I recommend not changing this. This will notify you if your config is outdated.
 
 #NPC Settings
 NPC:
@@ -573,6 +571,7 @@ Alarmer:
   Sound: 'NOTE_PLING'
   Volume: 2
   PlayEvery: 5 #How often the sound should be played in ticks
+  IgnoreVanished: true #If true, will ignore players vanished (using Super/Premium Vanish)
   Range:
     1: 5
     2: 7
